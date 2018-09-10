@@ -59,6 +59,13 @@ set termguicolors
 set background=dark
 colorscheme NeoSolarized
 
+" Hide key presses
+set noshowcmd
+
+" Show hidden characters
+set nolist
+set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+
 " close vim if only window left is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
