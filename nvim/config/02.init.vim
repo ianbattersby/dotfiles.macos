@@ -3,7 +3,7 @@
 " run its scripts first. This contains misc startup settings
 " for vim
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable syntax highlighting
 syntax on
@@ -49,15 +49,23 @@ set relativenumber
 " use ripgreg instead of grep
 set grepprg=rg\ --vimgrep
 
-" python packages in venv
-let g:python_host_prog = '/usr/bin/python'
+" python executables
+let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
+
+" ruby executables
+let g:ruby_host_prog = '/usr/local/bin/ruby'
 
 " Set colors in terminal
 " Solarized, dark, with true color support
 set termguicolors
 set background=dark
-colorscheme NeoSolarized
+"colorscheme NeoSolarized
+colorscheme solarized8_high
+
+" Ensure colours work inside tmux
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " Hide key presses
 set noshowcmd

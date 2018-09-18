@@ -12,6 +12,7 @@ let g:LanguageClient_serverCommands = {
             \ 'rust': ['env', 'CARGO_TARGET_DIR=/users/ian/.cargo/bin/rls', 'rls'],
             \ 'haskell': ['hie-wrapper', '--lsp']
             \ }
+            "\ 'go': [$GOPATH . '/bin/go-langserver', '-gocodecompletion']
             "\ 'rust': ['rustup', 'run', 'stable', 'rls'],
 let g:LanguageClient_autoStart = 1
 
