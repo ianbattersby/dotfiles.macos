@@ -3,7 +3,7 @@
 " run its scripts first. This contains misc startup settings
 " for vim
 
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Enable syntax highlighting
 syntax on
@@ -61,7 +61,8 @@ let g:ruby_host_prog = '/usr/local/bin/ruby'
 set termguicolors
 set background=dark
 "colorscheme NeoSolarized
-colorscheme solarized8_high
+"colorscheme solarized8_high
+colorscheme base16-default-dark
 
 " Ensure colours work inside tmux
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
