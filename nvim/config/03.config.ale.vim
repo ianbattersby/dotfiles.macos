@@ -11,7 +11,8 @@ let g:ale_linters = {
         \ 'bash': ['language-server', 'shellcheck'],
         \ 'go': ['gometalinter', 'gofmt'],
         \ 'rust': ['cargo', 'rls'],
-        \ 'json': ['jq' ]
+        \ 'json': ['jq' ],
+        \ 'yaml': ['yamllint']
     \ }
 
 " Rust

@@ -16,6 +16,7 @@ brew install golang
 brew install gometalinter
 brew install gocode
 brew install shellcheck
+brew install yamllint
 
 #Rust
 curl https://sh.rustup.rs -sSf | sh
