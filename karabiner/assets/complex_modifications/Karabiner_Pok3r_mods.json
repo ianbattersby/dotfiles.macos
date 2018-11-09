@@ -1,0 +1,26 @@
+{
+  "title": "CMD+ESC to CMD+`",
+  "rules": [
+    {
+      "description": "Pok3r Escape key (grave_accent_and_tilde as Escape and cmd + escape as grave_accent_and_tilde)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "escape",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "grave_accent_and_tilde"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

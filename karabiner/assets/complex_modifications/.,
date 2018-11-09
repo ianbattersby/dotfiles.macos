@@ -1,0 +1,10 @@
+<item>
+    <name>CMD+ESC to CMD+`</name>
+    <appendix>For Pok3r use!</appendix>
+    <identifier>private.cmd_esc_to_cmd_backquote</identifier>
+    <autogen>
+        __KeyToKey__
+        KeyCode::ESCAPE, ModifierFlag::COMMAND_L,
+        KeyCode::BACKQUOTE, ModifierFlag::COMMAND_L
+    </autogen>
+</item>
