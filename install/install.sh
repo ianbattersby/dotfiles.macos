@@ -34,6 +34,10 @@ git clone https://github.com/jwilm/alacritty.git
 make app
 cp -r target/release/osx/Alacritty.app /Applications
 
+#Colour Profiles
+tic -x ~/terminfo/tmux-256color.terminfo
+tic -x ~/terminfo/xterm-256color.terminfo
+
 #Neovim
 brew install neovim
 easy_install neovim
