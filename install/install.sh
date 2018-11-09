@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Make sure XCode command-line tools are installed (need it for git)
+xcode-select --install
+
 #Brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
