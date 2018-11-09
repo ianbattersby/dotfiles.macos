@@ -82,6 +82,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " so this workaround allows for editing
 au FileType crontab setlocal bkc=yes
 
+" I want JSON to be 2 spaces
+au FileType json set tabstop=2 shiftwidth=2 softtabstop=2
+au BufRead,BufNewFile *.json setfiletype javascript
+
 set hidden
 
 " terminal settings
