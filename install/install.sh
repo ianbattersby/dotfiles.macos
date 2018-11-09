@@ -1,7 +1,18 @@
 #!/bin/bash
 
 #Make sure XCode command-line tools are installed (need it for git)
+echo "Installing xcode command-line tools, ignore error if already installed."
 xcode-select --install
+
+#Ensure SSH is setup so we can clone the dotfiles repo
+echo;while true; do
+    read -p "Please ensure that SSH is setup and working using 'ssh git@gitlab.com'. Continue? (y/n) " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";
+    esac
+done
 
 #Brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
