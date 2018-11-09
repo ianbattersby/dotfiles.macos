@@ -30,9 +30,11 @@ cargo +nightly install racer
 #Tmux
 brew install tmux
 
-#Alacritty
+#Code
 mkdir -p ~/code
 cd ~/code
+
+#Alacritty
 git clone https://github.com/jwilm/alacritty.git
 make app
 cp -r target/release/osx/Alacritty.app /Applications
