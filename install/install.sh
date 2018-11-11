@@ -16,6 +16,51 @@ echo;while true; do
     esac
 done
 
+#Zsh
+if [ ! -f /bin/zsh ] && [ ! -f /usr/bin/zsh ] && [ ! -f /usr/local/bin/zsh ]; then
+    echo "You must first install ZSH to continue."
+    exit
+fi
+
+if [[ ! "$SHELL" =~ zsh$ ]]; then
+    echo "Setting default shell to ZSH."
+    chsh -s $(which zsh)
+
+    echo "Relaunching in ZSH shell..."
+    zsh $0
+    exit
+fi
+
+#OhMyZsh
+if [ ! -d ~/.oh-my-zsh ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
+
+#Code
+mkdir -p ~/code
+cd ~/code
+
+#dotfiles
+if [ ! -d ~/code/dotfiles ]; then
+    git@gitlab.com:ianbattersby/dotfiles.private.git ~/code/dotfiles
+fi
+
+[ ! -d ~/.dotfiles ] && ln -s ~/code/dotfiles ~/.dotfiles
+[ ! -f ~/.tmux.conf ] && ln -s ~/.dotfiles/tmux/tmux.conf.symlink ~/.tmux.conf
+[ ! -d ~/.vim ] && ln -s ~/.dotfiles/vim ~/.vim
+[ ! -d ~/.weechat ] && ln -s ~/.dotfiles/weechat ~/.weechat
+
+[ ! -d ~/.config ] && mkdir -p ~/.config
+[ ! -d ~/.config/alacritty ] && ln -s ~/.dotfiles/alacritty ~/.config/alacritty
+[ ! -d ~/.config/karabiner ] && ln -s ~/.dotfiles/karabiner ~/.config/karabiner
+[ ! -d ~/.config/nvim ] && ln -s ~/.dotfiles/nvim ~/.config/nvim
+
+if [ ! -f ~/.zshrc ]; then
+  ln -s ~/.dotfiles/zsh/zshrc.symlink ~/.zshrc
+  echo "Please reload ZSH shell with 'source ~./.zshrc;$0' to continue."
+  exit
+fi
+
 #Karabiner-Elements
 if [ ! -d /Applications/Karabiner-Elements.app ]; then
     echo;while true; do
@@ -40,11 +85,6 @@ if [ ! $(ls /Applications/Alfred*.app 2> /dev/null | wc -l) != "0" ]; then
     done
 fi
 
-#OhMyZsh
-if [ ! -d ~/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-fi
-
 #Brew
 if [ ! -x /usr/local/bin/brew ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -55,19 +95,24 @@ echo "Fetching Brew Taps...";BREW_TAPS="$(brew tap)"
 echo "Fetching Brew Casks...";BREW_CASKS="$(brew cask ls)"
 
 function brew_install(){
+    FORMULA=$1
     VERSION=""
 
-    if [ -n $2 ]; then
+    if [ -n "$2" ]; then
         FORMULA="${1}@${2}"
-        VERSION="${2}."
+        VERSION=$2
     fi
 
-    if [[ ! "$(brew ls --versions $FORMULA)" =~ ^(${1}|${FORMULA})(\$|\ )"${VERSION}"* ]]; then
-        eval "brew install ${1}@${2}"
+    echo "Brew: ${FORMULA} (formula)"
+
+    if [[ ! "$(brew ls --versions $FORMULA)" =~ ^($FORMULA^|$1\ $VERSION\.*|$FORMULA\ $VERSION\.*) ]]; then
+        echo "brew install ${FORMULA}"
     fi
 }
     
 function brew_cask_install(){
+    echo "Brew: ${1} (cask)"
+
     if [[ ! $BREW_CASKS =~ [^\ \
 ]"${1}"[$\ \
 ]* ]]; then
@@ -76,18 +121,18 @@ function brew_cask_install(){
 }
 
 function brew_tap(){
+    echo "Brew: ${1} (tap)"
+
     if [[ ! $BREW_TAPS =~ [^\ \
 ]"${1}"[$\ \
 ]* ]]; then
-    echo "install"
         brew tap $1
     fi
-    exit
 }
 
 #Fonts
 brew_tap homebrew/cask
-brew_tap homebrew/cash-fonts
+brew_tap homebrew/cask-fonts
 brew_tap alecthomas/homebrew-tap
 brew_cask_install font-source-code-pro
 brew_cask_install font-source-code-pro-for-powerline
@@ -96,24 +141,31 @@ brew_cask_install font-source-code-pro-for-powerline
 brew_install python 2
 brew_install python 3
 brew_install ruby
-brew_install golang
+brew_install go
 brew_install gometalinter
-brew_install gocode
 brew_install shellcheck
 brew_install yamllint
-
-#Rust
-curl https://sh.rustup.rs -sSf | sh
-cargo install cargo-tree
-cargo install cargo-outdated
-cargo +nightly install racer
-
-#Tmux
 brew_install tmux
 
-#Code
-mkdir -p ~/code
-cd ~/code
+#Rust
+[[ ! "$(rustc --version)" =~ ^rustc ]] && curl https://sh.rustup.rs -sSf | sh
+
+function cargo_install(){
+    echo "Rust: ${1} (cargo)"
+
+    if [ ! -x "~/.cargo/bin/${1}" ]; then
+        eval "cargo install ${1} ${2}"
+    fi
+}
+
+exit
+
+cargo_install cargo-tree +stable
+cargo install cargo-outdated +stable
+cargo_install racer +nightly
+
+#Go
+[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
 
 #Alacritty
 git clone https://github.com/jwilm/alacritty.git
