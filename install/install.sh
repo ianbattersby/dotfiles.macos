@@ -113,9 +113,9 @@ function brew_install(){
 function brew_cask_install(){
     echo "Brew: ${1} (cask)"
 
-    if [[ ! $BREW_CASKS =~ [^\ \
-]"${1}"[$\ \
-]* ]]; then
+    if [[ ! $BREW_CASKS =~ (^|\ |
+)"${1}"($|\ |
+)* ]]; then
         brew cask install $1
     fi
 }
@@ -123,9 +123,9 @@ function brew_cask_install(){
 function brew_tap(){
     echo "Brew: ${1} (tap)"
 
-    if [[ ! $BREW_TAPS =~ [^\ \
-]"${1}"[$\ \
-]* ]]; then
+    if [[ ! $BREW_TAPS =~ (^|\ |
+)"${1}"($|\ |
+)* ]]; then
         brew tap $1
     fi
 }
@@ -153,29 +153,39 @@ brew_install tmux
 function cargo_install(){
     echo "Rust: ${1} (cargo)"
 
-    if [ ! -x "~/.cargo/bin/${1}" ]; then
+    if [ ! -x ~/.cargo/bin/${1} ]; then
         eval "cargo install ${1} ${2}"
     fi
 }
 
-exit
-
 cargo_install cargo-tree +stable
-cargo install cargo-outdated +stable
+cargo_install cargo-outdated +stable
 cargo_install racer +nightly
 
 #Go
-[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
+#[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
 
 #Alacritty
-git clone https://github.com/jwilm/alacritty.git
-make app
-cp -r target/release/osx/Alacritty.app /Applications
+if [ ! -d /Applications/Alacritty.app ]; then
+    git clone https://github.com/jwilm/alacritty.git ~/code/alacritty
+    make app
+    cp -r target/release/osx/Alacritty.app /Applications
+fi
 
 #Colour Profiles
-tic -x ~/terminfo/tmux-256color.terminfo
-tic -x ~/terminfo/xterm-256color.terminfo
+function tic_(){
+    echo "TermInfo: ${1}"
 
+    if [[ ! $(toe) =~ (^|\ |
+)"${1}"\ * ]]; then
+        eval "tic -x ~/.dotfiles/terminfo/${1}.terminfo"
+    fi
+}
+
+tic_ tmux-256color
+tic_ xterm-256color
+
+exit
 #Neovim
 brew_install neovim
 easy_install neovim
