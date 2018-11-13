@@ -185,7 +185,7 @@ function cargo_install(){
 
 function pip_install()
 {
-    echo "pip${1}: ${2} ${3} ${4} ${5} (package)"
+    echo "pip${1}: ${2} (package)"
 
     if [[ ! $(eval "pip${1} freeze") =~ (^|\ |
 )"${2}"==* ]]; then
@@ -262,3 +262,11 @@ brew_install neovim
 pip_install 2 neovim
 pip_install 3 neovim --upgrade
 gem_install neovim
+
+if [ ! -d ~/.cache/dein ]; then
+    mkdir -p ./tmp
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ./tmp/dein_installer.sh
+
+    mkdir -p ~/.cache/dein
+    sh ./tmp/dein_installer.sh ~/.cache/dein
+fi
