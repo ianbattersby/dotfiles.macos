@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/ian/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,7 +53,7 @@ DISABLE_AUTO_TITLE="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-ZSH_CUSTOM=/users/ian/code/dotfiles/zsh/custom
+ZSH_CUSTOM=~/code/dotfiles/zsh/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -63,7 +63,7 @@ plugins=(
   git vi-mode tmux zsh-completions kubectl docker rustup
 )
 
-fpath+=/users/ian/code/dotfiles/zsh/completions
+fpath+=~/code/dotfiles/zsh/completions
 
 autoload -U compinit && compinit
 
