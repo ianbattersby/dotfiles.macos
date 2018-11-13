@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function munge_path(){
+    if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
+      PATH="$1:$PATH"
+    fi
+}
+
 #Make sure XCode command-line tools are installed (need it for git)
 if [ ! -f /usr/bin/git ] && [ ! -f /usr/local/bin/git ]; then
     echo "Installing xcode command-line tools, ignore error if already installed."
@@ -64,7 +70,7 @@ fi
 #Karabiner-Elements
 if [ ! -d /Applications/Karabiner-Elements.app ]; then
     echo;while true; do
-        read -p "Have you installed Karabiner-Elements ([y]es/[n]o/[i]gnore)? " yni
+        read -p "Have you installed Karabiner-Elements? ([y]es/[n]o/[i]gnore) " yni
         case $yni in
             [YyIi]* ) break;;
             [Nn]* ) echo; echo "Browse to 'https://pqrs.org/osx/karabiner' and install it."; exit;;
@@ -76,7 +82,7 @@ fi
 #Alfred
 if [ ! $(ls /Applications/Alfred*.app 2> /dev/null | wc -l) != "0" ]; then
     echo;while true; do
-        read -p "Have you installed Alfred and re-assigned shortcuts (Cmd-Space) ([y]es/[n]o/[i]gnore)? " yni
+        read -p "Have you installed Alfred (and re-assigned shortcut to Cmd-Space)? ([y]es/[n]o/[i]gnore) " yni
         case $yni in
             [YyIi]* ) break;;
             [Nn]* ) echo; echo "Browse to 'https://www.alfredapp.com' and install it."; exit;;
@@ -88,6 +94,7 @@ fi
 #Brew
 if [ ! -x /usr/local/bin/brew ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    munge_path /usr/local/bin
 fi
 
 echo;
@@ -95,18 +102,14 @@ echo "Fetching Brew Taps...";BREW_TAPS="$(brew tap)"
 echo "Fetching Brew Casks...";BREW_CASKS="$(brew cask ls)"
 
 function brew_install(){
-    FORMULA=$1
-    VERSION=""
+    [[ $1 =~ ([a-zA-Z0-9_\-]+)(@|$)([0-9]+$|$) ]]; PKG=${BASH_REMATCH[1]}; VERSION=${BASH_REMATCH[3]}
 
-    if [ -n "$2" ]; then
-        FORMULA="${1}@${2}"
-        VERSION=$2
-    fi
+    FORMULA="${PKG}$([ ! -z $VERSION ] && echo "@${VERSION}")"
 
     echo "Brew: ${FORMULA} (formula)"
 
-    if [[ ! "$(brew ls --versions $FORMULA)" =~ ^($FORMULA^|$1\ $VERSION\.*|$FORMULA\ $VERSION\.*) ]]; then
-        echo "brew install ${FORMULA}"
+    if [[ ! "$(brew ls --versions $FORMULA)" =~ ^($PKG^|$PKG\ $VERSION\.*|$FORMULA\ $VERSION\.*) ]]; then
+        eval "brew install $@"
     fi
 }
     
@@ -138,8 +141,8 @@ brew_cask_install font-source-code-pro
 brew_cask_install font-source-code-pro-for-powerline
 
 #Languages
-brew_install python 2
-brew_install python 3
+brew_install python@2
+brew_install python@3
 brew_install ruby
 brew_install go
 brew_install gometalinter
@@ -156,6 +159,8 @@ function cargo_install(){
     if [ ! -x ~/.cargo/bin/${1} ]; then
         eval "cargo install ${1} ${2}"
     fi
+
+    munge_path ~/.cargo/bin
 }
 
 cargo_install cargo-tree +stable
@@ -185,13 +190,31 @@ function tic_(){
 tic_ tmux-256color
 tic_ xterm-256color
 
-exit
 #Neovim
+function pip_install()
+{
+    echo "pip${1}: ${2}${3}${4}${5} (package)"
+
+    if [[ ! $(eval "pip${1} freeze") =~ (^|\ |
+)"${2}"==* ]]; then
+        eval "pip${1} ${2}${3}${4}${5}"
+    fi
+}
+
+function gem_install()
+{
+    echo "gem: ${1} (package)"
+
+    if [[ ! $(gem list --local $1) =~ (^|\ |
+)"${1}"\ * ]]; then
+        gem install $1
+    fi
+}
+
 brew_install neovim
-easy_install neovim
-pip2 install neovim
-pip3 install --upgrade neovim
-gem install neovim
+pip_install 2 neovim
+pip_install 3 neovim --upgrade
+gem_install neovim
 
 #Misc
 brew_install the_silver_searcher
@@ -200,8 +223,6 @@ brew_install fzf
 brew_install exa
 brew_install bat
 brew_install jq
-brew_install gpg
+brew_install gnupg
 brew_install aspell
 brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
-
-
