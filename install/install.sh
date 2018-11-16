@@ -183,8 +183,7 @@ function cargo_install(){
 }
 
 
-function pip_install()
-{
+function pip_install(){
     echo "pip${1}: ${2} (package)"
 
     if [[ ! $(eval "pip${1} freeze") =~ (^|\ |
@@ -193,8 +192,7 @@ function pip_install()
     fi
 }
 
-function gem_install()
-{
+function gem_install(){
     echo "gem: ${1} (package)"
 
     if [[ ! $(gem list --local $1) =~ (^|\ |
@@ -270,3 +268,21 @@ if [ ! -d ~/.cache/dein ]; then
     mkdir -p ~/.cache/dein
     sh ./tmp/dein_installer.sh ~/.cache/dein
 fi
+
+#CloudFoundry
+brew_tap cloudfoundry/tap
+brew_install cf-cli
+brew_install bosh-cli
+
+function cf_install-plugin(){
+    CF_PLUGIN_NAME="${@: -1}"
+
+    echo "cf: ${CF_PLUGIN_NAME} (plugin)"
+
+    if [[ ! $(cf plugins --checksum) =~ (^|\ |
+)"${CF_PLUGIN_NAME}"\ * ]]; then
+        cf install-plugin $@
+    fi
+}
+
+cf_install-plugin -r CF-Community "cfdev"
