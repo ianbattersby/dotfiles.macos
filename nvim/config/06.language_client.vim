@@ -14,7 +14,36 @@ let g:LanguageClient_serverCommands = {
             \ }
             "\ 'go': [$GOPATH . '/bin/go-langserver', '-gocodecompletion']
             "\ 'rust': ['rustup', 'run', 'stable', 'rls'],
+
+let g:LanguageClient_diagnosticsDisplay = {
+            \ 1: {
+            \   "name": "Error",
+            \   "texthl": "ALEError",
+            \   "signText": "✖",
+            \   "signTexthl": "ALEErrorSign",
+            \ },
+            \ 2: {
+            \   "name": "Warning",
+            \   "texthl": "ALEWarning",
+            \   "signText": "⚠",
+            \   "signTexthl": "ALEWarningSign",
+            \ },
+            \ 3: {
+            \   "name": "Information",
+            \   "texthl": "ALEInfo",
+            \   "signText": "⇥",
+            \   "signTexthl": "ALEInfoSign",
+            \ },
+            \ 4: {
+            \   "name": "Hint",
+            \   "texthl": "ALEInfo",
+            \   "signText": "➤",
+            \   "signTexthl": "ALEInfoSign",
+            \ },
+            \ }
+
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_diagnosticsEnable = 1
 
 set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
