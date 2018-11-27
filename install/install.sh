@@ -281,6 +281,9 @@ if [ ! -d ~/.cache/dein ]; then
     sh ./tmp/dein_installer.sh ~/.cache/dein
 fi
 
+#GoogleCloudSDK
+brew_cask_install google-cloud-sdk
+
 #CloudFoundry
 brew_tap cloudfoundry/tap
 brew_install cf-cli
