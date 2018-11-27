@@ -95,6 +95,18 @@ if [ ! $(ls /Applications/Alfred*.app 2> /dev/null | wc -l) != "0" ]; then
     done
 fi
 
+#DockerForMac
+if [ ! -d /Applications/Docker.app ]; then
+    echo;while true; do
+        read -p "Have you installed DockerForMac? ([y]es/[n]o/[i]gnore) " yni
+        case $yni in
+            [YyIi]* ) echo; break;;
+            [Nn]* ) echo; echo "Browse to 'https://download.docker.com/mac/stable/Docker.dmg' and install it."; exit;;
+            * ) echo "Plase answer yes, no, or ignore."
+        esac
+    done
+fi
+
 #Colour Profiles (used primarily for tmux)
 function tic_(){
     echo "TermInfo: ${1}"
