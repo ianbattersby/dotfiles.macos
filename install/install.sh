@@ -222,6 +222,8 @@ brew_install gometalinter
 brew_install shellcheck
 brew_install yamllint
 brew_install hadolint
+brew_tap ValeLint/vale
+brew_install vale
 
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh

@@ -9,14 +9,19 @@ let g:ale_sign_warning = '⚠'
 let g:ale_sign_info = '⇥'
 
 let g:ale_linters = {
+        \ 'asciidoc': ['vale'],
         \ 'bash': ['language-server', 'shellcheck'],
-        \ 'go': ['gometalinter', 'gofmt'],
-        \ 'rust': ['rls'],
-        \ 'json': ['jq' ],
-        \ 'yaml': ['yamllint'],
         \ 'dockerfile': ['hadolint'],
         \ 'gitcommit': ['gitlint'],
-        \ 'terraform': ['terraform-fmt']
+        \ 'go': ['gometalinter', 'gofmt'],
+        \ 'json': ['jq' ],
+        \ 'markdown': ['vale'],
+        \ 'rust': ['rls'],
+        \ 'rst': ['vale'],
+        \ 'terraform': ['terraform-fmt'],
+        \ 'tex': ['vale'],
+        \ 'text': ['vale'],
+        \ 'yaml': ['yamllint'],
     \ }
 
 " Highlight colours
