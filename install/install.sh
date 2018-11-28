@@ -231,6 +231,7 @@ brew_install vale
 munge_path ~/.cargo/bin
 
 [[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
+[[ ! "$(rustup component list)" =~ rls\-preview\- ]] && rustup component add rls-preview rust-analysis rust-src
 
 cargo_install cargo-tree
 cargo_install cargo-outdated
