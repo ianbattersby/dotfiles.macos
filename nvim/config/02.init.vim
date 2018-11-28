@@ -5,6 +5,9 @@
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+" Command window height
+set cmdheight=1
+
 " Enable syntax highlighting
 syntax on
 
@@ -29,7 +32,9 @@ set clipboard+=unnamedplus
 
 " Tab = 4 spaces
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
+set expandtab
 set sta
 set et
 set sts=4
@@ -105,3 +110,6 @@ if executable('rg')
     set grepprg=rg\ --no-heading\ --vimgrep
     set grepformat=%f:%l:%c:%m
 endif
+
+" tweak colours
+highlight SignColumn guibg=#181818

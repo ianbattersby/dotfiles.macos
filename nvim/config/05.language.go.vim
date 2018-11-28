@@ -28,6 +28,9 @@ let g:go_snippet_engine = "neosnippet"
 " Show the progress when running :GoCoverage
 let g:go_echo_command_info = 1
 
+" Go bin path
+let g:go_bin_path = expand("~/code/go/bin")
+
 " Editor
 au FileType go set noexpandtab
 au FileType go set shiftwidth=4

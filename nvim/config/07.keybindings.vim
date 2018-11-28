@@ -1,5 +1,9 @@
-" Use ; for commands
-nnoremap ; :
+" Open hotkeys
+map <C-p> :Files<CR>
+nmap <leader>; :Buffers<CR>
+
+" Quick-save
+nmap <leader>w :w<CR>
 
 " split pane navigation
 nnoremap <C-J> <C-W><C-J>
