@@ -184,6 +184,7 @@ brew_install jq
 brew_install gnupg
 brew_install aspell
 brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
+brew_install terraform
 
 #Package helpers
 function cargo_install(){
@@ -220,6 +221,7 @@ brew_install go
 brew_install gometalinter
 brew_install shellcheck
 brew_install yamllint
+brew_install hadolint
 
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh
@@ -271,6 +273,7 @@ fi
 brew_install neovim
 pip_install 2 neovim
 pip_install 3 neovim --upgrade
+pip_install 3 gitlint
 gem_install neovim
 
 if [ ! -d ~/.cache/dein ]; then

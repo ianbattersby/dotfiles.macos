@@ -13,7 +13,10 @@ let g:ale_linters = {
         \ 'go': ['gometalinter', 'gofmt'],
         \ 'rust': ['rls'],
         \ 'json': ['jq' ],
-        \ 'yaml': ['yamllint']
+        \ 'yaml': ['yamllint'],
+        \ 'dockerfile': ['hadolint'],
+        \ 'gitcommit': ['gitlint'],
+        \ 'terraform': ['terraform-fmt']
     \ }
 
 " Highlight colours
