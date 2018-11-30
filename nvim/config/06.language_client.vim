@@ -43,7 +43,7 @@ let g:LanguageClient_diagnosticsDisplay = {
             \ }
 
 let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsEnable = 1
+let g:LanguageClient_diagnosticsEnable = 0
 
 set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
