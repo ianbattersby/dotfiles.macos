@@ -8,7 +8,7 @@ let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/
 
 augroup cmdheight_rust
   au!
-  autocmd BufNewFile,BufRead *.rs set cmdheight=5
+  autocmd BufNewFile,BufRead *.rs set cmdheight=3
 augroup END
 
 " Follow Rust code style rules

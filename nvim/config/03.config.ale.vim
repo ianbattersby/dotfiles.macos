@@ -29,8 +29,10 @@ highlight ALEWarning ctermbg=10 ctermfg=226 guifg=#333333 guibg=#ffff99
 highlight ALEWarningSign ctermbg=10 ctermfg=226 guifg=#ffff09 guibg=#181818
 highlight ALEError ctermbg=10 ctermfg=52 guifg=#dddddd guibg=#990033
 highlight ALEErrorSign ctermbg=10 ctermfg=52 guifg=#990033 guibg=#181818
+highlight ALEInfo ctermbg=10 ctermfg=255 guifg=#eeeeee guibg=#aaaaaa
+highlight ALEInfoSign ctermbg=10 ctermfg=255 guifg=#aaaaaa guibg=#181818
 
 " Rust
 let g:ale_rust_cargo_use_check = 1
-let g:ale_rust_catgo_check_all_targets = 1
+let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_rls_toolchain = 'nightly'
