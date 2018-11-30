@@ -246,6 +246,7 @@ cargo_install racer +nightly
 
 #Go
 #[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
+[ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
 
 #Ruby
 if brew_install rbenv; then
