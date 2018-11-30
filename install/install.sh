@@ -231,7 +231,14 @@ brew_install vale
 munge_path ~/.cargo/bin
 
 [[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
-[[ ! "$(rustup component list)" =~ rls\-preview\- ]] && rustup component add rls-preview rust-analysis rust-src
+
+[[ ! "$(rustup component list --toolchain stable)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain stable
+[[ ! "$(rustup component list --toolchain stable)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain stable
+[[ ! "$(rustup component list --toolchain stable)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain stable
+
+[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain nightly
+[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain nightly
+[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain nightly
 
 cargo_install cargo-tree
 cargo_install cargo-outdated
@@ -315,4 +322,3 @@ echo;while true; do
         * ) echo "Please answer yes or no.";
     esac
 done
-
