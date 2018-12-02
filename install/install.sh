@@ -244,6 +244,10 @@ cargo_install cargo-tree
 cargo_install cargo-outdated
 cargo_install racer +nightly
 
+#Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
+brew_tap filosottile/musl-cross
+brew_install musl-cross
+
 #Go
 #[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
 [ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
