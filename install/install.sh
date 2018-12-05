@@ -185,6 +185,7 @@ brew_install gnupg
 brew_install aspell
 brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
 brew_install terraform
+brew_install ctags
 
 #Package helpers
 function cargo_install(){
@@ -243,6 +244,7 @@ munge_path ~/.cargo/bin
 cargo_install cargo-tree
 cargo_install cargo-outdated
 cargo_install racer +nightly
+cargo_install rusty-tags
 
 #Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
 brew_tap filosottile/musl-cross

@@ -13,3 +13,7 @@ augroup END
 
 " Follow Rust code style rules
 au Filetype rust set colorcolumn=100
+
+" Enable tags generation with rusty-tags and ctags
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
