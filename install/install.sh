@@ -303,29 +303,3 @@ fi
 
 #GoogleCloudSDK
 brew_cask_install google-cloud-sdk
-
-#CloudFoundry
-function cf_install-plugin(){
-    CF_PLUGIN_NAME="${@: -1}"
-
-    echo "cf: ${CF_PLUGIN_NAME} (plugin)"
-
-    if [[ ! $(cf plugins --checksum) =~ (^|\ |
-)"${CF_PLUGIN_NAME}"\ * ]]; then
-        cf install-plugin $@
-    fi
-}
-
-echo;while true; do
-    read -p "Do you want to install CloudFoundry assets? Hopefully not! (y[es]/n[o]) " yn
-    case $yn in
-        [Yy]* ) echo;
-            brew_tap cloudfoundry/tap
-            brew_install cf-cli
-            brew_install bosh-cli
-            cf_install-plugin -r CF-Community "cfdev"
-            break;;
-        [Nn]* ) echo; break;;
-        * ) echo "Please answer yes or no.";
-    esac
-done
