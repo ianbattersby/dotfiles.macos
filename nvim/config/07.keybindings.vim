@@ -87,4 +87,4 @@ tnoremap <ESC> <C-\><C-n><C-w><C-p>
 " Easy most-recent-buffer switching
 "nnoremap <Tab> :buffers<CR>:buffer<Space>
 nnoremap <Tab> :Buffers<CR>
-nnoremap <S-tab> :Buffers<CR><CR>
+nnoremap <silent> <S-tab> :Buffers<CR><CR>
