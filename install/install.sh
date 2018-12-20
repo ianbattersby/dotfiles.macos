@@ -306,3 +306,7 @@ brew_cask_install google-cloud-sdk
 
 #AzureCli :'(
 brew_install azure-cli
+
+#JenkinsX
+brew_tap jenkins-x/jx
+brew_install jx
