@@ -253,6 +253,7 @@ brew_install musl-cross
 #Go
 #[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
 [ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
+[ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
 
 #Ruby
 if brew_install rbenv; then
