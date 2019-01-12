@@ -113,3 +113,6 @@ endif
 
 " tweak colours
 highlight SignColumn guibg=#181818
+
+" show commands interactively
+set inccommand=nosplit
