@@ -83,6 +83,7 @@ nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 " ALT-[ exits in terminal mode (tnoremap - terminal remap mode)
 tnoremap <A-[> <C-\><C-n><C-w><C-p>
+tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'<Paste>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
