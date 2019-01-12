@@ -6,10 +6,10 @@ nmap <leader>; :Buffers<CR>
 nmap <leader>w :w<CR>
 
 " split pane navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <A-j> <C-W>j
+nnoremap <A-k> <C-W>k
+nnoremap <A-l> <C-W>l
+nnoremap <A-h> <C-W>h
 
 " Delete trailing whitespace with F5
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -81,8 +81,12 @@ let g:neovim_visor_key = '<C-a>'
 " if user types `,cd`
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
-" <ESC> exits in terminal mode
-tnoremap <ESC> <C-\><C-n><C-w><C-p>
+" ALT-[ exits in terminal mode (tnoremap - terminal remap mode)
+tnoremap <A-[> <C-\><C-n><C-w><C-p>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
 
 " Easy most-recent-buffer switching
 "nnoremap <Tab> :buffers<CR>:buffer<Space>
