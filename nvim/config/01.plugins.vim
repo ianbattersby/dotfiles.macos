@@ -42,6 +42,7 @@ if dein#load_state('~/.cache/dein')
 				\ 'rev': 'next',
 				\ 'build': 'bash install.sh',
 				\ })
+    call dein#add('machakann/vim-highlightedyank')
 
 	" Required:
 	call dein#end()
