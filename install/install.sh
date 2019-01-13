@@ -294,12 +294,8 @@ pip_install 3 neovim --upgrade
 pip_install 3 gitlint
 gem_install neovim
 
-if [ ! -d ~/.cache/dein ]; then
-    mkdir -p ./tmp
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ./tmp/dein_installer.sh
-
-    mkdir -p ~/.cache/dein
-    sh ./tmp/dein_installer.sh ~/.cache/dein
+if [ ! -d ~/.config/nvim/pack/minpac/opt/minpac ]; then
+    git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 fi
 
 #GoogleCloudSDK

@@ -12,11 +12,11 @@ nnoremap <A-l> <C-W>l
 nnoremap <A-h> <C-W>h
 
 " Delete trailing whitespace with F5
-:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " nerdtree
 " autocmd vimenter * NERDTree " start nerdtree automatically when vim starts up
-map <C-n> :NERDTreeToggle<CR>
+"map <C-n> :NERDTreeToggle<CR>
 
 " keybindings for language client
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>

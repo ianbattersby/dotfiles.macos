@@ -1,61 +1,46 @@
-" Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if exists('*minpac#init')
+    packadd minpac
 
-" Required:
-if dein#load_state('~/.cache/dein')
-	call dein#begin('~/.cache/dein')
+    call minpac#init()
 
-	" Let dein manage dein
-	" Required:
-	call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-	" Add or remove your plugins here:
-    "call dein#add('Shougo/neosnippet.vim')
-    "call dein#add('Shougo/neosnippet-snippets')
-	call dein#add('sheerun/vim-polyglot')
-	call dein#add('Shougo/vimshell')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('ncm2/ncm2')
-    call dein#add('ncm2/ncm2-bufword')
-    call dein#add('ncm2/ncm2-tmux')
-    call dein#add('ncm2/ncm2-path')
-    call dein#add('ncm2/ncm2-tern') "Javascript
-    call dein#add('ncm2/ncm2-jedi') "Python
-    call dein#add('ncm2/ncm2-racer') "Rust
-    call dein#add('ncm2/ncm2-vim')
-    call dein#add('ncm2/ncm2-go')
-    call dein#add('w0rp/ale')
-    call dein#add('rust-lang/rust.vim')
-    call dein#add('mdempsky/gocode', {'rtp': 'nvim/'})
-    call dein#add('fatih/vim-go', {'build': 'GoUpdateBinaries'})
-	call dein#add('vim-airline/vim-airline')
-	call dein#add('vim-airline/vim-airline-themes')
-	call dein#add('scrooloose/nerdtree')
-    call dein#add('chriskempson/base16-vim')
-	call dein#add('tmhedberg/SimpylFold')
-	call dein#add('Konfekt/FastFold')
-    call dein#add('/usr/local/opt/fzf')
-    call dein#add('junegunn/fzf.vim')
-	call dein#add('alaric/neovim-visor')
-	call dein#add('christoomey/vim-tmux-navigator')
-	call dein#add('autozimu/LanguageClient-neovim', {
-				\ 'rev': 'next',
-				\ 'build': 'bash install.sh',
-				\ })
-    call dein#add('machakann/vim-highlightedyank')
-
-	" Required:
-	call dein#end()
-	call dein#save_state()
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+    "call minpac#add('Shougo/neosnippet.vim')
+    "call minpac#add('Shougo/neosnippet-snippets')
+    call minpac#add('sheerun/vim-polyglot')
+    call minpac#add('Shougo/vimshell')
+    call minpac#add('roxma/nvim-yarp')
+    call minpac#add('ncm2/ncm2')
+    call minpac#add('ncm2/ncm2-bufword')
+    call minpac#add('ncm2/ncm2-tmux')
+    call minpac#add('ncm2/ncm2-path')
+    call minpac#add('ncm2/ncm2-tern') "Javascript
+    call minpac#add('ncm2/ncm2-jedi') "Python
+    call minpac#add('ncm2/ncm2-racer') "Rust
+    call minpac#add('ncm2/ncm2-vim')
+    call minpac#add('ncm2/ncm2-go')
+    call minpac#add('w0rp/ale')
+    call minpac#add('rust-lang/rust.vim')
+    call minpac#add('mdempsky/gocode')
+    call minpac#add('fatih/vim-go', {'go': 'GoUpdateBinaries'})
+    call minpac#add('vim-airline/vim-airline')
+    call minpac#add('vim-airline/vim-airline-themes')
+    "call minpac#add('scrooloose/nerdtree')
+    call minpac#add('chriskempson/base16-vim')
+    call minpac#add('tmhedberg/SimpylFold')
+    call minpac#add('Konfekt/FastFold')
+    call minpac#add('junegunn/fzf')
+    call minpac#add('junegunn/fzf.vim')
+    call minpac#add('alaric/neovim-visor')
+    call minpac#add('christoomey/vim-tmux-navigator')
+    call minpac#add('autozimu/LanguageClient-neovim', {
+                \ 'rev': 'next',
+                \ 'do': '!bash install.sh',
+                \ })
+    call minpac#add('machakann/vim-highlightedyank')
+    call minpac#add('kassio/neoterm')
 endif
 
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-	call dein#install()
-endif
-
-"End dein Scripts-------------------------
+" Command mapping
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
+command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
