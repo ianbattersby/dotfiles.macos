@@ -31,7 +31,7 @@ if exists('*minpac#init')
     call minpac#add('Konfekt/FastFold')
     call minpac#add('junegunn/fzf')
     call minpac#add('junegunn/fzf.vim')
-    call minpac#add('alaric/neovim-visor')
+    "call minpac#add('alaric/neovim-visor')
     call minpac#add('christoomey/vim-tmux-navigator')
     call minpac#add('autozimu/LanguageClient-neovim', {
                 \ 'rev': 'next',
