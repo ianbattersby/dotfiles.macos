@@ -16,6 +16,7 @@ if exists('*minpac#init')
     call minpac#add('ncm2/ncm2-tern') "Javascript
     call minpac#add('ncm2/ncm2-jedi') "Python
     call minpac#add('ncm2/ncm2-racer') "Rust
+    call minpac#add('Shougo/neco-vim') "ncm2-vim needs this
     call minpac#add('ncm2/ncm2-vim')
     call minpac#add('ncm2/ncm2-go')
     call minpac#add('w0rp/ale')
