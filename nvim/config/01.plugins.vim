@@ -39,6 +39,7 @@ if exists('*minpac#init')
     call minpac#add('machakann/vim-highlightedyank')
     call minpac#add('kassio/neoterm')
     call minpac#add('janko-m/vim-test')
+    call minpac#add('mhinz/neovim-remote')
 endif
 
 " Command mapping

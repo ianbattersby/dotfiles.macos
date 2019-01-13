@@ -292,6 +292,7 @@ fi
 brew_install neovim
 pip_install 2 neovim
 pip_install 3 neovim --upgrade
+pip_install 3 neovim-remote --upgrade
 pip_install 3 gitlint
 gem_install neovim
 

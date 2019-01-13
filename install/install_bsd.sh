@@ -209,6 +209,7 @@ pkg_install ctags
 pkg_install neovim
 pip_install 2.7 neovim
 pip_install 3.6 neovim --upgrade
+pip_install 3.6 neovim-remote --upgrade
 pip_install 3.6 gitlint
 gem_install neovim
 
