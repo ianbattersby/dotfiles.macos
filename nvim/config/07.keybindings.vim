@@ -93,3 +93,10 @@ tnoremap <A-l> <C-\><C-n><C-w>l
 "nnoremap <Tab> :buffers<CR>:buffer<Space>
 nnoremap <Tab> :Buffers<CR>
 nnoremap <silent> <S-tab> :Buffers<CR><CR>
+
+" vim-test mappings
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
