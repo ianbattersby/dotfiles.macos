@@ -1,4 +1,7 @@
-" Open hotkeys
+" Use the space key as our leader. Put this near the top of your vimrc
+let mapleader = "\<Space>"
+
+" Files and buffers
 map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
 
