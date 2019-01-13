@@ -1,6 +1,23 @@
 " Use the space key as our leader. Put this near the top of your vimrc
 let mapleader = "\<Space>"
 
+" Use C-Space to Esc out of any mode
+nnoremap <C-Space> <Esc>:noh<CR>
+vnoremap <C-Space> <Esc>gV
+onoremap <C-Space> <Esc>
+cnoremap <C-Space> <C-c>
+inoremap <C-Space> <Esc>
+
+" Terminal sees <C-@> as <C-space>
+nnoremap <C-@> <Esc>:noh<CR>
+vnoremap <C-@> <Esc>gV
+onoremap <C-@> <Esc>
+cnoremap <C-@> <C-c>
+inoremap <C-@> <Esc>
+
+" Quick sourcing of the current file, allowing for quick vimrc testing
+nnoremap <leader>sop :source %<cr>
+
 " Files and buffers
 map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
