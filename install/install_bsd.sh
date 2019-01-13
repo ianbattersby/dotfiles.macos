@@ -131,6 +131,7 @@ pkg_install py36-pip
 pkg_install go
 pkg_install hs-shellcheck
 pkg_install py36-yamllint
+pkg_install bats-core #Batch Automated Testing Systems (shell batch testing)
 #pkg_install ghc
 pkg_install stack
 

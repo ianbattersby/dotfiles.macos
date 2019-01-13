@@ -225,6 +225,7 @@ brew_install yamllint
 brew_install hadolint
 brew_tap ValeLint/vale
 brew_install vale
+brew_install bats #Batch Automated Testing System (shell tests)
 
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh
