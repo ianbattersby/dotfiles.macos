@@ -12,7 +12,7 @@ pkg update
 #Make sure XCode command-line tools are installed (need it for git)
 if [ ! -f /usr/bin/git ] && [ ! -f /usr/local/bin/git ]; then
     echo "Installing git, we can't do much without that."
-    pkg install --yes git
+    sudo pkg install --yes git
 fi
 
 #Ensure SSH is setup so we can clone the dotfiles repo
@@ -28,12 +28,12 @@ done
 #Zsh
 if [ ! -f /bin/zsh ] && [ ! -f /usr/bin/zsh ] && [ ! -f /usr/local/bin/zsh ]; then
     echo "Installing zsh."
-    pkg install --yes zsh
+    sudo pkg install --yes zsh
 fi
 
 if [ "$1" != "noshellcheck" ] && [[ ! "$SHELL" =~ zsh$ ]]; then
     echo "Setting default shell to ZSH."
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh) ian
 
     echo "Relaunching in ZSH shell..."
     zsh -c -i "${0} noshellcheck"
@@ -84,9 +84,9 @@ function pkg_install(){
     echo "Pkg: ${FORMULA} (formula)"
 
     if [[ ! $PKGS_INSTALLED =~ (^|\ |
-)("${PKG}-"|"${PKG}-${VERSION}."|"${FORMULA}-${VERSION}.")*($|\ |
+)("${PKG}-"|"${PKG}-${VERSION}."|"${FORMULA}-${VERSION}.")($|\ |
 )* ]]; then
-        eval "pkg install --yes $@"
+        eval "sudo pkg install --yes $@"
         true
     else
         false
@@ -108,9 +108,9 @@ function cargo_install(){
 function pip_install(){
     echo "pip${1}: ${2} (package)"
 
-    if [[ ! $(eval "pip-${1} freeze") =~ (^|\ |
+    if [[ ! $(eval "sudo pip-${1} --disable-pip-version-check freeze") =~ (^|\ |
 )"${2}"==* ]]; then
-        eval "pip-${1} install -q ${2} ${3} ${4} ${5}"
+        eval "sudo pip-${1} install --disable-pip-version-check ${2} ${3} ${4} ${5}"
     fi
 }
 
@@ -119,7 +119,7 @@ function gem_install(){
 
     if [[ ! $(gem list --local $1) =~ (^|\ |
 )"${1}"\ * ]]; then
-        gem install $1
+        sudo gem install $1
     fi
 }
 
@@ -144,7 +144,7 @@ else
     cd hadolint
     git pull -r
 fi
-/usr/local/bin/stack install
+#/usr/local/bin/stack install
 
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable
