@@ -7,7 +7,7 @@ function munge_path(){
 }
 
 #Update package source
-pkg update
+sudo pkg update
 
 #Make sure XCode command-line tools are installed (need it for git)
 if [ ! -f /usr/bin/git ] && [ ! -f /usr/local/bin/git ]; then
@@ -86,6 +86,7 @@ function pkg_install(){
     if [[ ! $PKGS_INSTALLED =~ (^|\ |
 )("${PKG}-"|"${PKG}-${VERSION}."|"${FORMULA}-${VERSION}.")($|\ |
 )* ]]; then
+    echo $@
         eval "sudo pkg install --yes $@"
         true
     else
@@ -129,7 +130,7 @@ pkg_install py27-pip
 pkg_install python36
 pkg_install py36-pip
 pkg_install go
-pkg_install hs-shellcheck
+pkg_install hs-ShellCheck
 pkg_install py36-yamllint
 pkg_install bats-core #Batch Automated Testing Systems (shell batch testing)
 #pkg_install ghc
@@ -137,12 +138,9 @@ pkg_install stack
 
 #HadoLint
 cd ~/code
-if [[ ! -d ~/code/hadolint ]]; then
+if [ ! -d ~/code/hadolint ]; then
     git clone https://github.com/hadolint/hadolint
     cd hadolint
-else
-    cd hadolint
-    git pull -r
 fi
 #/usr/local/bin/stack install
 
@@ -153,11 +151,11 @@ munge_path ~/.cargo/bin
 
 [[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
 
-[[ ! "$(rustup component list --toolchain stable)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain stable
+[[ ! "$(rustup component list --toolchain stable)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain stable
 [[ ! "$(rustup component list --toolchain stable)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain stable
 [[ ! "$(rustup component list --toolchain stable)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain stable
 
-[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain nightly
+[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain nightly
 [[ ! "$(rustup component list --toolchain nightly)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain nightly
 [[ ! "$(rustup component list --toolchain nightly)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain nightly
 
