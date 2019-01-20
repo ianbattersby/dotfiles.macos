@@ -173,20 +173,6 @@ brew_tap alecthomas/homebrew-tap
 brew_cask_install font-source-code-pro
 brew_cask_install font-source-code-pro-for-powerline
 
-#Misc
-brew_install tmux
-brew_install the_silver_searcher
-brew_install reattach-to-user-namespace
-brew_install fzf
-brew_install exa
-brew_install bat
-brew_install jq
-brew_install gnupg
-brew_install aspell
-brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
-brew_install terraform
-brew_install ctags
-
 #Package helpers
 function cargo_install(){
     echo "Rust: $1 (cargo)"
@@ -219,26 +205,24 @@ function gem_install(){
 brew_install python@2
 brew_install python@3
 brew_install go
-brew_install gometalinter
 brew_install shellcheck
 brew_install yamllint
-brew_install hadolint
 brew_tap ValeLint/vale
-brew_install vale
 brew_install bats #Batch Automated Testing System (shell tests)
+brew_install hadolint
 
 #Rust
-[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh
+[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable
 
 munge_path ~/.cargo/bin
 
 [[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
 
-[[ ! "$(rustup component list --toolchain stable)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain stable
+[[ ! "$(rustup component list --toolchain stable)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain stable
 [[ ! "$(rustup component list --toolchain stable)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain stable
 [[ ! "$(rustup component list --toolchain stable)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain stable
 
-[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-preview\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls-preview --toolchain nightly
+[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain nightly
 [[ ! "$(rustup component list --toolchain nightly)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain nightly
 [[ ! "$(rustup component list --toolchain nightly)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain nightly
 
@@ -252,9 +236,10 @@ brew_tap filosottile/musl-cross
 brew_install musl-cross
 
 #Go
-#[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/nsf/gocode
+[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install
 [ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
 [ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
+[ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale
 
 #Ruby
 if brew_install rbenv; then
@@ -287,6 +272,20 @@ if [ ! -d /Applications/Alacritty.app ]; then
     rm -rf target/assets/osx/Alacritty.app
     popd
 fi
+
+#Misc
+brew_install tmux
+brew_install the_silver_searcher
+brew_install reattach-to-user-namespace
+brew_install fzf
+brew_install exa
+brew_install bat
+brew_install jq
+brew_install gnupg
+brew_install aspell
+brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
+brew_install terraform
+brew_install ctags
 
 #Neovim
 brew_install neovim
