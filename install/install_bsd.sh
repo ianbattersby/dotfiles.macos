@@ -163,6 +163,7 @@ cargo_install cargo-tree
 cargo_install cargo-outdated
 cargo_install racer +nightly
 cargo_install rusty-tags
+cargo_install ripgrep
 
 #Go
 [ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install --update
@@ -192,7 +193,6 @@ pkg_install ruby24-gems
 
 #Misc
 pkg_install tmux
-pkg_install the_silver_searcher
 pkg_install fzf
 pkg_install exa
 pkg_install bat

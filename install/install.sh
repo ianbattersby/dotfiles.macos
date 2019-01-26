@@ -230,6 +230,7 @@ cargo_install cargo-tree
 cargo_install cargo-outdated
 cargo_install racer +nightly
 cargo_install rusty-tags
+cargo_install ripgrep
 
 #Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
 brew_tap filosottile/musl-cross
@@ -275,7 +276,6 @@ fi
 
 #Misc
 brew_install tmux
-brew_install the_silver_searcher
 brew_install reattach-to-user-namespace
 brew_install fzf
 brew_install exa
