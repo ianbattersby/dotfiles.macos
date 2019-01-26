@@ -101,7 +101,7 @@ function cargo_install(){
     echo "Rust: $1 (cargo)"
 
     if [ ! -x ~/.cargo/bin/${1} ]; then
-        eval "cargo ${2} install ${1}"
+        eval "cargo ${2} install --quiet ${1}"
     fi
 }
 
