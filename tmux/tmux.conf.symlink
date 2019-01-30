@@ -14,12 +14,12 @@ bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 # set -g utf8 on
 
 set -g default-shell $SHELL
-set -g default-command "reattach-to-user-namespace -l ${SHELL}"
+if-shell 'test "$(uname -s)" = Darwin' 'set -g default-command "reattach-to-user-namespace -l ${SHELL}"'
 
 #set -g default-terminal "tmux-256color"
 set -g default-terminal "xterm-256color"
 #set -as terminal-overrides ',xterm*:sitm=\E[3m'
-set -as terminal-overrides ',xterm-256color:Tc'
+if-shell 'test "$(uname -s)" = Darwin' 'set -as terminal-overrides '',xterm-256color:Tc'''
 
 # Start numbering at 1
 set -g base-index 1
