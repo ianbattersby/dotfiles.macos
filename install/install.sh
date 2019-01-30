@@ -299,6 +299,16 @@ if [ ! -d ~/.config/nvim/pack/minpac/opt/minpac ]; then
     git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 fi
 
+#Docker
+brew_tap wagoodman/dive
+brew_install dive
+
+#Kubernetes
+brew_install kubernetes-helm
+brew_install kubernetes-service-catalog-client
+brew_install skaffold
+brew_install stern
+
 #GoogleCloudSDK
 brew_cask_install google-cloud-sdk
 
