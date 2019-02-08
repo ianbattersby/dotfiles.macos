@@ -58,15 +58,12 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-" neovim visor
-let g:neovim_visor_key = '<C-a>'
-
 " change working directory to where the file in the buffer is located
 " if user types `,cd`
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 " ALT-[ exits in terminal mode (tnoremap - terminal remap mode)
-tnoremap <A-[> <C-\><C-n><C-w><C-p>
+tnoremap <A-\> <C-\><C-n><C-w><C-p>
 tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'<Paste>
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
