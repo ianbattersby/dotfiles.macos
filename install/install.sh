@@ -312,8 +312,9 @@ brew_install stern
 #GoogleCloudSDK
 brew_cask_install google-cloud-sdk
 
-#AzureCli :'(
-brew_install azure-cli
+#Ansible
+pip_install 2 ansible
+pip_install 3 ansible
 
 #JenkinsX
 brew_tap jenkins-x/jx
