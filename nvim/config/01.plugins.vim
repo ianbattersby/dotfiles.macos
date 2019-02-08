@@ -40,6 +40,8 @@ if exists('*minpac#init')
     call minpac#add('janko-m/vim-test')
     call minpac#add('mhinz/neovim-remote')
     call minpac#add('tpope/vim-commentary')
+    call minpac#add('kana/vim-textobj-user')
+    call minpac#add('kana/vim-textobj-entire')
 endif
 
 " Command mapping
