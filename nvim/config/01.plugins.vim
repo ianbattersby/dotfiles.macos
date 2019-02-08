@@ -25,13 +25,11 @@ if exists('*minpac#init')
     call minpac#add('fatih/vim-go', {'go': 'GoUpdateBinaries'})
     call minpac#add('vim-airline/vim-airline')
     call minpac#add('vim-airline/vim-airline-themes')
-    "call minpac#add('scrooloose/nerdtree')
     call minpac#add('chriskempson/base16-vim')
     call minpac#add('tmhedberg/SimpylFold')
     call minpac#add('Konfekt/FastFold')
     call minpac#add('junegunn/fzf')
     call minpac#add('junegunn/fzf.vim')
-    "call minpac#add('alaric/neovim-visor')
     call minpac#add('christoomey/vim-tmux-navigator')
     call minpac#add('autozimu/LanguageClient-neovim', {
                 \ 'rev': 'next',
