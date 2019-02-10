@@ -309,7 +309,7 @@ brew_install dive
 
 #Kubernetes
 brew_install kubernetes-helm
-brew_install kubernetes-service-catalog-client
+#brew_install kubernetes-service-catalog-client
 brew_install skaffold
 brew_install stern
 
