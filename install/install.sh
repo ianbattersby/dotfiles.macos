@@ -288,6 +288,8 @@ brew_install terraform
 brew_install ctags
 brew_tap cjbassi/gotop #command-line graphical activity monitor
 brew_install gotop #command-line graphical activity monitor
+brew_tap isacikgoz/gitin #command-line git log browser
+brew_install gitin #command-line git log browser
 
 #Neovim
 brew_install neovim
