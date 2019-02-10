@@ -317,8 +317,8 @@ brew_install stern
 brew_cask_install google-cloud-sdk
 
 #Ansible
-pip_install 2 ansible
-pip_install 3 ansible
+#pip_install 2 ansible
+#pip_install 3 ansible
 
 #JenkinsX
 brew_tap jenkins-x/jx
