@@ -202,6 +202,7 @@ pkg_install aspell
 pkg_install weechat #--with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
 pkg_install terraform
 pkg_install ctags
+pkg_install gotop #command-line graphical activity monitor
 
 #Neovim
 pkg_install neovim
