@@ -321,5 +321,5 @@ brew_cask_install google-cloud-sdk
 #pip_install 3 ansible
 
 #JenkinsX
-brew_tap jenkins-x/jx
-brew_install jx
+#brew_tap jenkins-x/jx
+#brew_install jx
