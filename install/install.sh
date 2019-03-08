@@ -14,7 +14,7 @@ fi
 
 #Ensure SSH is setup so we can clone the dotfiles repo
 echo;while true; do
-    read -p "Is SSH setup and working using 'ssh git@gitlab.com'. Continue? (y[es]/n[o]) " yn
+    read -p "Is SSH setup and working using 'ssh git@github.com'. Continue? (y[es]/n[o]) " yn
     case $yn in
         [Yy]* ) echo; break;;
         [Nn]* ) echo; echo "You're gonna have to be able to clone dotfiles for this to work ;-)"; exit;;
@@ -56,7 +56,7 @@ cd ~/code
 
 #dotfiles
 if [ ! -d ~/code/dotfiles ]; then
-    git@gitlab.com:ianbattersby/dotfiles.private.git ~/code/dotfiles
+    git@github.com:ianbattersby/dotfiles.private.git ~/code/dotfiles
 fi
 
 [ ! -d ~/.dotfiles ] && ln -s ~/code/dotfiles ~/.dotfiles
