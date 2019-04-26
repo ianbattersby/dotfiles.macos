@@ -55,6 +55,12 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 ZSH_CUSTOM=~/code/dotfiles/zsh/custom
 
+if [[ -d ~/.private/zsh ]]; then
+    for configfile in ~/.private/zsh/*.zsh; do
+        source "$configfile"
+    done
+fi
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
