@@ -20,12 +20,23 @@ window:
     columns: 160
     lines: 40
 
+  # Window position (changes require restart)
+  #
+  # Specified in number of pixels.
+  # If the position is not set, the window manager will handle the placement.
+  #position:
+  #  x: 0
+  #  y: 0
+
   # Adds this many blank pixels of padding around the window
   # Units are physical pixels; this is not DPI aware.
   # (change requires restart)
   padding:
     x: 2
     y: 2
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: false
 
   # Window decorations
   #
@@ -38,8 +49,16 @@ window:
   #     - transparent: Title bar, transparent background, but no title bar buttons
   decorations: buttonless
 
-  # When true, alacritty starts maximized.
-	start_maximized: false
+  # Startup Mode (changes require restart)
+  #
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
+  #
+  # Values for `startup_mode` (macOS only):
+  #   - SimpleFullscreen
+  startup_mode: Windowed
 
 scrolling:
   # How many lines of scrollback to keep,
@@ -255,42 +274,42 @@ colors:
 # setting the `duration` property (represented in milliseconds). You can also
 # configure the transition function by setting the `animation` property.
 #
-# Possible values for `animation`
-# `Ease`
-# `EaseOut`
-# `EaseOutSine`
-# `EaseOutQuad`
-# `EaseOutCubic`
-# `EaseOutQuart`
-# `EaseOutQuint`
-# `EaseOutExpo`
-# `EaseOutCirc`
-# `Linear`
+# Values for `animation`:
+#   - Ease
+#   - EaseOut
+#   - EaseOutSine
+#   - EaseOutQuad
+#   - EaseOutCubic
+#   - EaseOutQuart
+#   - EaseOutQuint
+#   - EaseOutExpo
+#   - EaseOutCirc
+#   - Linear
 #
-# To completely disable the visual bell, set its duration to 0.
-#
+# Specifying a `duration` of `0` will disable the visual bell.
 visual_bell:
   animation: EaseOutExpo
   duration: 0
+  color: '0xffffff'
 
 # Background opacity
 background_opacity: 0.92
 
 # Mouse bindings
 #
-# Currently doesn't support modifiers. Both the `mouse` and `action` fields must
-# be specified.
+# Available fields:
+#   - mouse
+#   - action
+#   - mods (optional)
 #
 # Values for `mouse`:
-# - Middle
-# - Left
-# - Right
-# - Numeric identifier such as `5`
+#   - Middle
+#   - Left
+#   - Right
+#   - Numeric identifier such as `5`
 #
-# Values for `action`:
-# - Paste
-# - PasteSelection
-# - Copy (TODO)
+# All available `mods` and `action` values are documented in the key binding
+# section.
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
@@ -351,7 +370,7 @@ live_config_reload: true
 # Entries in shell.args are passed unmodified as arguments to the shell.
 #
 shell:
-  program: /bin/zsh
+  program: /usr/local/bin/zsh
   args:
     - --login
 
