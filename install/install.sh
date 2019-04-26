@@ -323,3 +323,8 @@ brew_cask_install google-cloud-sdk
 #JenkinsX
 #brew_tap jenkins-x/jx
 #brew_install jx
+
+#PostgreSQL
+if brew_install libpq; then
+    brew link --force libpq
+fi
