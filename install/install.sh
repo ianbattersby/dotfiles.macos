@@ -313,6 +313,7 @@ brew_install kubernetes-helm
 #brew_install kubernetes-service-catalog-client
 brew_install skaffold
 brew_install stern
+brew_install istioctl
 
 #GoogleCloudSDK
 brew_cask_install google-cloud-sdk
