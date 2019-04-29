@@ -308,6 +308,7 @@ brew_tap wagoodman/dive
 brew_install dive
 
 #Kubernetes
+brew_install kubernetes-cli
 brew_install kubernetes-helm
 #brew_install kubernetes-service-catalog-client
 brew_install skaffold
