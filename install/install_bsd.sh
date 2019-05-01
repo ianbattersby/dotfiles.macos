@@ -193,6 +193,7 @@ pkg_install ruby24-gems
 
 #Misc
 pkg_install tmux
+pkg_isntall mosh
 pkg_install fzf
 pkg_install exa
 pkg_install bat

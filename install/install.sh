@@ -276,6 +276,7 @@ fi
 
 #Misc
 brew_install tmux
+brew_install mosh
 brew_install reattach-to-user-namespace
 brew_install fzf
 brew_install exa
