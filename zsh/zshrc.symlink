@@ -66,7 +66,7 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git vi-mode tmux zsh-completions kubectl docker rustup
+  git vi-mode tmux kubectl docker
 )
 
 fpath+=~/code/dotfiles/zsh/completions
