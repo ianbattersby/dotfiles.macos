@@ -33,7 +33,7 @@ fi
 
 if [ "$1" != "noshellcheck" ] && [[ ! "$SHELL" =~ zsh$ ]]; then
     echo "Setting default shell to ZSH."
-    sudo chsh -s $(which zsh) ian
+    sudo chsh -s $(which zsh) $(whoami)
 
     echo "Relaunching in ZSH shell..."
     zsh -c -i "${0} noshellcheck"
