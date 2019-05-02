@@ -212,7 +212,7 @@ brew_install bats #Batch Automated Testing System (shell tests)
 brew_install hadolint
 
 #Rust
-[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable
+[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 
 munge_path ~/.cargo/bin
 

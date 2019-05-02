@@ -145,7 +145,7 @@ fi
 #/usr/local/bin/stack install
 
 #Rust
-[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable
+[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 
 munge_path ~/.cargo/bin
 
