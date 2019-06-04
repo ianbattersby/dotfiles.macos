@@ -166,6 +166,7 @@ cargo_install rusty-tags
 cargo_install ripgrep
 
 #Go
+mkdir -p ~/code/go
 [ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install --update
 [ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
 [ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
