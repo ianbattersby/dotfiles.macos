@@ -11,6 +11,7 @@ let g:ale_sign_info = '⇥'
 let g:ale_linters = {
         \ 'asciidoc': ['vale'],
         \ 'bash': ['language-server', 'shellcheck'],
+        \ 'dart': ['dartanalyzer', 'dartfmt', 'language_server'],
         \ 'dockerfile': ['hadolint'],
         \ 'gitcommit': ['gitlint'],
         \ 'go': ['gometalinter', 'gofmt'],
