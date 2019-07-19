@@ -67,7 +67,7 @@ set termguicolors
 set background=dark
 "colorscheme NeoSolarized
 "colorscheme solarized8_high
-colorscheme base16-default-dark
+colorscheme gruvbox
 
 " Ensure colours work inside tmux
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
