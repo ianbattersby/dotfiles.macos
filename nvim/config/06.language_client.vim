@@ -9,10 +9,11 @@ let g:LanguageClient_serverCommands = {
             \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
             \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
             \ 'python': ['/usr/local/bin/pyls', '--log-file', '/tmp/pyls3.log', '-v'],
-            \ 'rust': ['env', 'CARGO_TARGET_DIR=~/.cargo/bin/rls', 'rls'],
+            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
             \ 'haskell': ['hie-wrapper', '--lsp']
             \ }
             "\ 'go': [$GOPATH . '/bin/go-langserver', '-gocodecompletion']
+            "\ 'rust': ['env', 'CARGO_TARGET_DIR=~/.cargo/bin/rls', 'rls'],
             "\ 'rust': ['rustup', 'run', 'stable', 'rls'],
 
 let g:LanguageClient_diagnosticsDisplay = {
