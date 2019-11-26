@@ -211,6 +211,10 @@ brew_tap ValeLint/vale
 brew_install bats #Batch Automated Testing System (shell tests)
 brew_install hadolint
 
+#Install golangci-lint (used to be gometalinter)
+brew_tap golangci/tap
+brew_install golangci-lint
+
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 
@@ -237,7 +241,7 @@ brew_tap filosottile/musl-cross
 brew_install musl-cross
 
 #Go
-[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install
+#[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install
 [ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
 [ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
 [ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale

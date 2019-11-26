@@ -38,35 +38,35 @@ au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
 " gometalinter configuration
-let g:go_metalinter_command = ""
-let g:go_metalinter_deadline = "5s"
-let g:go_metalinter_enabled = [
-    \ 'deadcode',
-    \ 'errcheck',
-    \ 'dupl',
-    \ 'gochecknoglobals',
-    \ 'gochecknoinits',
-    \ 'goconst',
-    \ 'gocyclo',
-    \ 'gofmt',
-    \ 'goimports',
-    \ 'golint',
-    \ 'gosec',
-    \ 'gosimple',
-    \ 'gotype',
-    \ 'gotypex',
-    \ 'ineffassign',
-    \ 'interfacer',
-    \ 'lll',
-    \ 'maligned',
-    \ 'megacheck',
-    \ 'misspell',
-    \ 'nakedret',
-    \ 'structcheck',
-    \ 'varcheck',
-    \ 'vet',
-    \ 'vetshadow'
-\]
+" let g:go_metalinter_command = ""
+" let g:go_metalinter_deadline = "5s"
+" let g:go_metalinter_enabled = [
+"     \ 'deadcode',
+"     \ 'errcheck',
+"     \ 'dupl',
+"     \ 'gochecknoglobals',
+"     \ 'gochecknoinits',
+"     \ 'goconst',
+"     \ 'gocyclo',
+"     \ 'gofmt',
+"     \ 'goimports',
+"     \ 'golint',
+"     \ 'gosec',
+"     \ 'gosimple',
+"     \ 'gotype',
+"     \ 'gotypex',
+"     \ 'ineffassign',
+"     \ 'interfacer',
+"     \ 'lll',
+"     \ 'maligned',
+"     \ 'megacheck',
+"     \ 'misspell',
+"     \ 'nakedret',
+"     \ 'structcheck',
+"     \ 'varcheck',
+"     \ 'vet',
+"     \ 'vetshadow'
+" \]
 
 " Keybindings
 au FileType go nmap <F8> :GoMetaLinter<cr>
