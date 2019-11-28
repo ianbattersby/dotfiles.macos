@@ -7,19 +7,24 @@ function munge_path(){
 }
 
 #Update package source
-add-apt-repository -y ppa:neovim-ppa/stable
-apt update
+apt-get clean && apt-get install -y apt-utils
+#add-apt-repository -y ppa:neovim-ppa/stable
+#apt-get update
+#apt-get autoclean
+
+#Restore the google package-source GPG key in case it went walkabout
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 #Make sure git is installed (need it for git)
 if [ ! -f /usr/bin/git ] && [ ! -f /usr/local/bin/git ]; then
     echo "Installing git, we can't do much without that."
-    apt -y install git
+    apt-get -y install git
 fi
 
 #Zsh
 if [ ! -f /bin/zsh ] && [ ! -f /usr/bin/zsh ] && [ ! -f /usr/local/bin/zsh ]; then
     echo "Installing zsh."
-    apt -y install zsh
+    apt-get -y install zsh
 fi
 
 munge_path /usr/local/bin
@@ -36,7 +41,7 @@ function pkg_install(){
         false
     else
         echo $@
-        eval "apt install -y $@"
+        eval "apt-get install -y $@"
         true
     fi
 }
@@ -77,47 +82,47 @@ pkg_install yamllint
 #curl -sSL https://get.haskellstack.org/ | sh #Stack
 
 #HadoLint
-cd /usr/local/src
-if [ ! -d /usr/local/src/hadolint ]; then
-    git clone https://github.com/hadolint/hadolint
-    cd hadolint
-fi
+#cd /usr/local/src
+#if [ ! -d /usr/local/src/hadolint ]; then
+#    git clone https://github.com/hadolint/hadolint /usr/local/src/hadolint
+#    cd hadolint
+#fi
 #/usr/local/bin/stack install
 
 #Rust
-[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
-
-munge_path ~/.cargo/bin
-
-[[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
-
-[[ ! "$(rustup component list --toolchain stable)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain stable
-[[ ! "$(rustup component list --toolchain stable)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain stable
-[[ ! "$(rustup component list --toolchain stable)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain stable
-
-[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain nightly
-[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain nightly
-[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain nightly
-
-cargo_install cargo-tree
-cargo_install cargo-outdated
-cargo_install racer +nightly
-cargo_install rusty-tags
-cargo_install ripgrep
-cargo_install exa
-
-if [ ! -d /usr/local/src/cargo.symlink ]; then
-    mkdir -p /usr/local/src/cargo.symlink
-    cp -r ~/.cargo/* /usr/local/src/cargo.symlink
-fi
-
-if [ ! -d /usr/local/src/rust-analyzer ]; then
-    mkdir -p /usr/local/src/rust-analyzer
-    git clone https://github.com/rust-analyzer/rust-analyzer.git /usr/local/src/rust-analyzer
-
-    cd /usr/local/src/rust-analyzer
-    cargo xtask install --server
-fi
+#[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+#
+#munge_path ~/.cargo/bin
+#
+#[[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
+#
+#[[ ! "$(rustup component list --toolchain stable)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain stable
+#[[ ! "$(rustup component list --toolchain stable)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain stable
+#[[ ! "$(rustup component list --toolchain stable)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain stable
+#
+#[[ ! "$(rustup component list --toolchain nightly)" =~ rls\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rls --toolchain nightly
+#[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-analysis\-[\-_a-z0-9]+\ \((installed|default)\)* ]] && rustup component add rust-analysis --toolchain nightly
+#[[ ! "$(rustup component list --toolchain nightly)" =~ rust\-src\ \((installed|default)\)* ]] && rustup component add rust-src --toolchain nightly
+#
+#cargo_install cargo-tree
+#cargo_install cargo-outdated
+#cargo_install racer +nightly
+#cargo_install rusty-tags
+#cargo_install ripgrep
+#cargo_install exa
+#
+#if [ ! -d /usr/local/src/cargo.symlink ]; then
+#    mkdir -p /usr/local/src/cargo.symlink
+#    cp -r ~/.cargo/* /usr/local/src/cargo.symlink
+#fi
+#
+#if [ ! -d /usr/local/src/rust-analyzer ]; then
+#    mkdir -p /usr/local/src/rust-analyzer
+#    git clone https://github.com/rust-analyzer/rust-analyzer.git /usr/local/src/rust-analyzer
+#
+#    cd /usr/local/src/rust-analyzer
+#    cargo xtask install --server
+#fi
 
 #Go
 mkdir -p /usr/local/src/go.symlink
@@ -126,8 +131,11 @@ export GOPATH=/usr/local/src/go.symlink
 #[ ! -f "/usr/local/src/go.symlink/bin/gometalinter" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/alecthomas/gometalinter && /usr/local/src/go.symlink/bin/gometalinter --install --update
 [ ! -f "/usr/local/src/go.symlink/bin/hey" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/rakyll/hey
 [ ! -f "/usr/local/src/go.symlink/bin/gitbatch" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/isacikgoz/gitbatch
-[ ! -f "/usr/local/src/go.symlink/bin/vale" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/errata-ai/vale
+#[ ! -f "/usr/local/src/go.symlink/bin/vale" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/errata-ai/vale
 [ ! -f "/usr/local/src/go.symlink/bin/gotop" ] && GOPATH=/usr/local/src/go.symlink go get -u github.com/cjbassi/gotop
+
+#vale has since moved from open go code to some abstract rubbish
+curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v1.7.1
 
 #gometalinter replaced by golangci-lint which sadly recommends script-based install :'(
 if [ ! -f "/usr/local/src/go.symlink/bin/golangci-lint" ]; then
@@ -135,22 +143,7 @@ if [ ! -f "/usr/local/src/go.symlink/bin/golangci-lint" ]; then
 fi
 
 #Ruby
-if pkg_install rbenv; then
-    rbenv init
-    #eval("rbenv init -")
-
-    RUBY_LATEST=$(rbenv install -l | awk -F '.' '
-        /^[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+[[:space:]]*$/ {
-            if ( ($1 * 100 + $2) * 100 + $3 > Max ) { 
-                Max = ($1 * 100 + $2) * 100 + $3
-                Version=$0
-            }
-        }
-        END { print Version }')
-
-    rbenv install $RUBY_LATEST
-    rbenv global $RUBY_LATEST
-fi
+pkg_install rbenv
 
 #Misc
 pkg_install fzf
@@ -170,10 +163,9 @@ pip_install 3 neovim-remote --upgrade
 pip_install 3 gitlint
 gem_install neovim
 
-if [ ! -d /usr/local/src/config.symlink ]; then
-    mkdir -p /usr/local/src/config.symlink
-
-    if [ ! -d /usr/local/src/config.symlink/nvim/pack/minpac/opt/minpac ]; then
-        git clone https://github.com/k-takata/minpac.git /usr/local/src/config.symlink/nvim/pack/minpac/opt/minpac
-    fi
+if [ ! -d /usr/local/src/dotfiles.symlink/nvim/pack/minpac/opt/minpac ]; then
+    git clone https://github.com/k-takata/minpac.git /usr/local/src/dotfiles.symlink/nvim/pack/minpac/opt/minpac
 fi
+
+find "/usr/local/src/dotfiles.symlink/nvim/pack/minpac/start" -type f -executable -exec file -i '{}' \; | grep 'application\/x-mach-binary; charset=binary' | sed 's/:\ application\/x-mach-binary;\ charset=binary//g' | xargs -I{} rm -f {}
+
