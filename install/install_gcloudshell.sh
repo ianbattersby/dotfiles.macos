@@ -173,3 +173,4 @@ fi
 
 find "/usr/local/src/dotfiles.symlink/nvim/pack/minpac/start" -type f -executable -exec file -i '{}' \; | grep 'application\/x-mach-binary; charset=binary' | sed 's/:\ application\/x-mach-binary;\ charset=binary//g' | xargs -I{} rm -f {}
 
+sed -i 's/bash\ --login/zsh\ --login/g' /google/devshell/start-shell.sh

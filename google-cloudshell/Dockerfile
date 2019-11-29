@@ -1,10 +1,9 @@
 FROM gcr.io/cloudshell-images/cloudshell:latest
 
-RUN [ ! -x ~/usr/local/src/cargo.symlink/bin/rustc ] 
-    && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+RUN [ ! -x ~/usr/local/src/cargo.symlink/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 
-RUN cargo install ripgrep
-RUN cargo install exa
+RUN /root/.cargo/bin/cargo install ripgrep
+RUN /root/.cargo/bin/cargo install exa
 
 FROM gcr.io/cloudshell-images/cloudshell:latest
 
