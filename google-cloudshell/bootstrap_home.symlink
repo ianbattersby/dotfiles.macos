@@ -62,8 +62,8 @@ EOF
 
     #Rust
     if [ ! -d "${HOMEDIR}/.cargo" ]; then
-      mkdir -p "${HOMEDIR}/.cargo"
-      cp -r /usr/local/src/cargo.symlink/* "${HOMEDIR}/.cargo"
+      cp -r /usr/local/src/cargo.symlink $HOMEDIR
+      mv "${HOMEDIR}/cargo.symlink" "${HOMEDIR}/.cargo"
       chown -R $HOMEUSER:$HOMEUSER "${HOMEDIR}/.cargo"
     fi
 

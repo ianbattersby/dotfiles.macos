@@ -50,7 +50,7 @@ function pkg_install(){
 function cargo_install(){
     echo "Rust: $1 (cargo)"
 
-    if [ ! -x ~/.cargo/bin/${1} ]; then
+    if [ ! -x /usr/local/src/cargo.symlink/bin/${1} ]; then
         eval "cargo ${2} install --quiet ${1}"
     fi
 }
@@ -90,9 +90,13 @@ pkg_install yamllint
 #/usr/local/bin/stack install
 
 #Rust
-#[ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+#mkdir -p /usr/local/src/cargo.symlink
+#export CARGO_HOME=/usr/local/src/cargo.symlink
+#export PATH=$PATH:$CARGO_HOME/bin
 #
-#munge_path ~/.cargo/bin
+#[ ! -x ~/usr/local/src/cargo.symlink/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+#
+#munge_path ~/usr/local/src/cargo.symlink/bin
 #
 #[[ ! "$(rustup show)" =~ nightly\- ]] && rustup install nightly
 #
@@ -111,18 +115,18 @@ pkg_install yamllint
 #cargo_install ripgrep
 #cargo_install exa
 #
-#if [ ! -d /usr/local/src/cargo.symlink ]; then
-#    mkdir -p /usr/local/src/cargo.symlink
-#    cp -r ~/.cargo/* /usr/local/src/cargo.symlink
-#fi
-#
-#if [ ! -d /usr/local/src/rust-analyzer ]; then
-#    mkdir -p /usr/local/src/rust-analyzer
-#    git clone https://github.com/rust-analyzer/rust-analyzer.git /usr/local/src/rust-analyzer
-#
-#    cd /usr/local/src/rust-analyzer
-#    cargo xtask install --server
-#fi
+##if [ ! -d /usr/local/src/cargo.symlink ]; then
+##    mkdir -p /usr/local/src/cargo.symlink
+##    cp -r ~/usr/local/src/cargo.symlink/* /usr/local/src/cargo.symlink
+##fi
+
+if [ ! -d /usr/local/src/rust-analyzer ]; then
+    mkdir -p /usr/local/src/rust-analyzer
+    git clone https://github.com/rust-analyzer/rust-analyzer.git /usr/local/src/rust-analyzer
+
+    cd /usr/local/src/rust-analyzer
+    cargo xtask install --server
+fi
 
 #Go
 mkdir -p /usr/local/src/go.symlink
