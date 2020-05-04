@@ -23,6 +23,13 @@ let g:ale_linters = {
         \ 'tex': ['vale'],
         \ 'text': ['vale'],
         \ 'yaml': ['yamllint'],
+        \ 'ts': ['tsserver'],
+        \ 'javascript': ['eslint']
+    \ }
+
+let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'javascript': ['eslint'],
     \ }
 
 " Highlight colours
@@ -37,3 +44,6 @@ highlight ALEInfoSign ctermbg=10 ctermfg=255 guifg=#aaaaaa guibg=#181818
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_rls_toolchain = 'nightly'
+
+" TypeScript
+let g:ale_completion_tsserver_autoimport = 1

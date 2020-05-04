@@ -39,6 +39,9 @@ set sta
 set et
 set sts=4
 
+" wordwrap default setting
+set nowrap
+
 " enable mouse support
 set mouse=a mousemodel=popup
 

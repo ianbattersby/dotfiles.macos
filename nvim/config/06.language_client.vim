@@ -10,7 +10,8 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
             \ 'rust': ['ra_lsp_server'],
             \ 'python': ['/usr/local/bin/pyls', '--log-file', '/tmp/pyls3.log', '-v'],
-            \ 'haskell': ['hie-wrapper', '--lsp']
+            \ 'haskell': ['hie-wrapper', '--lsp'],
+            \ 'javascript': ['javascript-typescript-stdio'],
             \ }
             "\ 'go': [$GOPATH . '/bin/go-langserver', '-gocodecompletion']
             "\ 'rust': ['env', 'CARGO_TARGET_DIR=~/.cargo/bin/rls', 'rls'],
