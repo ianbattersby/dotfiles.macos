@@ -10,16 +10,18 @@ if exists('*minpac#init')
     call minpac#add('editorconfig/editorconfig-vim')
     call minpac#add('Shougo/vimshell')
     call minpac#add('roxma/nvim-yarp')
-    call minpac#add('ncm2/ncm2')
-    call minpac#add('ncm2/ncm2-bufword')
-    call minpac#add('ncm2/ncm2-tmux')
-    call minpac#add('ncm2/ncm2-path')
-    call minpac#add('ncm2/ncm2-tern', {'do': 'npm install'}) "Javascript
-    call minpac#add('ncm2/ncm2-jedi') "Python
-    call minpac#add('ncm2/ncm2-racer') "Rust
-    call minpac#add('Shougo/neco-vim') "ncm2-vim needs this
-    call minpac#add('ncm2/ncm2-vim')
-    call minpac#add('ncm2/ncm2-go')
+    call minpac#add('justinmk/vim-sneak')
+    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+    "call minpac#add('ncm2/ncm2')
+    "call minpac#add('ncm2/ncm2-bufword')
+    "call minpac#add('ncm2/ncm2-tmux')
+    "call minpac#add('ncm2/ncm2-path')
+    "call minpac#add('ncm2/ncm2-tern', {'do': 'npm install'}) "Javascript
+    "call minpac#add('ncm2/ncm2-jedi') "Python
+    "call minpac#add('ncm2/ncm2-racer') "Rust
+    "call minpac#add('Shougo/neco-vim') "ncm2-vim needs this
+    "call minpac#add('ncm2/ncm2-vim')
+    "call minpac#add('ncm2/ncm2-go')
     call minpac#add('w0rp/ale')
     call minpac#add('rust-lang/rust.vim')
     call minpac#add('mdempsky/gocode')

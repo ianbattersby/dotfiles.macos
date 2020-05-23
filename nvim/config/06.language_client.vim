@@ -8,7 +8,7 @@
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
             \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
-            \ 'rust': ['ra_lsp_server'],
+            \ 'rust': ['rust-analyer'],
             \ 'python': ['/usr/local/bin/pyls', '--log-file', '/tmp/pyls3.log', '-v'],
             \ 'haskell': ['hie-wrapper', '--lsp'],
             \ 'javascript': ['javascript-typescript-stdio'],
