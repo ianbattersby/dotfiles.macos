@@ -290,11 +290,13 @@ brew_install gnupg
 brew_install aspell
 brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
 brew_install terraform
+brew_install vault
 brew_install ctags
 brew_tap cjbassi/gotop #command-line graphical activity monitor
 brew_install gotop #command-line graphical activity monitor
 brew_tap isacikgoz/gitin #command-line git log browser
 brew_install gitin #command-line git log browser
+brew_install jsonnet
 
 #Neovim
 brew_install neovim
