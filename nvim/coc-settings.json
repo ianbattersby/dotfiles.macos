@@ -1,4 +1,5 @@
 {
   "rust-analyzer.cargo-watch.enable": false,
-  "rust-analyzer.serverPath": "/Users/ian/.cargo/bin/rust-analyzer"
+  "rust-analyzer.serverPath": "/Users/ian/.cargo/bin/rust-analyzer",
+  "eslint.autoFixOnSave": true
 }

@@ -24,13 +24,13 @@ let g:ale_linters = {
         \ 'text': ['vale'],
         \ 'yaml': ['yamllint'],
         \ 'ts': ['tsserver'],
-        \ 'javascript': ['eslint']
     \ }
+"        \ 'javascript': ['eslint']
 
 let g:ale_fixers = {
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \   'javascript': ['eslint'],
     \ }
+"    \   'javascript': ['eslint'],
 
 " Highlight colours
 highlight ALEWarning ctermbg=10 ctermfg=226 guifg=#333333 guibg=#ffff99

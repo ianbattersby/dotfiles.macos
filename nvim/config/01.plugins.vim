@@ -11,17 +11,7 @@ if exists('*minpac#init')
     call minpac#add('Shougo/vimshell')
     call minpac#add('roxma/nvim-yarp')
     call minpac#add('justinmk/vim-sneak')
-    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-    "call minpac#add('ncm2/ncm2')
-    "call minpac#add('ncm2/ncm2-bufword')
-    "call minpac#add('ncm2/ncm2-tmux')
-    "call minpac#add('ncm2/ncm2-path')
-    "call minpac#add('ncm2/ncm2-tern', {'do': 'npm install'}) "Javascript
-    "call minpac#add('ncm2/ncm2-jedi') "Python
-    "call minpac#add('ncm2/ncm2-racer') "Rust
-    "call minpac#add('Shougo/neco-vim') "ncm2-vim needs this
-    "call minpac#add('ncm2/ncm2-vim')
-    "call minpac#add('ncm2/ncm2-go')
+    call minpac#add('neoclide/coc.nvim', {'branch': 'release', 'do': function('s:coc_cb')})
     call minpac#add('w0rp/ale')
     call minpac#add('rust-lang/rust.vim')
     call minpac#add('mdempsky/gocode')
@@ -52,3 +42,23 @@ endif
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
+
+" Helper function for coc
+function! s:coc_cb()
+  if has('nvim')
+    " NOTE: setup a `list` in VimL to supply the Coc `install_extension` func
+    " TODO: autogen global_extensions in a var, ie. don't hardcode
+    let g:coc_global_extensions = [
+          \ 'coc-css',
+          \ 'coc-html',
+          \ 'coc-json',
+          \ 'coc-yank',
+          \ 'coc-python',
+          \ 'coc-eslint',
+          \ 'coc-yaml',
+          \ 'coc-tsserver'
+          \ ]
+    call coc#util#install()
+    call coc#util#install_extension(g:coc_global_extensions)
+  endif
+endfunction
