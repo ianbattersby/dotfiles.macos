@@ -202,6 +202,8 @@ function gem_install(){
 }
 
 #Languages
+brew_install nodejs
+brew_install yarn
 brew_install python@2
 brew_install python@3
 brew_install go
@@ -265,18 +267,8 @@ if brew_install rbenv; then
 fi
 
 #Alacritty
-if [ ! -d /Applications/Alacritty.app ]; then
-    if [ ! -d ~/code/alacritty ]; then
-        git clone https://github.com/jwilm/alacritty.git ~/code/alacritty
-    fi
-
-    pushd ~/code/alacritty
-    make app
-    cp -r target/release/osx/Alacritty.app /Applications
-    rm -rf target/release/osx/Alacritty.app
-    rm -rf target/assets/osx/Alacritty.app
-    popd
-fi
+brew_cask_install alacitty
+sudo tic -xe alacritty,alacritty-direct ~/.dotfiles/alacritty/alacritty.info
 
 #Misc
 brew_install tmux
