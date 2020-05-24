@@ -248,6 +248,16 @@ brew_install musl-cross
 [ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
 [ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale
 
+#Terraform LSP
+if [ ! -f "$GOPATH/bin/terraform-lsp" ]; then
+    go get -u github.com/juliosueiras/terraform-lsp
+
+    pushd "$GOPATH/src/juliosueiras/terraform-lsp"
+    GO111MODULE=on go mod download
+    go build
+    popd
+fi
+
 #Ruby
 if brew_install rbenv; then
     rbenv init
