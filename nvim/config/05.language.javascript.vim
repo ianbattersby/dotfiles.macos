@@ -1,4 +1,4 @@
-au FileType javascript let g:ale_fix_on_save = 1
+"au FileType javascript let g:ale_fix_on_save = 1
 
 " Editor
 " au FileType javascript set noexpandtab

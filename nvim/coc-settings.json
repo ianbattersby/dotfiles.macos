@@ -1,5 +1,6 @@
 {
   "rust-analyzer.serverPath": "/Users/ian/.cargo/bin/rust-analyzer",
   "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "npm",
   "tsserver.npm": "/usr/local/bin/npm"
 }
