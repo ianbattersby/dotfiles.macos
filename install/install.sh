@@ -188,7 +188,7 @@ function pip_install(){
 
     if [[ ! $(eval "pip${1} freeze") =~ (^|\ |
 )"${2}"==* ]]; then
-        eval "pip${1} install ${2} ${3} ${4} ${5}"
+        eval "pip${1} install ${2} ${3} ${4} ${5} ${6} ${7}"
     fi
 }
 
@@ -297,6 +297,8 @@ pip_install 3 neovim --upgrade
 pip_install 3 neovim-remote --upgrade
 pip_install 3 gitlint
 gem_install neovim
+pip_install 2 install --upgrade --user jedi
+pip_install 3 install --upgrade --user jedi
 
 if [ ! -d ~/.config/nvim/pack/minpac/opt/minpac ]; then
     git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
