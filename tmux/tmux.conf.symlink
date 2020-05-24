@@ -13,7 +13,7 @@ bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 
 # set -g utf8 on
 
-set -g default-shell $SHELL
+set -g default-shell /bin/bash # $SHELL If we put zsh here it'll load .zshenv twice :'(
 if-shell 'test "$(uname -s)" = Darwin' 'set -g default-command "reattach-to-user-namespace -l ${SHELL}"'
 
 #set -g default-terminal "tmux-256color"
