@@ -207,11 +207,11 @@ brew_install yarn
 brew_install python@2
 brew_install python@3
 brew_install go
-brew_install shellcheck
-brew_install yamllint
-brew_tap ValeLint/vale
+
+#Linting
+brew_install shellcheck #bash linting
 brew_install bats #Batch Automated Testing System (shell tests)
-brew_install hadolint
+brew_install hadolint #Dockerfile linting
 
 #Install golangci-lint (used to be gometalinter)
 brew_tap golangci/tap
@@ -244,9 +244,9 @@ brew_install musl-cross
 
 #Go
 #[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install
-[ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey
-[ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch
-[ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale
+[ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey #perf testing
+[ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch #git history terminal ui
+[ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale #rst, tex, text linting
 
 #Terraform LSP
 if [ ! -f "$GOPATH/bin/terraform-lsp" ]; then
@@ -298,31 +298,33 @@ brew_tap cjbassi/gotop #command-line graphical activity monitor
 brew_install gotop #command-line graphical activity monitor
 brew_tap isacikgoz/gitin #command-line git log browser
 brew_install gitin #command-line git log browser
-brew_install jsonnet
+#brew_install jsonnet
 
 #Neovim
 brew_install neovim
+gem_install neovim
 pip_install 2 neovim
 pip_install 3 neovim --upgrade
 pip_install 3 neovim-remote --upgrade
-pip_install 3 gitlint
-gem_install neovim
-pip_install 2 install --upgrade --user jedi
-pip_install 3 install --upgrade --user jedi
+pip_install 2 install --upgrade --user jedi #Python completion
+pip_install 3 install --upgrade --user jedi #Python completion
+pip_install 2 pylint --upgrade #Python linting
+pip_install 3 pylint --upgrade #Python linting
+pip_install 3 gitlint #git linting
 
 if [ ! -d ~/.config/nvim/pack/minpac/opt/minpac ]; then
     git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 fi
 
 #Docker
-brew_tap wagoodman/dive
-brew_install dive
+#brew_tap wagoodman/dive
+#brew_install dive
 
 #Kubernetes
 brew_install kubernetes-cli
-brew_install kubernetes-helm
+#brew_install kubernetes-helm
 #brew_install kubernetes-service-catalog-client
-brew_install skaffold
+#brew_install skaffold
 brew_install stern
 brew_install istioctl
 
@@ -338,6 +340,6 @@ brew_cask_install google-cloud-sdk
 #brew_install jx
 
 #PostgreSQL
-if brew_install libpq; then
-    brew link --force libpq
-fi
+#if brew_install libpq; then
+#    brew link --force libpq
+#fi
