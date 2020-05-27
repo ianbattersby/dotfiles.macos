@@ -15,21 +15,25 @@ let g:ale_linters = {
         \ 'dockerfile': ['hadolint'],
         \ 'gitcommit': ['gitlint'],
         \ 'go': ['golangci-lint', 'gofmt'],
-        \ 'json': ['jq' ],
         \ 'markdown': ['vale'],
-        \ 'rust': ['rls'],
         \ 'rst': ['vale'],
-        \ 'terraform': ['terraform-fmt'],
         \ 'tex': ['vale'],
         \ 'text': ['vale'],
-        \ 'yaml': ['yamllint'],
-        \ 'ts': ['tsserver'],
     \ }
+
+" We used these once, but now deferring to coc.
+"        \ 'json': ['jq' ],
+"        \ 'terraform': ['terraform-fmt'],
+"        \ 'rust': ['analyzer'],
 "        \ 'javascript': ['eslint']
+"        \ 'ts': ['tsserver'],
+"        \ 'yaml': ['yamllint'],
 
 let g:ale_fixers = {
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ }
+
+" We used these once, but now deferring to coc.
 "    \   'javascript': ['eslint'],
 
 " Highlight colours
