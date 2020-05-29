@@ -13,5 +13,6 @@ exit() {
 }
 
 alias tm='tmux attach -t base || (tmux -2 new-session -d -s `basename $USER`; tmux rename-window -t `basename $USER`:1 terminal; tmux attach -t `basename $USER`)'
+alias tmc='clear; tmux clear-history; clear'
 
 export ZSH_TMUX_TERM=xterm-256color
