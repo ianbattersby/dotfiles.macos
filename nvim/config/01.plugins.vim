@@ -53,7 +53,7 @@ function! s:coc_cb()
           \ 'coc-html',
           \ 'coc-json',
           \ 'coc-yank',
-          \ 'coc-rust-analyzer'
+          \ 'coc-rust-analyzer',
           \ 'coc-python',
           \ 'coc-eslint',
           \ 'coc-yaml',
