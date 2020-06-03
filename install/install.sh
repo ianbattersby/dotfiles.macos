@@ -70,6 +70,7 @@ fi
 [ ! -d ~/.config/nvim ] && ln -s ~/.dotfiles/nvim ~/.config/nvim
 
 [ ! -f ~/.zshrc ] && ln -s ~/.dotfiles/zsh/zshrc.symlink ~/.zshrc
+[ ! -f ~/.zshenv ] && ln -s ~/.dotfiles/zsh/zshenv.symlink ~/.zshenv
 
 #Karabiner-Elements
 if [ ! -d /Applications/Karabiner-Elements.app ]; then
