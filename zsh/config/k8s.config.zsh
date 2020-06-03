@@ -10,6 +10,7 @@ alias ksysa='kubectl --namespace=kube-system apply --recursive -f'
 
 alias klo='kubectl logs -f'
 alias ksyslo='kubectl --namespace=kube-system logs -f'
+alias kls='kubectl logs --namespace spinnaker --tail=20 -f'
 
 alias kp='kubectl proxy'
 
