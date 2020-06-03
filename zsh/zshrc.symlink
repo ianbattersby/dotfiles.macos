@@ -55,7 +55,7 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 ZSH_CUSTOM=~/code/dotfiles/zsh/custom
 
-if [[ -d ~/.dotfiles/zsh/custom ]]; then
+if [[ -d ~/.dotfiles/zsh/config ]]; then
     for configfile in ~/.dotfiles/zsh/config/*.config.zsh; do
         source "$configfile"
     done
