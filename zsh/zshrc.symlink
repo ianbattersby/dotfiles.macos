@@ -53,25 +53,7 @@ DISABLE_AUTO_TITLE="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-ZSH_CUSTOM=~/code/dotfiles/zsh/custom
-
-if [[ -d ~/.dotfiles/zsh/config ]]; then
-    for configfile in ~/.dotfiles/zsh/config/*.config.zsh; do
-        source "$configfile"
-    done
-fi
-
-if [[ -d ~/.local/zsh ]]; then
-    for configfile in ~/.local/zsh/*.zsh; do
-        source "$configfile"
-    done
-fi
-
-if [[ -d ~/.private/zsh ]]; then
-    for configfile in ~/.private/zsh/*.zsh; do
-        source "$configfile"
-    done
-fi
+ZSH_CUSTOM=~/.dotfiles/zsh/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -122,3 +104,29 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
+
+# We need to load these after the plugins otherwise we lose some customisations
+ZSH_CONFIG=~/.dotfiles/zsh/config
+ZSH_LOCAL=~/.local/zsh
+ZSH_PRIVATE=~/.private/zsh
+
+if [[ -d $ZSH_CONFIG ]]; then
+    for config_file ($ZSH_CONFIG/*.config.zsh(N)); do
+        source $config_file
+    done
+    unset config_file
+fi
+
+if [[ -d $ZSH_LOCAL ]]; then
+    for config_file ($ZSH_LOCAL/*.zsh(N)); do
+        source $config_file
+    done
+    unset config_file
+fi
+
+if [[ -d $ZSH_PRIVATE ]]; then
+    for config_file ($ZSH_PRIVATE/*.zsh(N)); do
+        source $config_file
+    done
+    unset config_file
+fi

@@ -1,5 +1,8 @@
-if [[ -d ~/.dotfiles/zsh/custom ]]; then
-    for configfile in ~/.dotfiles/zsh/config/*.env.zsh; do
-        source "$configfile"
+ZSH_CONFIG=~/.dotfiles/zsh/config
+
+if [[ -d $ZSH_CONFIG ]]; then
+    for config_file ($ZSH_CONFIG/*.env.zsh(N)); do
+        source $config_file
     done
+    unset config_file
 fi
