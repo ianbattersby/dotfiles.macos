@@ -68,6 +68,7 @@ fi
 [ ! -d ~/.config/alacritty ] && ln -s ~/.dotfiles/alacritty ~/.config/alacritty
 [ ! -d ~/.config/karabiner ] && ln -s ~/.dotfiles/karabiner ~/.config/karabiner
 [ ! -d ~/.config/nvim ] && ln -s ~/.dotfiles/nvim ~/.config/nvim
+[ ! -d ~/.config/git ] && ln -s ~/.dotfiles/git ~/.config/git
 
 [ ! -f ~/.zshrc ] && ln -s ~/.dotfiles/zsh/zshrc.symlink ~/.zshrc
 [ ! -f ~/.zshenv ] && ln -s ~/.dotfiles/zsh/zshenv.symlink ~/.zshenv
