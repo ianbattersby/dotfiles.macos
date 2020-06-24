@@ -5,6 +5,9 @@
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+" Use the space key as our leader. Put this near the top of your vimrc
+let mapleader = "\<Space>"
+
 " Command window height
 set cmdheight=1
 
