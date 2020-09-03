@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+PYTHON_PIP2_BIN=~/Library/Python/2.7/bin/
+
 function munge_path(){
     if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
       PATH="$1:$PATH"
@@ -56,13 +59,13 @@ cd ~/code
 
 #dotfiles
 if [ ! -d ~/code/dotfiles ]; then
-    git@github.com:ianbattersby/dotfiles.private.git ~/code/dotfiles
+    git clone git@github.com:ianbattersby/dotfiles.private.git ~/code/dotfiles
 fi
 
 [ ! -d ~/.dotfiles ] && ln -s ~/code/dotfiles ~/.dotfiles
 [ ! -f ~/.tmux.conf ] && ln -s ~/.dotfiles/tmux/tmux.conf.symlink ~/.tmux.conf
 #[ ! -d ~/.vim ] && ln -s ~/.dotfiles/vim ~/.vim
-[ ! -d ~/.weechat ] && ln -s ~/.dotfiles/weechat ~/.weechat
+#[ ! -d ~/.weechat ] && ln -s ~/.dotfiles/weechat ~/.weechat
 
 [ ! -d ~/.config ] && mkdir -p ~/.config
 [ ! -d ~/.config/alacritty ] && ln -s ~/.dotfiles/alacritty ~/.config/alacritty
@@ -134,7 +137,7 @@ echo "Fetching Brew Taps...";BREW_TAPS="$(brew tap)"
 echo "Fetching Brew Casks...";BREW_CASKS="$(brew cask ls)"
 
 function brew_install(){
-    [[ $1 =~ ([a-zA-Z0-9_\-]+)(@|$)([0-9]+$|$) ]]; PKG=${BASH_REMATCH[1]}; VERSION=${BASH_REMATCH[3]}
+    [[ $1 =~ ([a-zA-Z0-9_\-]+)(@|$)([0-9.]+$|$) ]]; PKG=${BASH_REMATCH[1]}; VERSION=${BASH_REMATCH[3]}
 
     FORMULA="${PKG}$([ ! -z $VERSION ] && echo "@${VERSION}")"
 
@@ -168,6 +171,9 @@ function brew_tap(){
     fi
 }
 
+#Powerline font install requires SVN :face_palming:
+brew_install subversion
+
 #Fonts
 brew_tap homebrew/cask
 brew_tap homebrew/cask-fonts
@@ -186,11 +192,14 @@ function cargo_install(){
 
 
 function pip_install(){
+    [[ "${1}" == "2" ]] && PIP_LOCATION=$PYTHON_PIP2_BIN || PIP_LOCATION=""
+    [[ "${1}" == "2" ]] && PIP_SUFFIX=" --user --no-python-version-warning" || PIP_SUFFIX=""
+
     echo "pip${1}: ${2} (package)"
 
-    if [[ ! $(eval "pip${1} freeze") =~ (^|\ |
+    if [[ ! $(eval "${PIP_LOCATION}pip${1} freeze${PIP_SUFFIX}") =~ (^|\ |
 )"${2}"==* ]]; then
-        eval "pip${1} install ${2} ${3} ${4} ${5} ${6} ${7}"
+        eval "${PIP_LOCATION}pip${1} install ${2} ${3} ${4} ${5} ${6} ${7}${PIP_SUFFIX}"
     fi
 }
 
@@ -199,16 +208,18 @@ function gem_install(){
 
     if [[ ! $(gem list --local $1) =~ (^|\ |
 )"${1}"\ * ]]; then
-        gem install $1
+        sudo gem install $1
     fi
 }
 
 #Languages
-brew_install nodejs
+brew_install node
 brew_install yarn
-brew_install python@2
-brew_install python@3
 brew_install go
+brew_install python@3.8
+
+#Python2 pip doesn't come with Catalina and brew no longer available
+[[ ! -e $PYTHON_PIP2_BIN/pip2 ]] && python "$SCRIPT_DIR/get-pip.py" --user
 
 #Linting
 brew_install shellcheck #bash linting
@@ -239,24 +250,26 @@ cargo_install cargo-outdated
 cargo_install racer +nightly
 cargo_install rusty-tags
 cargo_install ripgrep
+cargo_install ytop
 
 #Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
 brew_tap filosottile/musl-cross
 brew_install musl-cross
 
 #Go
-#[ ! -f "$GOPATH/bin/gometalinter" ] && go get -u github.com/alecthomas/gometalinter && gometalinter --install
-[ ! -f "$GOPATH/bin/hey" ] && go get -u github.com/rakyll/hey #perf testing
-[ ! -f "$GOPATH/bin/gitbatch" ] && go get -u github.com/isacikgoz/gitbatch #git history terminal ui
-[ ! -f "$GOPATH/bin/vale" ] && go get -u github.com/errata-ai/vale #rst, tex, text linting
+[[ -z $GOPATH ]] && GOPATH=~/code/go
+[[ ! -d $GOPATH ]] && mkdir -p $GOPATH
+
+[ ! -f "$GOPATH/bin/hey" ] && GOPATH=~/code/go go get -u github.com/rakyll/hey #perf testing
+[ ! -f "$GOPATH/bin/vale" ] && GOPATH=~/code/go go get -u github.com/errata-ai/vale #rst, tex, text linting
 
 #Terraform LSP
 if [ ! -f "$GOPATH/bin/terraform-lsp" ]; then
-    go get -u github.com/juliosueiras/terraform-lsp
+    GOPATH=~/code/go go get -u github.com/juliosueiras/terraform-lsp
 
-    pushd "$GOPATH/src/juliosueiras/terraform-lsp"
-    GO111MODULE=on go mod download
-    go build
+    pushd "$GOPATH/src/github.com/juliosueiras/terraform-lsp"
+    GO111MODULE=on GOPATH=~/code/go go mod download
+    GOPATH=~/code/go go build
     popd
 fi
 
@@ -279,8 +292,9 @@ if brew_install rbenv; then
 fi
 
 #Alacritty
-brew_cask_install alacitty
-sudo tic -xe alacritty,alacritty-direct ~/.dotfiles/alacritty/alacritty.info
+brew_cask_install alacritty
+[[ ! $(toe) =~ (^|\ |
+)"alacritty"\ * ]] && sudo tic -xe alacritty,alacritty-direct ~/.dotfiles/alacritty/alacritty.info
 
 #Misc
 brew_install tmux
@@ -292,14 +306,10 @@ brew_install bat
 brew_install jq
 brew_install gnupg
 brew_install aspell
-brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
+#brew_install weechat --with-aspell --with-curl --with-python@2 --with-perl --with-ruby --with-lua --with-guile
 brew_install terraform
-brew_install vault
+#brew_install vault
 brew_install ctags
-brew_tap cjbassi/gotop #command-line graphical activity monitor
-brew_install gotop #command-line graphical activity monitor
-brew_tap isacikgoz/gitin #command-line git log browser
-brew_install gitin #command-line git log browser
 #brew_install jsonnet
 
 #Neovim
@@ -325,21 +335,11 @@ fi
 #Kubernetes
 brew_install kubernetes-cli
 #brew_install kubernetes-helm
-#brew_install kubernetes-service-catalog-client
-#brew_install skaffold
 brew_install stern
 brew_install istioctl
 
 #GoogleCloudSDK
 brew_cask_install google-cloud-sdk
-
-#Ansible
-#pip_install 2 ansible
-#pip_install 3 ansible
-
-#JenkinsX
-#brew_tap jenkins-x/jx
-#brew_install jx
 
 #PostgreSQL
 #if brew_install libpq; then
