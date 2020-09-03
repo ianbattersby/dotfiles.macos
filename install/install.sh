@@ -252,6 +252,13 @@ cargo_install rusty-tags
 cargo_install ripgrep
 cargo_install ytop
 
+if [ ! -d ~/code/rust-analyzer ]; then
+    git clone https://github.com/rust-analyzer/rust-analyzer.git ~/code/rust-analyzer
+    pushd ~/code/rust-analyzer
+    cargo xtask install --server --quiet
+    popd
+fi
+
 #Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
 brew_tap filosottile/musl-cross
 brew_install musl-cross
