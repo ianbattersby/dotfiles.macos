@@ -14,7 +14,7 @@ let g:ale_linters = {
         \ 'dart': ['dartanalyzer', 'dartfmt', 'language_server'],
         \ 'dockerfile': ['hadolint'],
         \ 'gitcommit': ['gitlint'],
-        \ 'go': ['golangci-lint', 'gofmt'],
+        \ 'go': ['gopls', 'gofmt'],
         \ 'markdown': ['vale'],
         \ 'rst': ['vale'],
         \ 'tex': ['vale'],

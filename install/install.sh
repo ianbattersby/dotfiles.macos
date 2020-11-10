@@ -227,8 +227,8 @@ brew_install bats #Batch Automated Testing System (shell tests)
 brew_install hadolint #Dockerfile linting
 
 #Install golangci-lint (used to be gometalinter)
-brew_tap golangci/tap
-brew_install golangci-lint
+#brew_tap golangci/tap
+#brew_install golangci-lint
 
 #Rust
 [ ! -x ~/.cargo/bin/rustc ] && curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
@@ -255,7 +255,7 @@ cargo_install ytop
 if [ ! -d ~/code/rust-analyzer ]; then
     git clone https://github.com/rust-analyzer/rust-analyzer.git ~/code/rust-analyzer
     pushd ~/code/rust-analyzer
-    cargo xtask install --server --quiet
+    cargo xtask install --server
     popd
 fi
 
@@ -267,6 +267,7 @@ brew_install musl-cross
 [[ -z $GOPATH ]] && GOPATH=~/code/go
 [[ ! -d $GOPATH ]] && mkdir -p $GOPATH
 
+[ ! -f "$GOPATH/bin/gopls" ] && GOPATH=~/code/go go get -u golang.org/x/tools/gopls #golang language server
 [ ! -f "$GOPATH/bin/hey" ] && GOPATH=~/code/go go get -u github.com/rakyll/hey #perf testing
 [ ! -f "$GOPATH/bin/vale" ] && GOPATH=~/code/go go get -u github.com/errata-ai/vale #rst, tex, text linting
 
