@@ -1,3 +1,5 @@
+lua require('nvim-lsp-keybindings')
+
 " Use C-Space to Esc out of any mode
 nnoremap <C-Space> <Esc>:noh<CR>
 vnoremap <C-Space> <Esc>gV
@@ -36,12 +38,12 @@ nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :noh
 "map <C-n> :NERDTreeToggle<CR>
 
 " keybindings for language client
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> gf :call LanguageClient_textDocument_codeAction()<CR>
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+" nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" nnoremap <silent> gf :call LanguageClient_textDocument_codeAction()<CR>
 
 " ALE
 nmap <F8> <Plug>(ale_fix)
@@ -49,6 +51,12 @@ nmap <F8> <Plug>(ale_fix)
 " fzf
 noremap <leader>s :Rg
 nnoremap <C-s> :Rg<CR>
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " For conceal markers.
 if has('conceal')
