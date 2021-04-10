@@ -440,8 +440,8 @@ key_bindings:
   - { key: Key0,     mods: Command, action: ResetFontSize                }
   - { key: Equals,   mods: Command, action: IncreaseFontSize             }
   - { key: Minus,    mods: Command, action: DecreaseFontSize             }
-  - { key: K,        mods: Command, action: ClearHistory                 }
-  - { key: K,        mods: Command, chars: "\x0c"                        }
+  #- { key: K,        mods: Command, action: ClearHistory                 }
+  #- { key: K,        mods: Command, chars: "\x0c"                        }
   - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
   - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                   }
   - { key: PageUp,                  chars: "\x1b[5~"                     }
@@ -609,3 +609,15 @@ key_bindings:
   - { key: Key6,      mods: Alt|Shift, chars: "\x1b^"                       }
   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      }
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       }
+  # tmux pane commands, Cmd shortcuts map to Tmux Ctrl-I prefix
+  - { key: S,         mods: Command,   chars: "\x60\x22"                    } # split horizontally
+  - { key: D,         mods: Command,   chars: "\x60\x25"                    } # split vertically
+  - { key: H,         mods: Command,   chars: "\x60\x1b[D", mode: AppCursor }
+  - { key: J,         mods: Command,   chars: "\x60\x1b[B", mode: AppCursor }
+  - { key: K,         mods: Command,   chars: "\x60\x1b[A", mode: AppCursor }
+  - { key: L,         mods: Command,   chars: "\x60\x1b[C", mode: AppCursor }
+  #- { key: N,         mods: Command,   chars: "\x60\x63"                    } # new window
+  - { key: T,         mods: Command,   chars: "\x60\x63"                    } # new window
+  - { key: Z,         mods: Command,   chars: "\x60\x7a"                    } # zoom
+
+  - { key: W,         mods: Command,   chars: "\x60\x78"                    } # close tab
