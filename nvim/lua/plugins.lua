@@ -22,7 +22,7 @@ return require('packer').startup(function()
   use {'junegunn/fzf.vim'}
   use {'neovim/nvim-lspconfig'}
   use {'machakann/vim-highlightedyank'}
-  use {'kassio/neoterm'}
+  -- use {'kassio/neoterm'}
   use {'janko-m/vim-test'}
   use {'mhinz/neovim-remote'}
   use {'tpope/vim-commentary'}
