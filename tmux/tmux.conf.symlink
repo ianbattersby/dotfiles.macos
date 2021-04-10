@@ -2,55 +2,62 @@
 # Do it just like this or you will not 
 # be able to use type backtick literally
 unbind C-b
-set -g prefix `
-bind ` send-prefix
+set-option -g prefix `
+bind-key ` send-prefix
 bind-key L last-window
 
-# set -g mouse-utf8 on
-set -g mouse on
+# reload config file (change file location to your the tmux.conf you want to use)
+bind r source-file ~/.tmux.conf
+
+# set-option -g mouse-utf8 on
+set-option -g mouse on
 bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
 bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 
-# set -g utf8 on
+# don't rename windows automatically
+set-option -g allow-rename off
 
-set -g default-shell /bin/bash # $SHELL If we put zsh here it'll load .zshenv twice :'(
-if-shell 'test "$(uname -s)" = Darwin' 'set -g default-command "reattach-to-user-namespace -l ${SHELL}"'
+# set-option -g utf8 on
 
-#set -g default-terminal "tmux-256color"
-#set -g default-terminal "xterm-256color"
-set -g default-terminal "alacritty"
-#set -as terminal-overrides ',xterm*:sitm=\E[3m'
-if-shell 'test "$(uname -s)" = Darwin' 'set -as terminal-overrides '',xterm-256color:Tc'''
+set-option -g default-shell /bin/zsh # /bin/bash # $SHELL If we put zsh here it'll load .zshenv twice :'(
+if-shell 'test "$(uname -s)" = Darwin' 'set-option -g default-command "reattach-to-user-namespace -l ${SHELL}"'
+
+#set-option -g default-terminal "tmux-256color"
+#set-option -g default-terminal "xterm-256color"
+set-option -g default-terminal "alacritty"
+set-option -sa terminal-overrides ',alacritty:RGB'
+#set-option -as terminal-overrides ',xterm*:sitm=\E[3m'
+#if-shell 'test "$(uname -s)" = Darwin' 'set-option -as terminal-overrides '',xterm-256color:Tc'''
 
 # Start numbering at 1
-set -g base-index 1
+set-option -g base-index 1
 
 # Make mouse useful in copy mode
 setw -g mouse on
 
 # Allow mouse to select which pane to use
-#set -g mouse-select-pane on
+#set-option -g mouse-select-pane on
 #
 #
 # # Scroll History
-set -g history-limit 30000
+set-option -g history-limit 30000
 #
 # # Set ability to capture on start and restore on exit window data when running an application
 setw -g alternate-screen on
 #
 # Basically allows for faster key repetition
-set -s escape-time 0
+set-option -s escape-time 0
 
 # Set status bar
 set-window-option -g status-position top
-#set -g status-position top
-#set -g status-justify left
-#set -g status-bg colour8
-#set -g status-fg white
+#set-option -g status-position top
+#set-option -g status-justify left
+#set-option -g status-bg colour8
+#set-option -g status-fg white
 #set-option -g status-interval 5
-#set -g status-right-length 150
-#set -g status-left ""
-#set -g status-right "#[fg=green] %d-%m-%Y %H:%M #(whoami|cut -d \" \" -f1)" # Add space so I can see Growl notifications in full-screen mode
+#set-option -g status-right-length 150
+#set-option -g status-left ""
+#set-option -g status-right "#[fg=green] %d-%m-%Y %H:%M #(whoami|cut -d \" \" -f1)" # Add space so I can see Growl notifications in full-screen mode
 
 # Rather than constraining window size to the maximum size of any client 
 # connected to the *session*, constrain window size to the maximum size of any 
@@ -82,10 +89,18 @@ unbind-key -T copy-mode-vi ]         ;   bind-key -T copy-mode-vi ] send-keys -X
 bind-key x kill-pane
 
 # Move around panes vim style
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+# bind h select-pane -L
+# bind j select-pane -D
+# bind k select-pane -U
+# bind l select-pane -R
+## Seamless aviation using vim-tmux-navigator (github christoomey/vim-tmux-navigator)
+#is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
+bind-key -n C-h if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
+bind-key -n C-j if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
+bind-key -n C-k if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
+bind-key -n C-l if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
+bind-key -n C-\\ if-shell "$is_vim" "send-keys C-\\\\" "select-pane -l"
 
 bind-key M-7 resize-pane -t 1 -x 90
 bind-key M-8 resize-pane -t 1 -x 60
@@ -94,3 +109,9 @@ bind-key M-0 resize-pane -t 0 -x 30
 
 source-file ~/.dotfiles/tmux/tmux.monokai-simple.conf
 
+# Renumber windows or I'll go mad
+set-option -g renumber-windows on
+
+# Performance tweaks
+set-option -sg escape-time 0 # For neovim
+set-option -g status-interval 60 # For statusbar

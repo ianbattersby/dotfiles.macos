@@ -28,6 +28,7 @@ return require('packer').startup(function()
   use {'tpope/vim-commentary'}
   use {'kana/vim-textobj-user'}
   use {'kana/vim-textobj-entire'}
+  use {'christoomey/vim-tmux-navigator'}
 
   use {
     'w0rp/ale',
