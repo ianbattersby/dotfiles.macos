@@ -12,7 +12,7 @@ let mapleader = "\<Space>"
 set cmdheight=1
 
 " Enable syntax highlighting
-syntax on
+syntax enable
 
 " Fixes backspace
 set backspace=indent,eol,start
@@ -127,7 +127,7 @@ set inccommand=nosplit
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
+" Avoid showing extra messages when using completion
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
@@ -138,3 +138,25 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+
+" have a fixed column for the diagnostics to appear in
+" this removes the jitter when warnings/errors flow in
+set signcolumn=yes
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+
+" Show diagnostic popup on cursor hold
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }

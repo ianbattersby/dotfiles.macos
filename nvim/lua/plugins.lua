@@ -3,6 +3,8 @@ vim.cmd [[packadd packer.nvim]]
 -- vim._update_package_paths()
 
 return require('packer').startup(function()
+  use {'nvim-lua/lsp_extensions.nvim'}
+  use {'nvim-lua/completion-nvim'}
   use {'wbthomason/packer.nvim', opt = true}
   use {'k-takata/minpac', opt = true}
   use {'sheerun/vim-polyglot'}
