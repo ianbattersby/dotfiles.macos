@@ -13,4 +13,4 @@ local settings = {
     }
 }
 
-return {name = "rust", settings = settings}
+return {name = "rust", config = { settings = settings }}

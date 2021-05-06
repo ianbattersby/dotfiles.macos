@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "vimls", settings = settings}
+return {name = "vimls", config = { settings = settings }}
