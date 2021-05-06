@@ -8,16 +8,17 @@ local function ensure_packer()
     execute 'packadd packer.nvim'
   end
 end
+
 local function packer_setup()
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    require'plugins.lsp'.setup(use)
     require'plugins.appearance'.setup(use)
-    require'plugins.completion'.setup(use)
     require'plugins.editing'.setup(use)
     require'plugins.navigation'.setup(use)
     require'plugins.terminal'.setup(use)
+    require'plugins.completion'.setup(use)
+    require'plugins.lsp'.setup(use)
   end)
 end
 

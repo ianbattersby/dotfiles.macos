@@ -6,7 +6,7 @@ local settings = {
         '?.lua',
         '?/?.lua'
       }
-  },
+    },
     diagnostics = {
       globals = {
         -- Get the language server to recognize the `vim` global
@@ -27,4 +27,4 @@ local settings = {
   },
 }
 
-return {name = "lua", config = { settings = settings }}
+return {name = "lua", config = { settings = {}}}

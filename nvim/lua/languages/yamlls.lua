@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "yamlls", config = { settings = settings }}
+return {name = "yamlls", config = { settings = settings}}

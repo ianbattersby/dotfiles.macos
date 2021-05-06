@@ -1,3 +1,5 @@
-local settings = {}
+local settings = {
+  cmd = { "terraform-lsp" }
+}
 
-return {name = "terraformls", cmd = { "terraform-lsp" }, settings = settings}
+return {name = "terraformls", config = { settings = settings}}
