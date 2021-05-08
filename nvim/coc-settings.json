@@ -1,9 +1,0 @@
-{
-  "rust-analyzer.serverPath": "/Users/ian/.cargo/bin/rust-analyzer",
-  "go.goplsUseDaemon": true,
-  "go.goplsOptions": {
-    "completeUnimported": true,
-  },
-  "eslint.autoFixOnSave": true,
-  "eslint.packageManager": "npm"
-}

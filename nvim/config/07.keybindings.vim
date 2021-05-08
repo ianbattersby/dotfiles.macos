@@ -76,9 +76,9 @@ tnoremap <A-k> <C-\><C-n><C-w>k
 tnoremap <A-l> <C-\><C-n><C-w>l
 
 " Easy most-recent-buffer switching
-"nnoremap <Tab> :buffers<CR>:buffer<Space>
+nnoremap <Tab> :buffers<CR>:buffer<Space>
 nnoremap <Tab> :Buffers<CR>
-nnoremap <silent> <S-tab> :Buffers<CR><CR>
+"nnoremap <silent> <S-tab> :Buffers<CR><CR>
 
 " vim-test mappings
 nmap <silent> t<C-n> :TestNearest<CR>

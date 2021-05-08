@@ -17,7 +17,7 @@ local function packer_setup()
     require'plugins.editing'.setup(use)
     require'plugins.navigation'.setup(use)
     require'plugins.terminal'.setup(use)
-    require'plugins.completion'.setup(use)
+    require'plugins.linting'.setup(use)
     require'plugins.lsp'.setup(use)
   end)
 end
