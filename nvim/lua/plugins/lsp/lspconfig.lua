@@ -52,15 +52,16 @@ local function config()
   local function install_missing_servers()
     local installed_servers = lspinstall.installed_servers()
     local available_servers = vim.tbl_keys(require'lspinstall/servers')
-    for _, server in pairs(vim.tbl_keys(languages)) do
-      if vim.tbl_contains(available_servers, server) and not vim.tbl_contains(installed_servers, server) then
-        lspinstall.install_server(server)
+    for _, lang in pairs(vim.tbl_keys(languages)) do
+      if vim.tbl_contains(available_servers, lang) and not vim.tbl_contains(installed_servers, lang) then
+        lspinstall.install_server(lang)
       end
     end
   end
 
   local function setup_servers()
     lspinstall.setup()
+
     local servers = lspinstall.installed_servers()
     for _, server in pairs(servers) do
       local configuration = make_config()
