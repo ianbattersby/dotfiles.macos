@@ -98,7 +98,7 @@ scrolling:
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Fira Code
+    family: FiraCode Nerd Font
     style: Retina
     #Menlo
     # Style can be specified to pick a specific face.
@@ -106,13 +106,13 @@ font:
 
   # The bold font face
   bold:
-    family: Fira Code
+    family: FiraCode Nerd Font
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: Fira Code
+    family: FiraCode Nerd Font
     # Style can be specified to pick a specific face.
     style: Italic
 
