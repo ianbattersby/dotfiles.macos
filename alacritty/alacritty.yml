@@ -98,20 +98,21 @@ scrolling:
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Source Code Pro
+    family: Fira Code
+    style: Retina
     #Menlo
     # Style can be specified to pick a specific face.
     # style: Regular
 
   # The bold font face
   bold:
-    family: Source Code Pro
+    family: Fira Code
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: Source Code Pro
+    family: Fira Code
     # Style can be specified to pick a specific face.
     style: Italic
 
@@ -588,7 +589,7 @@ key_bindings:
   - { key: Z,         mods: Alt|Shift, chars: "\x1bZ"                       }
   - { key: Key1,      mods: Alt,       chars: "\x1b1"                       }
   - { key: Key2,      mods: Alt,       chars: "\x1b2"                       }
-  - { key: Key3,      mods: Alt,       chars: "\x1b3"                       }
+  - { key: Key3,      mods: Alt,       chars: "#"                           }
   - { key: Key4,      mods: Alt,       chars: "\x1b4"                       }
   - { key: Key5,      mods: Alt,       chars: "\x1b5"                       }
   - { key: Key6,      mods: Alt,       chars: "\x1b6"                       }
