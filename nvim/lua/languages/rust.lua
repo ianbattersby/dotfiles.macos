@@ -13,4 +13,4 @@ local settings = {
   }
 }
 
-return {name = "rust", config = { settings = {}}}
+return {name = "rust", config = { auto_install = false, settings = settings}}

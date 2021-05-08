@@ -65,10 +65,8 @@ local function config()
   local function install_missing_servers()
     local installed_servers = lspinstall.installed_servers()
     for _, server in pairs(vim.tbl_keys(languages)) do
-      if not vim.tbl_contains(installed_servers, server) then
-        if not lspinstall.install_server(server) then
-          print([[Server ]] .. server .. [[ not available for installation.]])
-        end
+      if languages[server].config.auto_install and not vim.tbl_contains(installed_servers, server) then
+        lspinstall.install_server(server)
       end
     end
   end
@@ -87,7 +85,7 @@ local function config()
 
 
   setup_servers()
-  --install_missing_servers()
+  install_missing_servers()
 
   -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
   lspinstall.post_install_hook = function ()

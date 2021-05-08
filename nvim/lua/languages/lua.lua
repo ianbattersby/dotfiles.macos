@@ -27,4 +27,4 @@ local settings = {
   },
 }
 
-return {name = "lua", config = { settings = {}}}
+return {name = "lua", config = { auto_install = true, settings = settings}}
