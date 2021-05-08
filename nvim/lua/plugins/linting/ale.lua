@@ -1,8 +1,8 @@
 return {
   setup = function(use)
     use {
-      'w0rp/ale',
-      ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
+      'dense-analysis/ale',
+      ft = { 'cmake', 'javascript', 'markdown' },
       cmd = 'ALEEnable',
       config = 'vim.cmd[[ALEEnable]]'
     }
