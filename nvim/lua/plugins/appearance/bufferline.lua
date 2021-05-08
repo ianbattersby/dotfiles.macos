@@ -4,7 +4,7 @@ local function config()
   }
   require('bufferline').setup{
     options = {
-      separator_style = "slant",
+      separator_style = "thin",
       numbers = "buffer_id",
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(_, _, diagnostics_dict)
