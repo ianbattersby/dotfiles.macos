@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "tsserver", config = { settings = settings}}
+return {name = "typescript", config = { settings = settings}}

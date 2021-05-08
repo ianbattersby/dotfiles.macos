@@ -36,19 +36,6 @@ local function config()
     end
   end
 
-  function dump(o)
-     if type(o) == 'table' then
-        local s = '{ '
-        for k,v in pairs(o) do
-           if type(k) ~= 'number' then k = '"'..k..'"' end
-           s = s .. '['..k..'] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-     else
-        return tostring(o)
-     end
-  end
-
   local function make_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -64,8 +51,9 @@ local function config()
 
   local function install_missing_servers()
     local installed_servers = lspinstall.installed_servers()
+    local available_servers = vim.tbl_keys(require'lspinstall/servers')
     for _, server in pairs(vim.tbl_keys(languages)) do
-      if languages[server].config.auto_install and not vim.tbl_contains(installed_servers, server) then
+      if vim.tbl_contains(available_servers, server) and not vim.tbl_contains(installed_servers, server) then
         lspinstall.install_server(server)
       end
     end
@@ -84,8 +72,8 @@ local function config()
   end
 
 
-  setup_servers()
   install_missing_servers()
+  setup_servers()
 
   -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
   lspinstall.post_install_hook = function ()

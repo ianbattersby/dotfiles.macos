@@ -1,5 +1,7 @@
 local settings = {
-  cmd = { "terraform-lsp" }
+  cmd = { "terraform-ls", "serve" },
+  filetypes = { "terraform", "tf", "hcl" },
+  root_dir = require'lspconfig/util'.root_pattern(".terraform", ".git")
 }
 
-return {name = "terraformls", config = { settings = settings}}
+return {name = "terraform", config = { settings = settings}}

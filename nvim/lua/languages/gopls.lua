@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "gopls", config = { settings = settings}}
+return {name = "go", config = { settings = settings}}

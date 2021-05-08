@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "pyright", config = { settings = settings}}
+return {name = "python", config = { settings = settings}}

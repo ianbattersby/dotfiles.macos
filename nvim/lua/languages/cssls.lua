@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "cssls", config = { settings = settings}}
+return {name = "css", config = { settings = settings}}
