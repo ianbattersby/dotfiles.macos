@@ -1,7 +1,10 @@
 local function config()
+  require'nvim-web-devicons'.setup{
+    default = true
+  }
   require('bufferline').setup{
     options = {
-      separator_style = "thin",
+      separator_style = "slant",
       numbers = "buffer_id",
       diagnostics = "nvim_lsp",
       diagnostics_indicator = function(_, _, diagnostics_dict)
