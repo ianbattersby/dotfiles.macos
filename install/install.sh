@@ -178,8 +178,8 @@ brew_install subversion
 brew_tap homebrew/cask
 brew_tap homebrew/cask-fonts
 brew_tap alecthomas/homebrew-tap
-brew_cask_install font-source-code-pro
-brew_cask_install font-source-code-pro-for-powerline
+brew_cask_install font-hack
+brew_cask_install font-hack-nerd-font
 
 #Package helpers
 function cargo_install(){
