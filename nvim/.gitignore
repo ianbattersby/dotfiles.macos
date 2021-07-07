@@ -2,3 +2,4 @@ pack.old
 .netrwhist
 *_compiled.vim
 *.log
+plugin
