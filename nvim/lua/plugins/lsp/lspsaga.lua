@@ -32,8 +32,8 @@ local function config()
   map('n', '[e', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>', opts)
   map('n', ']e', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>', opts)
   -- float terminal
-  map('n', 'A-d', '<cmd>lua require("lspsaga.lspsaga.floaterm").open_float_terminal()<CR>', opts)
-  map('t', 'A-d', '<C-\\><C-n>:<cmd>lua require("lspsaga.lspsaga.floaterm").close_float_terminal()<CR>', opts)
+  --map('n', 'A-d', '<cmd>lua require("lspsaga.lspsaga.floaterm").open_float_terminal()<CR>', opts)
+  --map('t', 'A-d', '<C-\\><C-n>:<cmd>lua require("lspsaga.lspsaga.floaterm").close_float_terminal()<CR>', opts)
 end
 
 return {
