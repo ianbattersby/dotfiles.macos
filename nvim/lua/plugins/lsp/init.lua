@@ -4,5 +4,6 @@ return {
     require 'plugins.lsp.nvim-compe'.setup(use)
     require 'plugins.lsp.lspsaga'.setup(use)
     require 'plugins.lsp.treesitter'.setup(use)
+    require 'plugins.lsp.vimspector'.setup(use)
   end
 }
