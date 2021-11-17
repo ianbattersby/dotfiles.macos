@@ -1,7 +1,7 @@
 local function config()
   local languages = require'languages'
   local lspconfig = require'lspconfig'
-  local lspinstall = require'lspinstall'
+  local lspinstaller_servers = require'nvim-lsp-installer.servers'
 
   local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -57,38 +57,36 @@ local function config()
     }
   end
 
-  local function install_missing_servers()
-    local installed_servers = lspinstall.installed_servers()
-    local available_servers = vim.tbl_keys(require'lspinstall/servers')
-    for _, lang in pairs(vim.tbl_keys(languages)) do
-      if vim.tbl_contains(available_servers, lang) and not vim.tbl_contains(installed_servers, lang) then
-        lspinstall.install_server(lang)
-      end
-    end
-  end
-
   local function setup_servers()
-    lspinstall.setup()
+    for _, language_impl in pairs(vim.tbl_keys(languages)) do
+      local language = languages[language_impl]
 
-    local servers = lspinstall.installed_servers()
-    for _, server in pairs(servers) do
-      local configuration = make_config()
-      if languages[server] then
-        configuration = vim.tbl_deep_extend("force", configuration, languages[server].config)
+      if language then
+        local configuration = make_config()
+        configuration = vim.tbl_deep_extend("force", configuration, language.config)
+
+        local server_available, requested_server = lspinstaller_servers.get_server(language.server)
+        --print("LspInstaller server available for ", language.server, "? ", server_available)
+
+        if server_available then
+          --print("Using LspInstaller for: ", language.server)
+          requested_server:on_ready(function ()
+            requested_server:setup(configuration)
+          end)
+          if not requested_server:is_installed() then
+            print("Installing Lsp server: ", language.server)
+            requested_server:install()
+          end
+        else
+          --print("Manually configuring LSP config for: ", language.server)
+          lspconfig[language.server].setup(configuration)
+          --vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+        end
       end
-      lspconfig[server].setup(configuration)
     end
   end
 
-
-  install_missing_servers()
   setup_servers()
-
-  -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-  lspinstall.post_install_hook = function ()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-  end
 
   vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
   vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "\<S-Tab>"]]
@@ -98,7 +96,7 @@ return {
   setup = function(use)
     use {
       'neovim/nvim-lspconfig',
-      requires = {'kabouzeid/nvim-lspinstall', 'nvim-lua/lsp_extensions.nvim'},
+      requires = {'williamboman/nvim-lsp-installer', 'nvim-lua/lsp_extensions.nvim'},
       config = config
     }
   end

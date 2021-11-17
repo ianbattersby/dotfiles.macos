@@ -6,4 +6,4 @@ local settings = {
   }
 }
 
-return {name = "python", config = { settings = settings}}
+return {name = "python", server = "pyright", config = {settings = settings}}

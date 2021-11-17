@@ -27,4 +27,4 @@ local settings = {
   },
 }
 
-return {name = "lua", config = { settings = settings}}
+return {name = "lua", server = "sumneko_lua", config = {settings = settings}}

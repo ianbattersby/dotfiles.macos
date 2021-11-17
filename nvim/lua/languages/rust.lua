@@ -13,4 +13,4 @@ local settings = {
   }
 }
 
-return {name = "rust", config = {  settings = settings}}
+return {name = "rust", server = "rust_analyzer", config = {settings = settings}}
