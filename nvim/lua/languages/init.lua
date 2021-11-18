@@ -2,6 +2,7 @@ return {
   [require'languages.bash'.server] = require'languages.bash',
   [require'languages.css'.server] = require'languages.css',
   [require'languages.go'.server] = require'languages.go',
+  [require'languages.dockerfile'.server] = require'languages.dockerfile',
   [require'languages.lua'.server] = require'languages.lua',
   [require'languages.python'.server] = require'languages.python',
   [require'languages.rust'.server] = require'languages.rust',
