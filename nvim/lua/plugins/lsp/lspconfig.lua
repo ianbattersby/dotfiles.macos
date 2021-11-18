@@ -58,6 +58,8 @@ local function config()
   end
 
   local function setup_servers()
+    local displayinfo = false
+
     for _, language_impl in pairs(vim.tbl_keys(languages)) do
       local language = languages[language_impl]
 
@@ -74,8 +76,9 @@ local function config()
             requested_server:setup(configuration)
           end)
           if not requested_server:is_installed() then
-            print("Installing Lsp server: ", language.server)
+            --print("Installing Lsp server: ", language.server)
             requested_server:install()
+            displayinfo = true
           end
         else
           --print("Manually configuring LSP config for: ", language.server)
@@ -83,6 +86,10 @@ local function config()
           --vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
         end
       end
+    end
+
+    if displayinfo == true then
+      require'nvim-lsp-installer'.info_window.open()
     end
   end
 
