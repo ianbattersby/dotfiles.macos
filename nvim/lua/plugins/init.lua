@@ -13,6 +13,10 @@ local function packer_setup()
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'lewis6991/impatient.nvim'
+    use 'nathom/filetype.nvim'
+
+    -- Do not source the default filetype.vim
+    vim.g.did_load_filetypes = 1
 
     require'plugins.appearance'.setup(use)
     require'plugins.editing'.setup(use)
