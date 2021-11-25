@@ -18,8 +18,8 @@ inoremap <C-@> <Esc>
 nnoremap <leader>sop :source %<cr>
 
 " Files and buffers
-map <C-p> :Files<CR>
-nmap <leader>; :Buffers<CR>
+"map <C-p> :Files<CR>
+"nmap <leader>; :Buffers<CR>
 
 " Quick-save
 nmap <leader>w :w<CR>
@@ -49,8 +49,8 @@ nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :noh
 nmap <F8> <Plug>(ale_fix)
 
 " fzf
-noremap <leader>s :Rg
-nnoremap <C-s> :Rg<CR>
+"noremap <leader>s :Rg
+"nnoremap <C-s> :Rg<CR>
 
 " Telescope
 "nnoremap <leader>ff <cmd>Telescope find_files<cr>
