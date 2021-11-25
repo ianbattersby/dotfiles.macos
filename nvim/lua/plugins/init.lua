@@ -12,6 +12,7 @@ end
 local function packer_setup()
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+    use 'lewis6991/impatient.nvim'
 
     require'plugins.appearance'.setup(use)
     require'plugins.editing'.setup(use)
