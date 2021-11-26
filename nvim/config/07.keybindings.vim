@@ -77,7 +77,7 @@ tnoremap <A-l> <C-\><C-n><C-w>l
 
 " Easy most-recent-buffer switching
 "nnoremap <Tab> :buffers<CR>:buffer<Space>
-nnoremap <Tab> ":lua require'telescope.builtin'.buffers{ sort_lastused = true }<CR>
+nnoremap <Tab> :lua require'telescope.builtin'.buffers{ sort_lastused = true }<CR>
 "nnoremap <silent> <S-tab> :Buffers<CR><CR>
 
 " Circumvent OS X hash issue
