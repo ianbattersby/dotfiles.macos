@@ -1,7 +1,12 @@
 local name = "onedark"
 
 local function config()
-  require('onedark').setup()
+  require('onedark').setup({
+    transparent = true,
+    colors = {
+      bg = "#8c6642",
+    }
+  })
 end
 
 return {
