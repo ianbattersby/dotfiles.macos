@@ -4,6 +4,7 @@ return {
     require 'plugins.lsp.lspconfig'.setup(use)
     --require 'plugins.lsp.lspsaga'.setup(use)
     require 'plugins.lsp.lsputils'.setup(use)
+    require 'plugins.lsp.trouble'.setup(use)
     require 'plugins.lsp.treesitter'.setup(use)
     require 'plugins.lsp.vimspector'.setup(use)
   end
