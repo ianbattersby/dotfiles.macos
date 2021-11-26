@@ -1,3 +1,15 @@
-local theme = require'plugins.appearance.gruvbox'
---vim.cmd('colorscheme '..theme.name)
-return theme
+local name = "onedark"
+
+local function config()
+  require('onedark').setup()
+end
+
+return {
+  name = name,
+  setup = function(use)
+    use {
+      'monsonjeremy/onedark.nvim',
+      config = config
+    }
+  end
+}
