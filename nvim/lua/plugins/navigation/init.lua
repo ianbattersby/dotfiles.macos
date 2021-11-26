@@ -1,5 +1,6 @@
 return {
   setup = function(use)
+    require'plugins.navigation.whichkey'.setup(use)
     require'plugins.navigation.telescope'.setup(use)
     require'plugins.navigation.nvim-tree'.setup(use)
     require'plugins.navigation.tmux-navigator'.setup(use)
