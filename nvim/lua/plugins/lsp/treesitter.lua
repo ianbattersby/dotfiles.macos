@@ -3,7 +3,10 @@ local function config()
     ensure_installed = { "bash", "c_sharp", "css", "go", "gomod", "javascript", "json", "jsdoc", "lua", "python", "regex", "rust", "scss", "toml", "yaml" }, --"maintained", --vim.tbl_keys(require'languages')),
     highlight = {
       enable = true,
-    }
+    },
+    indent = {
+      enable = true
+    },
   }
 end
 
