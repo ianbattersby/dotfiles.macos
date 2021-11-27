@@ -87,9 +87,6 @@ set noshowcmd
 set nolist
 set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 
-" close vim if only window left is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NvimTree") && b:NvimTree.isTabTree()) | q | endif
-
 " crontab filetype tweak (the way vim normally saves files confuses crontab
 " so this workaround allows for editing
 au FileType crontab setlocal bkc=yes
