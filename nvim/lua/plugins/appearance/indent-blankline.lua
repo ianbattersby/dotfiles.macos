@@ -4,7 +4,7 @@ local function config()
   --vim.opt.listchars:append("eol:↴")
 
   require("indent_blankline").setup {
-    buftype_exclude = {"terminal", "telescope"},
+    buftype_exclude = {"terminal", "telescope", "nofile"},
     filetype_exclude = {"help", "dashboard", "packer", "NvimTree", "Trouble"},
     space_char_blankline = " ",
     show_current_context = true,
