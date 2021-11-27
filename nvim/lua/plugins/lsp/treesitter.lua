@@ -7,6 +7,19 @@ local function config()
     indent = {
       enable = true
     },
+    refactor = {
+      highlight_current_scope = { enable = false },
+      highlight_definitions = { enable = true },
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "gs",
+        node_incremental = "gj",
+        scope_incremental = "gl",
+        node_decremental = "gk",
+      },
+    },
   }
 end
 
