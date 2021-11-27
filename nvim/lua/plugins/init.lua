@@ -20,7 +20,6 @@ local function packer_setup()
 
     require'plugins.appearance'.setup(use)
     require'plugins.editing'.setup(use)
-    require'plugins.linting'.setup(use)
     require'plugins.lsp'.setup(use)
     require'plugins.navigation'.setup(use)
     require'plugins.terminal'.setup(use)

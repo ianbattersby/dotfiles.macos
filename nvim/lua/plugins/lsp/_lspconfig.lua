@@ -36,6 +36,7 @@ local function config()
       buf_set_keymap("n", "<space>fr", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
       buf_set_keymap("n", "<C-k><C-d>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
+
     if client.resolved_capabilities.document_range_formatting then
       buf_set_keymap("v", "<space>fr", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
       buf_set_keymap("v", "<C-k><C-d>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
@@ -44,7 +45,8 @@ local function config()
 
   local function make_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    --capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
     require('cmp_nvim_lsp').update_capabilities(capabilities)
 
     return {
@@ -97,6 +99,17 @@ local function config()
 
   vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
   vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "\<S-Tab>"]]
+
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      virtual_text = true,
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+      severity_sort = true,
+    }
+  )
 end
 
 return {
