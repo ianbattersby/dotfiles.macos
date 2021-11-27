@@ -1,5 +1,6 @@
 local function config()
   local cmp = require'cmp'
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
   local kind_icons = {
     Text = "",
@@ -87,6 +88,9 @@ local function config()
       { name = 'cmdline' }
     })
   })
+
+  -- Wire-in nvim-autopairs
+  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
   vim.cmd[[set completeopt=menu,menuone,noselect]]
 end
