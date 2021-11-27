@@ -21,6 +21,28 @@ local function config()
     Rule("$", "$", "lua")
       :with_pair(ts_conds.is_not_ts_node({'function'}))
   })
+
+  -- Disable matching of single quotes in Rust.
+  npairs.get_rule("'")[1]:with_pair(function()
+    if vim.bo.filetype == 'rust' then
+      return false
+    end
+
+    return true
+  end)
+  -- end)
+
+  -- When pressing a space after a pair, insert an extra space before the closing
+  -- pair.
+  local space_pairs = { '()', '[]', '{}' }
+
+  npairs.add_rules({
+    Rule(' ', ' '):with_pair(function(opts)
+      local pair = opts.line:sub(opts.col, opts.col + 1)
+
+      return vim.tbl_contains(space_pairs, pair)
+    end),
+  })
 end
 
 return {
