@@ -16,6 +16,11 @@ local function config()
       enable = true,
       auto_open = true,
     },
+    update_focused_file = {
+      enable      = true,
+      update_cwd  = true,
+      ignore_list = {}
+    },
     diagnostics = {
       enable = false,
       icons = {
@@ -24,11 +29,6 @@ local function config()
         warning = "",
         error = "",
       }
-    },
-    update_focused_file = {
-      enable      = false,
-      update_cwd  = false,
-      ignore_list = {}
     },
     system_open = {
       cmd  = nil,
