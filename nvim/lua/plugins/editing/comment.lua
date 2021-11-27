@@ -1,5 +1,12 @@
+local function config()
+  require('Comment').setup()
+end
+
 return {
   setup = function(use)
-    use {'tpope/vim-commentary'}
+    use {
+      'numToStr/Comment.nvim',
+      config = config
+    }
   end
 }
