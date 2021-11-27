@@ -6,6 +6,6 @@ return {
     require 'plugins.lsp.lsputils'.setup(use)
     require 'plugins.lsp.trouble'.setup(use)
     require 'plugins.lsp.treesitter'.setup(use)
-    require 'plugins.lsp.vimspector'.setup(use)
+    require 'plugins.lsp.nvim-dap'.setup(use)
   end
 }
