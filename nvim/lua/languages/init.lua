@@ -10,4 +10,5 @@ return {
   [require'languages.typescript'.server] = require'languages.typescript',
   [require'languages.vim'.server] = require'languages.vim',
   [require'languages.yaml'.server] = require'languages.yaml',
+  [require'languages.json'.server] = require'languages.json',
 }
