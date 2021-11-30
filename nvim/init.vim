@@ -91,9 +91,6 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 " so this workaround allows for editing
 au FileType crontab setlocal bkc=yes
 
-" Allow me to move buffers even when leaving an unsaved one
-set hidden
-
 " terminal settings
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
