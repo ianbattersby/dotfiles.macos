@@ -11,9 +11,6 @@ let mapleader = "\<Space>"
 " Command window height
 set cmdheight=1
 
-" Enable syntax highlighting
-syntax enable
-
 " Fixes backspace
 set backspace=indent,eol,start
 
@@ -145,7 +142,10 @@ set updatetime=300
 "\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " Tell VSnip where to find snippets
-let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
 
 " Hand-off to the lua configuration
 lua require "init"
+let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
+
+" syntax enable
+syntax enable
