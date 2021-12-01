@@ -35,6 +35,9 @@ local function config()
     if client.resolved_capabilities.document_formatting then
       buf_set_keymap("n", "<space>fr", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
       buf_set_keymap("n", "<C-k><C-d>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+      -- Format on save
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
 
     if client.resolved_capabilities.document_range_formatting then

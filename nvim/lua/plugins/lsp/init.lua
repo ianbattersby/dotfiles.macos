@@ -1,5 +1,6 @@
 return {
   setup = function(use)
+    require 'plugins.lsp._null-ls'.setup(use)
     require 'plugins.lsp._nvim-cmp'.setup(use)
     require 'plugins.lsp._lspconfig'.setup(use)
     require 'plugins.lsp._lsputils'.setup(use)

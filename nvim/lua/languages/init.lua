@@ -11,4 +11,5 @@ return {
   [require'languages.vim'.server] = require'languages.vim',
   [require'languages.yaml'.server] = require'languages.yaml',
   [require'languages.json'.server] = require'languages.json',
+  [require'languages._null-ls'.server] = require'languages._null-ls',
 }
