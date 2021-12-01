@@ -1,5 +1,6 @@
 pack.old
 .netrwhist
 *_compiled.vim
+*_compiled.lua
 *.log
 plugin
