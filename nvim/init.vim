@@ -65,13 +65,7 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 let g:ruby_host_prog = '/usr/local/bin/ruby'
 
 " Set colors in terminal
-" Solarized, dark, with true color support
 set termguicolors
-set background=dark
-"colorscheme NeoSolarized
-"colorscheme solarized8_high
-"colorscheme gruvbox
-"colorscheme onedark
 
 " Ensure colours work inside tmux
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
