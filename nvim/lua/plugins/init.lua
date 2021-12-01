@@ -10,7 +10,14 @@ local function ensure_packer()
 end
 
 local function packer_setup()
-  require('packer').startup(function(use)
+  local packer = require('packer')
+
+  packer.init {
+    -- Specify a compile_path for packer_compiled to enable impatient to cache it
+    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
+  }
+
+  packer.startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'lewis6991/impatient.nvim'
     use 'nathom/filetype.nvim'
@@ -18,17 +25,33 @@ local function packer_setup()
     -- Do not source the default filetype.vim
     vim.g.did_load_filetypes = 1
 
-    require'plugins.appearance'.setup(use)
+    -- Ensure we source packer_compiled from custom path
+    require('packer_compiled')
+
     require'plugins.editing'.setup(use)
     require'plugins.lsp'.setup(use)
     require'plugins.navigation'.setup(use)
     require'plugins.terminal'.setup(use)
+    require'plugins.appearance'.setup(use)
   end)
 end
 
 local function setup()
+  -- Ensure impatient.nvim is setup and profiling enabled
+  local impatient = require('impatient')
+  impatient.enable_profile()
+
+  -- Ensure packer is installed and load plugins
   ensure_packer()
   packer_setup()
+
+  -- Autoload changes to plugin files
+  vim.cmd([[
+    augroup packer_user_config
+      autocmd!
+      autocmd BufWritePost ]] .. string.format("%s/**", vim.fn.stdpath('config')) .. [[  source <afile> | PackerCompile
+    augroup end
+  ]])
 end
 
 return { setup = setup }
