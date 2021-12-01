@@ -1,5 +1,9 @@
 local function config()
-  require('gitsigns').setup()
+  require('gitsigns').setup {
+    signcolumn = true,
+    linehl = true,
+    trouble = true,
+  }
 end
 
 return {
