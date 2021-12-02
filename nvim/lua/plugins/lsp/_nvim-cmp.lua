@@ -35,6 +35,11 @@ local function config()
 		TypeParameter = "",
 	}
 
+	require("luasnip/loaders/from_vscode").lazy_load({
+		paths = { "~/.local/share/nvim/site/pack/packer/start/friendly-snippets" },
+		include = { "python", "rust" },
+	})
+
 	cmp.setup({
 		formatting = {
 			format = function(entry, vim_item)
@@ -132,6 +137,7 @@ return {
 				{ "hrsh7th/cmp-cmdline", opt = false },
 				{ "L3MON4D3/LuaSnip", opt = false },
 				{ "saadparwaiz1/cmp_luasnip", opt = false },
+				{ "rafamadriz/friendly-snippets" },
 			},
 			config = config,
 		})
