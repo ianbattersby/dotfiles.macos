@@ -136,7 +136,6 @@ set updatetime=300
 
 " Hand-off to the lua configuration
 lua require "init"
-let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
 
 " syntax enable
 syntax enable
