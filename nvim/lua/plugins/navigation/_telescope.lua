@@ -63,7 +63,7 @@ local function config()
 
   require('telescope').load_extension('fzf')
 
-  vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>lua if not pcall(require'telescope.builtin'.git_files, {}) then require'telescope.builtin'.find_files({}) end<CR>", { noremap = true })
+  vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>lua if not pcall(require'telescope.builtin'.git_files, { sort_last_used = true }) then require'telescope.builtin'.find_files({}) end<CR>", { noremap = true })
   vim.api.nvim_set_keymap("n", "<C-s>", "<CMD>Telescope live_grep<CR>", { noremap = true })
 end
 
