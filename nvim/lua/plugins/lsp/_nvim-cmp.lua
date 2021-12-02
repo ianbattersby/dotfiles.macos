@@ -47,6 +47,7 @@ local function config()
 					luasnip = "[LuaSnip]",
 					nvim_lua = "[Lua]",
 					latex_symbols = "[LaTeX]",
+					neorg = "[Neorg]",
 				})[entry.source.name]
 				return vim_item
 			end,
@@ -103,6 +104,7 @@ local function config()
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
+			{ name = "neorg" },
 		}, {
 			{ name = "buffer" },
 		}),
