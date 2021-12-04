@@ -34,6 +34,8 @@ local function config()
 			grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
 			qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 
+			file_ignore_patterns = { "node%_modules/.*" },
+
 			mappings = {
 				i = {
 					["<esc>"] = actions.close,
