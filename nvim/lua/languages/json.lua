@@ -1,3 +1,3 @@
 local settings = {}
 
-return {name = "json", server = "jsonls", config = {settings = settings}}
+return { name = "json", server = "jsonls", config = { settings = settings } }

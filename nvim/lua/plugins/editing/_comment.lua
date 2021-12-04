@@ -1,12 +1,12 @@
 local function config()
-  require('Comment').setup()
+	require("Comment").setup()
 end
 
 return {
-  setup = function(use)
-    use {
-      'numToStr/Comment.nvim',
-      config = config
-    }
-  end
+	setup = function(use)
+		use({
+			"numToStr/Comment.nvim",
+			config = config,
+		})
+	end,
 }

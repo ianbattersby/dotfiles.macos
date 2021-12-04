@@ -1,4 +1,3 @@
 return {
-  setup = function()
-  end
+	setup = function() end,
 }

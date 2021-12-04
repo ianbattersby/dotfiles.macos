@@ -1,2 +1,2 @@
-require'settings'.setup()
-require'plugins'.setup()
+require("settings").setup()
+require("plugins").setup()
