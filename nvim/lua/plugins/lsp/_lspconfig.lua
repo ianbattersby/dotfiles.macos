@@ -11,14 +11,13 @@ local function config()
 			vim.api.nvim_buf_set_option(bufnr, ...)
 		end
 
-		-- Format on save (assume where the LSP can't do it that null-ls is configured to)
-		vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]], false)
-
 		-- Mappings.
 		local opts = { noremap = true, silent = true } -- Mappings.
 
 		-- Set some keybinds conditional on server capabilities
 		if client.resolved_capabilities.document_formatting then
+			vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]], false)
+
 			buf_set_keymap("n", "<space>fr", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 			buf_set_keymap("n", "<C-k><C-d>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 		end
