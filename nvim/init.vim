@@ -75,8 +75,8 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set noshowcmd
 
 " Show hidden characters
-set nolist
-set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+"set nolist
+"set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 
 " crontab filetype tweak (the way vim normally saves files confuses crontab
 " so this workaround allows for editing
