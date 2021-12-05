@@ -63,8 +63,11 @@ local function config()
 		},
 	})
 
+	-- Load extensions
 	require("telescope").load_extension("fzf")
+	require("telescope").load_extension("dap")
 
+	-- Key mapping
 	vim.api.nvim_set_keymap(
 		"n",
 		"<C-p>",
@@ -83,6 +86,7 @@ return {
 				{ "nvim-lua/popup.nvim" },
 				{ "nvim-lua/plenary.nvim" },
 				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+				{ "nvim-telescope/telescope-dap.nvim" },
 			},
 		})
 	end,
