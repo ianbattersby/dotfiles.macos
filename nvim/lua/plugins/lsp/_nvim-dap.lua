@@ -169,6 +169,8 @@ local function config()
 		},
 		windows = { indent = 1 },
 	})
+
+	require("nvim-dap-virtual-text").setup()
 end
 
 return {
@@ -177,6 +179,7 @@ return {
 			"mfussenegger/nvim-dap",
 			requires = {
 				{ "rcarriga/nvim-dap-ui" },
+				{ "theHamsta/nvim-dap-virtual-text" },
 				{ "leoluz/nvim-dap-go" },
 				{ "mfussenegger/nvim-dap-python" },
 				{ "jbyuki/one-small-step-for-vimkind" },
