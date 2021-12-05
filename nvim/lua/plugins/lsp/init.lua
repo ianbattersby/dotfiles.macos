@@ -8,5 +8,6 @@ return {
 		require("plugins.lsp._treesitter").setup(use)
 		require("plugins.lsp._vim-ultest").setup(use)
 		require("plugins.lsp._nvim-dap").setup(use)
+		require("plugins.lsp._rust-tools").setup(use)
 	end,
 }
