@@ -28,7 +28,7 @@ local function config()
 				{ id = "watches", size = 00.25 },
 			},
 			size = 40,
-			position = "left", -- Can be "left", "right", "top", "bottom"
+			position = "right", -- Can be "left", "right", "top", "bottom"
 		},
 		tray = {
 			--open_on_start = true,
@@ -79,7 +79,7 @@ local function config()
 	vim.api.nvim_set_keymap(
 		"n",
 		"<Leader>dh",
-		"<CMD>lua require('dap.ui.variables').hover()<CR>",
+		"<CMD>lua require('dap.ui.widgets').hover()<CR>",
 		{ noremap = true, silent = true }
 	)
 	vim.api.nvim_set_keymap(
@@ -107,6 +107,13 @@ local function config()
 		{ noremap = true, silent = true }
 	)
 
+	vim.api.nvim_set_keymap(
+		"v",
+		"<Leader>de",
+		"<Cmd>lua require('dapui').eval()<CR>",
+		{ noremap = true, silent = true }
+	)
+
 	-- Configure different adapters
 	dap.adapters.nlua = function(callback, dapconfig)
 		callback({ type = "server", host = dapconfig.host, port = dapconfig.port })
@@ -117,6 +124,13 @@ local function config()
 		type = "executable",
 		command = "/Users/ian/.local/codelldb-aarch64-darwin/extension/adapter/codelldb",
 		name = "lldb",
+	}
+
+	-- Requires: while sleep 1; do codelldb --port 13000; done
+	dap.adapters.codelldb = {
+		type = "server",
+		host = "127.0.0.1",
+		port = 13000,
 	}
 
 	-- Currently experimental, sourced manually from MS repository:
@@ -179,7 +193,22 @@ local function config()
 
 	-- C and Rust can use CPP configuration
 	dap.configurations.c = dap.configurations.cpp
-	dap.configurations.rust = dap.configurations.cpp
+	-- dap.configurations.rust = dap.configurations.cpp
+
+	-- Use this numpty-process version until we can figure out a better way
+	dap.configurations.rust = {
+		{
+			type = "codelldb",
+			request = "launch",
+			program = function()
+
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), '/([%w_-]+)$'), "file")
+			end,
+			cwd = "${workspaceFolder}",
+			terminal = "integrated",
+			sourceLanguages = { "rust" },
+		},
+	}
 
 	-- Go configuration using 'dap-go' extension
 	dapgo.setup()
