@@ -9,5 +9,6 @@ return {
 		require("plugins.lsp._vim-ultest").setup(use)
 		require("plugins.lsp._nvim-dap").setup(use)
 		require("plugins.lsp._rust-tools").setup(use)
+		require("plugins.lsp._nvim-gps").setup(use)
 	end,
 }

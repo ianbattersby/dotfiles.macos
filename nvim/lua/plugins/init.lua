@@ -28,12 +28,12 @@ local function packer_setup()
 		-- Ensure we source packer_compiled from custom path
 		require("packer_compiled")
 
-		require("plugins.appearance").setup(use)
 		require("plugins.editing").setup(use)
 		require("plugins.lsp").setup(use)
 		require("plugins.org").setup(use)
 		require("plugins.navigation").setup(use)
 		require("plugins.terminal").setup(use)
+		require("plugins.appearance").setup(use)
 	end)
 end
 
