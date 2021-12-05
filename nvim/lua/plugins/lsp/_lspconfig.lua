@@ -1,6 +1,7 @@
 local function config()
 	local languages = require("languages")
 	local lspconfig = require("lspconfig")
+
 	local lspinstaller_servers = require("nvim-lsp-installer.servers")
 
 	local on_attach = function(client, bufnr)
