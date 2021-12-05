@@ -8,6 +8,7 @@ local function config()
 			componentseparators = { "", "" },
 			section_separators = { "", "" },
 			extensions = { "fzf" },
+			disabled_filetypes = { "alpha" },
 		},
 		sections = {
 			lualine_a = { "mode" },

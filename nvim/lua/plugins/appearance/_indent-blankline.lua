@@ -6,7 +6,7 @@ local function config()
 
 	require("indent_blankline").setup({
 		buftype_exclude = { "terminal", "telescope", "nofile" },
-		filetype_exclude = { "help", "dashboard", "packer", "NvimTree", "Trouble" },
+		filetype_exclude = { "help", "alpha", "packer", "NvimTree", "Trouble" },
 		space_char_blankline = " ",
 		show_current_context = true,
 		show_current_context_start = false,
