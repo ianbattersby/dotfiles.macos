@@ -1,5 +1,7 @@
-local settings = {
-	cmd = { "/opt/Homebrew/bin/gopls" },
+local config = {
+	settings = {
+		cmd = { "/opt/Homebrew/bin/gopls" },
+	},
 }
 
-return { name = "go", server = "gopls", config = { settings = settings } }
+return { server = "gopls", config = config }
