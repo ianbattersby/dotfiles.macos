@@ -10,6 +10,7 @@ local function config()
 			null_ls.builtins.formatting.terraform_fmt,
 			null_ls.builtins.code_actions.eslint,
 			null_ls.builtins.code_actions.shellcheck,
+			null_ls.builtins.diagnostics.pylint,
 		},
 	})
 end
