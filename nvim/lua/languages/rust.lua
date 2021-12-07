@@ -1,6 +1,15 @@
 -- Inspired and significantly reliant on the awesome rust-tools.nvim, but
 -- this allows more control and to follow the setup pattern already used.
 -- https://github.com/simrat39/rust-tools.nvim
+local language = require("language")
+
+language.new({
+	{
+		mode = "n",
+		keybinding = "<leader>cc",
+		action = '<cmd>lua require("rust-tools.hover_actions").hover_actions()<CR>',
+	},
+})
 
 local config = {
 	settings = {
@@ -91,6 +100,7 @@ local config = {
 			require("rust-tools.server_status").handler
 		),
 	},
+	on_attach = language:on_attach(),
 	root_dir = function(filename)
 		local fname = filename or vim.api.nvim_buf_get_name(0)
 		local cargo_crate_dir = require("lspconfig.util").root_pattern("Cargo.toml")(fname)
@@ -121,10 +131,6 @@ local config = {
 			or require("lspconfig.util").find_git_ancestor(fname)
 	end,
 }
-
--- local on_buffer_attach = {
--- 	{ 'buf_set_keymap("n", "<leader>cc", "lua require(\'rust-tools.hover_actions\').hover_actions", opts)' },
--- }
 
 local function finalize()
 	require("rust-tools.commands").setup_lsp_commands()
