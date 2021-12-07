@@ -198,10 +198,10 @@ local function config()
 	-- Use this numpty-process version until we can figure out a better way
 	dap.configurations.rust = {
 		{
-			type = "codelldb",
+			name = "Rust debug",
+			type = "rt_lldb",
 			request = "launch",
 			program = function()
-
 				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), '/([%w_-]+)$'), "file")
 			end,
 			cwd = "${workspaceFolder}",

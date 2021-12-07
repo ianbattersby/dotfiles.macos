@@ -93,6 +93,10 @@ local function config()
 					lspconfig[language.server].setup(configuration)
 					--vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 				end
+
+				if language.finalize ~= nil then
+					language.finalize()
+				end
 			end
 		end
 

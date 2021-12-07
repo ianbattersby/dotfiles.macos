@@ -1,5 +1,5 @@
 local function config()
-	require("rust-tools").setup({
+	require("rust-tools.config").setup({
 		-- debugging stuff
 		dap = {
 			adapter = require("rust-tools.dap").get_codelldb_adapter(
@@ -8,6 +8,8 @@ local function config()
 			),
 		},
 	})
+
+	require("rust-tools.dap").setup_adapter()
 end
 
 return {
@@ -17,6 +19,8 @@ return {
 			requires = {
 				{ "nvim-lua/popup.nvim" },
 				{ "nvim-lua/plenary.nvim" },
+				{ "mfussenegger/nvim-dap" },
+				{ "nvim-telescope/telescope.nvim" },
 			},
 			config = config,
 		})
