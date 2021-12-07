@@ -116,7 +116,7 @@ local function config()
 
 	-- Configure different adapters
 	dap.adapters.nlua = function(callback, dapconfig)
-		callback({ type = "server", host = dapconfig.host, port = dapconfig.port })
+		callback({ type = "server", host = dapconfig.host or "127.0.0.1", port = dapconfig.port or 8088 })
 	end
 
 	-- Downloaded from https://github.com/vadimcn/vscode-lldb/releases
