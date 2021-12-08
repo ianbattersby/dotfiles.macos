@@ -1,14 +1,24 @@
 local M = {}
 
-setmetatable(M, {
-	__call = function(cls, ...)
-		return cls.new(...)
-	end,
-})
+-- setmetatable(M, {
+-- 	__call = function(cls, ...)
+-- 		return cls.new(...)
+-- 	end,
+-- })
+
+function M:init(config, keymaps)
+	config = config or {}
+	setmetatable(config, self)
+	self.__index = self
+	self.keymaps = keymaps or {}
+	return config
+end
 
 function M.new(keymaps)
-	local self = setmetatable(M, {})
-	self["keymaps"] = keymaps
+	local inst = {}
+	setmetatable(inst, { __index = M })
+	inst:init(nil, keymaps)
+	return inst
 end
 
 function M:on_attach()

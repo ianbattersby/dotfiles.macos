@@ -1,9 +1,9 @@
 -- Inspired and significantly reliant on the awesome rust-tools.nvim, but
--- this allows more control and to follow the setup pattern already used.
+-- lconfig allows more control and to follow the setup pattern already used.
 -- https://github.com/simrat39/rust-tools.nvim
 local language = require("language")
 
-language.new({
+local lconfig = language.new({
 	{
 		mode = "n",
 		keybinding = "<leader>cc",
@@ -100,7 +100,7 @@ local config = {
 			require("rust-tools.server_status").handler
 		),
 	},
-	on_attach = language:on_attach(),
+	on_attach = lconfig:on_attach(),
 	root_dir = function(filename)
 		local fname = filename or vim.api.nvim_buf_get_name(0)
 		local cargo_crate_dir = require("lspconfig.util").root_pattern("Cargo.toml")(fname)
