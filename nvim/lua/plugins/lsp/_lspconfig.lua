@@ -1,11 +1,8 @@
 local function config()
 	local languages = require("languages")
 	local lspconfig = require("lspconfig")
-	local language = require("language")
 
 	local lspinstaller_servers = require("nvim-lsp-installer.servers")
-
-	local lconfig = language.new() -- Just load the default key-bindings
 
 	local function make_config()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -18,7 +15,6 @@ local function config()
 				return lspconfig.util.find_git_ancestor(fname) or require("utils").find_session_directory()
 			end,
 			capabilities = capabilities,
-			on_attach = lconfig:on_attach(),
 		}
 	end
 
@@ -29,8 +25,12 @@ local function config()
 			local language = languages[language_impl]
 
 			if language then
-				local configuration = make_config()
-				configuration = vim.tbl_deep_extend("force", configuration, language.config)
+				local configuration = vim.tbl_deep_extend("force", make_config(), language.config)
+
+				if configuration.on_attach == nil then
+					local lconfig = require("language").new()
+					configuration.on_attach = lconfig:on_attach()
+				end
 
 				local server_available, requested_server = lspinstaller_servers.get_server(language.server)
 				--print("LspInstaller server available for ", language.server, "? ", server_available)

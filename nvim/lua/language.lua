@@ -69,6 +69,7 @@ function M:on_attach()
 		buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
 		-- Load custom keymaps
+		--print(require("utils").tprint(self.keymaps))
 		for _, keymap in ipairs(self.keymaps) do
 			buf_set_keymap(keymap.mode, keymap.keybinding, keymap.action, opts)
 		end
