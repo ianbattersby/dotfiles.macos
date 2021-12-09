@@ -28,7 +28,7 @@ local function config()
 				local configuration = vim.tbl_deep_extend("force", make_config(), language.config)
 
 				if configuration.on_attach == nil then
-					local lconfig = require("language").new()
+					local lconfig = require("lspbuilder").new()
 					configuration.on_attach = lconfig:on_attach()
 				end
 

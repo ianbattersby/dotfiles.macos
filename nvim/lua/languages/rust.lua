@@ -1,9 +1,7 @@
 -- Inspired and significantly reliant on the awesome rust-tools.nvim, but
 -- lconfig allows more control and to follow the setup pattern already used.
 -- https://github.com/simrat39/rust-tools.nvim
-local language = require("language")
-
-local lconfig = language.new({
+local lconfig = require("lspbuilder").new({
 	{
 		mode = "n",
 		keybinding = "<leader>cc",
