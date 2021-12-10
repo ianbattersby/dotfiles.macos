@@ -14,7 +14,7 @@ local function packer_setup()
 
 	packer.init({
 		-- Specify a compile_path for packer_compiled to enable impatient to cache it
-		compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+		--compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
 	})
 
 	packer.startup(function(use)
@@ -26,7 +26,7 @@ local function packer_setup()
 		vim.g.did_load_filetypes = 1
 
 		-- Ensure we source packer_compiled from custom path
-		require("packer_compiled")
+		--require("packer_compiled")
 
 		require("plugins.appearance").setup(use)
 		require("plugins.editing").setup(use)
@@ -42,17 +42,17 @@ local function setup()
 	local impatient = require("impatient")
 	impatient.enable_profile()
 
-	-- Ensure packer is installed and load plugins
-	ensure_packer()
-	packer_setup()
-
 	-- Autoload changes to plugin files
 	vim.cmd([[
     augroup packer_user_config
       autocmd!
-      autocmd BufWritePost ]] .. string.format("%s/**", vim.fn.stdpath("config")) .. [[  source <afile> | PackerCompile
+		  autocmd BufWritePost ]] .. string.format("%s/**", vim.fn.stdpath("config")) .. [[  source <afile> | PackerCompile
     augroup end
   ]])
+
+	-- Ensure packer is installed and load plugins
+	ensure_packer()
+	packer_setup()
 end
 
 return { setup = setup }

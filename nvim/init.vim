@@ -132,8 +132,6 @@ set updatetime=300
 "autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 "\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
-" Tell VSnip where to find snippets
-
 " Hand-off to the lua configuration
 lua require "init"
 
