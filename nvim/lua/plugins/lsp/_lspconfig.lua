@@ -1,6 +1,6 @@
 local function config()
-	local languages = require("languages")
 	local lspconfig = require("lspconfig")
+	local languages = require("languages")
 
 	local lspinstaller_servers = require("nvim-lsp-installer.servers")
 
@@ -25,6 +25,10 @@ local function config()
 			local language = languages[language_impl]
 
 			if language then
+				if language.initialize ~= nil then
+					language.initialize()
+				end
+
 				local configuration = vim.tbl_deep_extend("force", make_config(), language.config)
 
 				if configuration.on_attach == nil then
@@ -78,6 +82,7 @@ return {
 		use({
 			"neovim/nvim-lspconfig",
 			requires = { "williamboman/nvim-lsp-installer", "nvim-lua/lsp_extensions.nvim" },
+			after = { "rust-tools.nvim", "nvim-lsp-installer", "nvim-cmp" },
 			config = config,
 		})
 	end,

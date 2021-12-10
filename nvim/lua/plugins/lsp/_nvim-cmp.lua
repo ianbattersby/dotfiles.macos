@@ -145,6 +145,7 @@ return {
 				{ "saadparwaiz1/cmp_luasnip", opt = false },
 				{ "rafamadriz/friendly-snippets" },
 			},
+			after = { "nvim-autopairs", "LuaSnip" },
 			config = config,
 		})
 	end,

@@ -82,6 +82,7 @@ return {
 		use({
 			"nvim-telescope/telescope.nvim",
 			config = config,
+			after = { "trouble.nvim" },
 			requires = {
 				{ "nvim-lua/popup.nvim" },
 				{ "nvim-lua/plenary.nvim" },

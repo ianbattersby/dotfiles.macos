@@ -15,6 +15,7 @@ return {
 		use({
 			"monsonjeremy/onedark.nvim",
 			config = config,
+			run = ":colorscheme onedark",
 		})
 	end,
 }

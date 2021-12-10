@@ -7,6 +7,7 @@ return {
 		use({
 			"goolord/alpha-nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
+			after = { "onedark.nvim", "nvim-web-devicons" },
 			config = config,
 		})
 	end,

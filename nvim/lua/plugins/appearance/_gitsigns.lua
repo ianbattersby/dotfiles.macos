@@ -13,6 +13,7 @@ return {
 			requires = {
 				"nvim-lua/plenary.nvim",
 			},
+			after = { "onedark.nvim" },
 			config = config,
 		})
 	end,
