@@ -1,7 +1,9 @@
 local function config()
 	local null_ls = require("null-ls")
+	local lconfig = require("lspbuilder").new()
 
-	null_ls.config({
+	null_ls.setup({
+		on_attach = lconfig:on_attach(),
 		sources = {
 			null_ls.builtins.formatting.prettier.with({
 				filetypes = { "html", "markdown" },
@@ -13,8 +15,6 @@ local function config()
 			null_ls.builtins.diagnostics.pylint,
 		},
 	})
-
-	require("lspconfig")["null-ls"].setup({})
 end
 
 return {
