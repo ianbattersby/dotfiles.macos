@@ -34,5 +34,20 @@ return {
 
 		-- Circumvent OS X hash issue
 		vim.api.nvim_set_keymap("i", "<A-3>", "<C-v>035", { silent = true, noremap = false })
+
+		-- Make Y yank to end of the line
+		--vim.api.nvim_set_keymap("n", "Y", "y$")
+
+		-- Make visual yanks place the cursor back where started
+		vim.api.nvim_set_keymap("v", "y", "ygv<Esc>", { noremap = true })
+
+		-- Shift + J/K moves selected lines down/up in visual mode
+		vim.api.nvim_set_keymap("n", "<c-j>", "<cmd>m .+1<CR>==", { silent = true })
+		vim.api.nvim_set_keymap("n", "<c-k>", "<cmd>m .-2<CR>==", { silent = true })
+		vim.api.nvim_set_keymap("v", "<c-j>", ":m '>+1<CR>==gv=gv", { silent = true })
+		vim.api.nvim_set_keymap("v", "<c-k>", ":m '<-2<CR>==gv=gv", { silent = true })
+
+		--After searching, pressing escape stops the highlight
+		--vim.api.nvim_set_keymap("n", "<esc>", ":noh<cr><esc>", { silent = true })
 	end,
 }
