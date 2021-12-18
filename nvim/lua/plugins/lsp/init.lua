@@ -9,5 +9,6 @@ return {
 		require("plugins.lsp._treesitter").setup(use)
 		require("plugins.lsp._trouble").setup(use)
 		require("plugins.lsp._vim-ultest").setup(use)
+		require("plugins.lsp._copilot-vim").setup(use)
 	end,
 }

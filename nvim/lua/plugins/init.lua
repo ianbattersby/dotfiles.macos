@@ -17,24 +17,35 @@ local function packer_setup()
 		--compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
 	})
 
-	packer.startup(function(use)
-		use("wbthomason/packer.nvim")
-		use("lewis6991/impatient.nvim")
-		use("nathom/filetype.nvim")
+	packer.startup({
+		function(use)
+			use("wbthomason/packer.nvim")
+			use("lewis6991/impatient.nvim")
+			use("nathom/filetype.nvim")
 
-		-- Do not source the default filetype.vim
-		vim.g.did_load_filetypes = 1
+			-- Do not source the default filetype.vim
+			vim.g.did_load_filetypes = 1
 
-		-- Ensure we source packer_compiled from custom path
-		--require("packer_compiled")
+			-- Ensure we source packer_compiled from custom path
+			--require("packer_compiled")
 
-		require("plugins.appearance").setup(use)
-		require("plugins.editing").setup(use)
-		require("plugins.lsp").setup(use)
-		require("plugins.org").setup(use)
-		require("plugins.navigation").setup(use)
-		require("plugins.terminal").setup(use)
-	end)
+			require("plugins.appearance").setup(use)
+			require("plugins.editing").setup(use)
+			require("plugins.lsp").setup(use)
+			require("plugins.org").setup(use)
+			require("plugins.navigation").setup(use)
+			require("plugins.terminal").setup(use)
+		end,
+		config = {
+			display = {
+				open_fn = require("packer.util").float,
+			},
+			profile = {
+				enable = true,
+				threshold = 1,
+			},
+		},
+	})
 end
 
 local function setup()
