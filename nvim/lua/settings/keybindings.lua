@@ -21,12 +21,16 @@ return {
 		vim.api.nvim_set_keymap("n", "<leader>w", "<CMD>w", { noremap = true })
 
 		-- Quick buffer switching
-		vim.api.nvim_set_keymap(
-			"n",
-			"<Tab>",
-			"<CMD>lua require'telescope.builtin'.buffers{ sort_lastused = true }<CR>",
-			{ noremap = true }
-		)
+		-- vim.api.nvim_set_keymap(
+		-- 	"n",
+		-- 	"<Tab>",
+		-- 	"<CMD>lua require'telescope.builtin'.buffers{ sort_lastused = true }<CR>",
+		-- 	{ noremap = true }
+		-- )
+
+		-- Tab to switch buffers in Normal mode
+		vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true })
+		vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true })
 
 		-- Circumvent OS X hash issue
 		vim.api.nvim_set_keymap("i", "<A-3>", "<C-v>035", { silent = true, noremap = false })
