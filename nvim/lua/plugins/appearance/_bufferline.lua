@@ -1,8 +1,8 @@
 local function config()
-  require("nvim-web-devicons").setup({
+  require("nvim-web-devicons").setup {
     default = true,
-  })
-  require("bufferline").setup({
+  }
+  require("bufferline").setup {
     options = {
       separator_style = "thin",
       numbers = "buffer_id",
@@ -16,16 +16,16 @@ local function config()
         return s
       end,
     },
-  })
+  }
 end
 
 return {
   setup = function(use)
-    use({
+    use {
       "akinsho/nvim-bufferline.lua",
       requires = "kyazdani42/nvim-web-devicons",
       after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
-    })
+    }
   end,
 }

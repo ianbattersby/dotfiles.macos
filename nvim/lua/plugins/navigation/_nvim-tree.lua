@@ -1,9 +1,9 @@
 local function config()
-  vim.cmd([[nnoremap <C-n> :NvimTreeToggle<CR>]])
-  vim.cmd([[nnoremap <leader>r :NvimTreeRefresh<CR>]])
-  vim.cmd([[nnoremap <leader>n :NvimTreeFindFile<CR>]])
+  vim.cmd [[nnoremap <C-n> :NvimTreeToggle<CR>]]
+  vim.cmd [[nnoremap <leader>r :NvimTreeRefresh<CR>]]
+  vim.cmd [[nnoremap <leader>n :NvimTreeFindFile<CR>]]
 
-  require("nvim-tree").setup({
+  require("nvim-tree").setup {
     disable_netrw = true,
     hijack_netrw = true,
     open_on_setup = false,
@@ -49,16 +49,16 @@ local function config()
         list = {},
       },
     },
-  })
+  }
 end
 
 return {
   setup = function(use)
-    use({
+    use {
       "kyazdani42/nvim-tree.lua",
       requires = { "kyazdani42/nvim-web-devicons" },
       after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
-    })
+    }
   end,
 }
