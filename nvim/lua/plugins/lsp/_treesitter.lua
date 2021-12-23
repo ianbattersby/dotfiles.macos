@@ -37,6 +37,13 @@ local function config()
     refactor = {
       highlight_current_scope = { enable = false },
       highlight_definitions = { enable = true },
+      smart_rename = { enable = true, keymaps = { smart_rename = "gnr" } },
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition_lsp_fallback = "gnd",
+        },
+      },
     },
     incremental_selection = {
       enable = true,
@@ -54,6 +61,7 @@ return {
   setup = function(use)
     use {
       "nvim-treesitter/nvim-treesitter",
+      requires = { "nvim-treesitter/nvim-treesitter-refactor" },
       run = ":TSUpdate",
       config = config,
     }
