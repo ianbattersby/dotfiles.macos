@@ -26,7 +26,7 @@ local function config()
         prompt_position = "top",
       },
       file_sorter = require("telescope.sorters").get_fzy_sorter,
-      prompt_prefix = "🔍 ",
+      prompt_prefix = " 🔍 ",
       color_devicons = true,
 
       sorting_strategy = "ascending",
@@ -118,7 +118,6 @@ return {
       config = config,
       after = { "trouble.nvim" },
       requires = {
-        { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-dap.nvim" },
