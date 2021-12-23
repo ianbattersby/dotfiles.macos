@@ -7,7 +7,6 @@ return {
     require("plugins.lsp._nvim-gps").setup(use)
     require("plugins.lsp._rust-tools").setup(use)
     require("plugins.lsp._treesitter").setup(use)
-    require("plugins.lsp._navigator").setup(use)
     require("plugins.lsp._trouble").setup(use)
     require("plugins.lsp._vim-ultest").setup(use)
     require("plugins.lsp._copilot-vim").setup(use)
