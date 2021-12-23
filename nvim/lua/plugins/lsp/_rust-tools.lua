@@ -17,10 +17,8 @@ return {
     use {
       "simrat39/rust-tools.nvim",
       requires = {
-        { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
         { "mfussenegger/nvim-dap" },
-        { "nvim-telescope/telescope.nvim" },
       },
       config = config,
     }
