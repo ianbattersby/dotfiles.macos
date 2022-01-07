@@ -1,6 +1,7 @@
 local function config()
   local lspconfig = require "lspconfig"
   local languages = require "languages"
+  local lspstatus = require "lsp-status"
 
   local lspinstaller_servers = require "nvim-lsp-installer.servers"
 
@@ -8,6 +9,10 @@ local function config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+    -- Enhance capabilities according to lsp-status
+    capabilities = vim.tbl_extend("keep", capabilities or {}, lspstatus.capabilities)
+
+    -- Enhance capabilities according to cmp_nvim_lsp
     require("cmp_nvim_lsp").update_capabilities(capabilities)
 
     return {
@@ -66,6 +71,8 @@ local function config()
     end
   end
 
+  lspstatus.register_progress()
+
   setup_servers()
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -81,8 +88,8 @@ return {
   setup = function(use)
     use {
       "neovim/nvim-lspconfig",
-      requires = { "williamboman/nvim-lsp-installer", "nvim-lua/lsp_extensions.nvim" },
-      after = { "rust-tools.nvim", "nvim-lsp-installer", "nvim-cmp" },
+      requires = { "williamboman/nvim-lsp-installer", "nvim-lua/lsp_extensions.nvim", "nvim-lua/lsp-status.nvim" },
+      after = { "rust-tools.nvim", "nvim-lsp-installer", "nvim-cmp", "lsp-status.nvim" },
       config = config,
     }
   end,

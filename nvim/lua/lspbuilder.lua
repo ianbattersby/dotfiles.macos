@@ -27,9 +27,12 @@ function M:on_attach()
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
-    local function buf_set_option(...)
-      vim.api.nvim_buf_set_option(bufnr, ...)
-    end
+    -- local function buf_set_option(...)
+    --   vim.api.nvim_buf_set_option(bufnr, ...)
+    -- end
+
+    -- Register lsp-status for updates
+    require("lsp-status").on_attach(client)
 
     -- Mappings.
     local opts = { noremap = true, silent = true } -- Mappings.
