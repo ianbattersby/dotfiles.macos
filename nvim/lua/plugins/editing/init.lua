@@ -7,5 +7,6 @@ return {
     require("plugins.editing._textobj-variable-segment").setup(use)
     require("plugins.editing._vim-strip-trailing-whitespace").setup(use)
     require("plugins.editing._pretty-fold").setup(use)
+    require("plugins.editing._nvim-scrollbar").setup(use)
   end,
 }
