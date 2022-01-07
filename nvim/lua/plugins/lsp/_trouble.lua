@@ -2,8 +2,8 @@ local function config()
   require("trouble").setup {
     position = "bottom",
     height = 10,
-    auto_open = true,
-    auto_close = false,
+    auto_open = false,
+    auto_close = true,
   }
 
   vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
