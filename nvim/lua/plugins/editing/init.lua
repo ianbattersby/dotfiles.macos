@@ -8,5 +8,6 @@ return {
     require("plugins.editing._vim-strip-trailing-whitespace").setup(use)
     require("plugins.editing._pretty-fold").setup(use)
     require("plugins.editing._nvim-scrollbar").setup(use)
+    require("plugins.editing._nvim-hlslens").setup(use)
   end,
 }
