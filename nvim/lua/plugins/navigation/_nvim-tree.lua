@@ -24,10 +24,10 @@ local function config()
     diagnostics = {
       enable = false,
       icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
       },
     },
     system_open = {
