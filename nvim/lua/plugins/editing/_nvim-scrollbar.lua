@@ -14,6 +14,10 @@ local function config()
       Hint = { color = colors.hint },
       Misc = { color = colors.purple },
     },
+    handlers = {
+      diagnostic = true,
+      search = true,
+    },
   }
 end
 
