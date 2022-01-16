@@ -7,5 +7,6 @@ return {
     require("plugins.navigation._tmux-navigator").setup(use)
     require("plugins.navigation._whichkey").setup(use)
     require("plugins.navigation._neogit").setup(use)
+    require("plugins.navigation._help-vsplit").setup(use)
   end,
 }
