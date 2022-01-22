@@ -9,6 +9,14 @@ local function config()
     },
   }
 
+  parser_configs.hcl = {
+    install_info = {
+      url = "https://github.com/MichaHoffmann/tree-sitter-hcl",
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main",
+    },
+  }
+
   require("nvim-treesitter.configs").setup {
     ensure_installed = {
       "bash",
@@ -27,6 +35,7 @@ local function config()
       "toml",
       "yaml",
       "norg",
+      "hcl",
     }, --"maintained", --vim.tbl_keys(require'languages')),
     highlight = {
       enable = true,

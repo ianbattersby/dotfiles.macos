@@ -21,7 +21,19 @@ local function packer_setup()
     function(use)
       use "wbthomason/packer.nvim"
       use "lewis6991/impatient.nvim"
-      use "nathom/filetype.nvim"
+
+      use {
+        "nathom/filetype.nvim",
+        config = function()
+          require("filetype").setup {
+            overrides = {
+              extensions = {
+                tf = "terraform",
+              },
+            },
+          }
+        end,
+      }
 
       -- Do not source the default filetype.vim
       vim.g.did_load_filetypes = 1
