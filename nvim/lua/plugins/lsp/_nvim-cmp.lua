@@ -1,3 +1,17 @@
+local function tabnine_config()
+  require("cmp_tabnine.config"):setup {
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = "..",
+    ignored_file_types = { -- default is not to ignore
+      -- uncomment to ignore in lua:
+      -- lua = true
+    },
+  }
+end
+
 local function config()
   local cmp = require "cmp"
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
@@ -48,6 +62,8 @@ local function config()
           nvim_lua = "[Lua]",
           latex_symbols = "[LaTeX]",
           neorg = "[Neorg]",
+          path = "[Path]",
+          cmp_tabnine = "[TN]",
         })[entry.source.name]
         return vim_item
       end,
@@ -102,6 +118,7 @@ local function config()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "neorg" },
+      { name = "cmp_tabnine" },
     }, {
       { name = "buffer" },
     }),
@@ -141,6 +158,7 @@ return {
         { "L3MON4D3/LuaSnip", opt = false },
         { "saadparwaiz1/cmp_luasnip", opt = false },
         { "rafamadriz/friendly-snippets" },
+        { "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", config = tabnine_config },
       },
       after = { "nvim-autopairs", "LuaSnip" },
       config = config,
