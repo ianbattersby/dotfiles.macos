@@ -6,10 +6,10 @@ local function config()
     auto_close = true,
   }
 
-  vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+  vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
   vim.api.nvim_set_keymap(
     "n",
-    "<leader>xw",
+    "<leader>tw",
     "<cmd>TroubleToggle workspace_diagnostics<cr>",
     { silent = true, noremap = true }
   )
@@ -18,7 +18,7 @@ local function config()
   --   noremap = true,
   -- })
   --vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
-  vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
+  --vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
   --vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true })
 end
 

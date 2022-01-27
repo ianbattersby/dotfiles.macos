@@ -74,7 +74,7 @@ function M:on_attach()
     buf_set_keymap("n", "[d", '<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>', opts)
     buf_set_keymap("n", "]d", '<cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>', opts)
     --buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-    buf_set_keymap("n", "<leader>q", "<cmd>Trouble loclist<CR>", opts)
+    buf_set_keymap("n", "<leader>q", "<cmd>TroubleToggle loclist<CR>", opts)
 
     -- Load custom keymaps
     --print(require("utils").tprint(self.keymaps))
