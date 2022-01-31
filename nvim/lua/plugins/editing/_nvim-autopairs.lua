@@ -11,6 +11,8 @@ local function config()
       "clap_input",
       "packer",
       "help",
+      "NvimTree",
+      "Trouble",
     },
     check_ts = true,
     ts_config = {
