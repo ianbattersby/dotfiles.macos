@@ -88,7 +88,12 @@ return {
   setup = function(use)
     use {
       "neovim/nvim-lspconfig",
-      requires = { "williamboman/nvim-lsp-installer", "nvim-lua/lsp_extensions.nvim", "nvim-lua/lsp-status.nvim" },
+      requires = {
+        "williamboman/nvim-lsp-installer",
+        "nvim-lua/lsp_extensions.nvim",
+        "nvim-lua/lsp-status.nvim",
+        "ray-x/lsp_signature.nvim",
+      },
       after = { "rust-tools.nvim", "nvim-lsp-installer", "nvim-cmp", "lsp-status.nvim" },
       config = config,
     }
