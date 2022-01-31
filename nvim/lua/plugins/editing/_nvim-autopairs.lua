@@ -3,7 +3,15 @@ local function config()
   local Rule = require "nvim-autopairs.rule"
 
   npairs.setup {
-    disable_filetype = { "TelescopePrompt", "vim", "guihua", "guihua_rust", "clap_input", "packer", "help" },
+    disable_filetype = {
+      "TelescopePrompt",
+      "vim",
+      "guihua",
+      "guihua_rust",
+      "clap_input",
+      "packer",
+      "help",
+    },
     check_ts = true,
     ts_config = {
       lua = { "string" }, -- it will not add a pair on that treesitter node
