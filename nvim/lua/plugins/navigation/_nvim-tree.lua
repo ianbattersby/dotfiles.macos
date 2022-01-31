@@ -1,7 +1,6 @@
 local function config()
   vim.cmd [[nnoremap <C-n> :NvimTreeToggle<CR>]]
   vim.cmd [[nnoremap <leader>r :NvimTreeRefresh<CR>]]
-  vim.cmd [[nnoremap <leader>n :NvimTreeFindFile<CR>]]
 
   require("nvim-tree").setup {
     disable_netrw = true,
