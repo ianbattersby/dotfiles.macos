@@ -2,10 +2,8 @@ local name = "onedark"
 
 local function config()
   require("onedark").setup {
-    --     transparent = true,
-    --     colors = {
-    --       bg = "#8c6642",
-    --     }
+
+    sidebars = { "terminal", "telescope", "packer", "trouble", "NvimTree", "alpha" },
   }
 end
 
