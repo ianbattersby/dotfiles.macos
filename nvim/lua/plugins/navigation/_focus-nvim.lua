@@ -1,5 +1,8 @@
 local function config()
-  require("focus").setup()
+  require("focus").setup {
+    cursorline = false,
+    signcolumn = false,
+  }
 
   vim.api.nvim_set_keymap("n", "<leader>fsn", ":FocusSplitNicely<CR>", { silent = true })
   vim.api.nvim_set_keymap("n", "<leader>fsc", ":FocusSplitCycle<CR>", { silent = true })
