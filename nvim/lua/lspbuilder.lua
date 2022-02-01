@@ -27,31 +27,9 @@ function M:on_attach()
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
-    -- local function buf_set_option(...)
-    --   vim.api.nvim_buf_set_option(bufnr, ...)
-    -- end
-
-    -- Register lsp-status for updates
-    require("lsp-status").on_attach(client)
-
-    -- Register lsp_signature for signature help
-    require("lsp_signature").on_attach({
-      bind = true,
-      doc_lines = 0,
-      floating_window = true,
-      fix_pos = true,
-      hint_enable = true,
-      hint_prefix = " ",
-      hint_scheme = "String",
-      hi_parameter = "Search",
-      max_height = 22,
-      max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-      handler_opts = {
-        border = "rounded", -- double, rounded, single, shadow, none
-      },
-      zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
-      padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
-    }, bufnr)
+    local function buf_set_option(...)
+      vim.api.nvim_buf_set_option(bufnr, ...)
+    end
 
     -- Mappings.
     local opts = { noremap = true, silent = true } -- Mappings.
@@ -100,6 +78,28 @@ function M:on_attach()
     for _, keymap in ipairs(self.keymaps) do
       buf_set_keymap(keymap.mode, keymap.keybinding, keymap.action, opts)
     end
+
+    -- Register lsp-status for updates
+    require("lsp-status").on_attach(client)
+
+    -- Register lsp_signature for signature help
+    require("lsp_signature").on_attach({
+      bind = true,
+      doc_lines = 0,
+      floating_window = true,
+      fix_pos = true,
+      hint_enable = true,
+      hint_prefix = " ",
+      hint_scheme = "String",
+      hi_parameter = "Search",
+      max_height = 22,
+      max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+      handler_opts = {
+        border = "rounded", -- double, rounded, single, shadow, none
+      },
+      zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
+      padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
+    }, bufnr)
   end
 end
 
