@@ -58,56 +58,46 @@ local function config()
   end
 
   -- Key mapping
+  local opts = { noremap = true, silent = true }
+
+  vim.api.nvim_set_keymap("n", "<leader>dc", "<CMD>lua require('dap').continue()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<leader>dr", "<CMD>lua require'dap'.repl.open()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<Leader>b", "<CMD>lua require('dap').toggle_breakpoint()<CR>", opts)
   vim.api.nvim_set_keymap(
     "n",
-    "<Leader>db",
-    "<CMD>lua require('dap').toggle_breakpoint()<CR>",
-    { noremap = true, silent = true }
+    "<Leader>B",
+    "<CMD>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition > '))<CR>",
+    opts
   )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>dc",
-    "<CMD>lua require('dap').continue()<CR>",
-    { noremap = true, silent = true }
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>dd",
-    "<CMD>lua require('dap').continue()<CR>",
-    { noremap = true, silent = true }
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>dh",
-    "<CMD>lua require('dap.ui.widgets').hover()<CR>",
-    { noremap = true, silent = true }
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>di",
-    "<CMD>lua require('dap').step_into()<CR>",
-    { noremap = true, silent = true }
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>do",
-    "<CMD>lua require('dap').step_out()<CR>",
-    { noremap = true, silent = true }
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>dO",
-    "<CMD>lua require('dap').step_over()<CR>",
-    { noremap = true, silent = true }
-  )
+  vim.api.nvim_set_keymap("n", "<F5>", "<CMD>lua require('dap').continue()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<F11>", "<CMD>lua require('dap').step_into()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<F10>", "<CMD>lua require('dap').step_over()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<F12>", "<CMD>lua require('dap').step_out()<CR>", opts)
+
+  -- Evaluate expressions
+  vim.api.nvim_set_keymap("v", "<leader>de", "<CMD>lua require('dapui').eval()<CR>", opts)
+  vim.api.nvim_set_keymap("n", "<leader>dE", "<CMD>lua require('dapui').eval(vim.fn.input 'Expression > ')<CR>", opts)
+
+  -- Hover window
+  vim.api.nvim_set_keymap("n", "<Leader>dh", "<CMD>lua require('dap.ui.widgets').hover()<CR>", opts)
+
+  -- Wire-up variable scopes floating window (easier than squashed side-bar)
   vim.api.nvim_set_keymap(
     "n",
     "<Leader>ds",
-    "<CMD>lua require('dap.ui.variables').scopes()<CR>",
-    { noremap = true, silent = true }
+    "<CMD>lua require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes)<CR>",
+    opts
   )
 
-  vim.api.nvim_set_keymap("v", "<Leader>de", "<Cmd>lua require('dapui').eval()<CR>", { noremap = true, silent = true })
+  -- You can set trigger characters OR it will default to '.'
+  -- You can also trigger with the omnifunc, <c-x><c-o>
+  vim.cmd [[
+augroup DanRepl
+au!
+au FileType dan-repl lua require('dap.ext.autocompl').attach()
+augroup END
+]]
 
   -- Configure different adapters
   dap.adapters.nlua = function(callback, dapconfig)
