@@ -1,5 +1,6 @@
 local function config()
   require("focus").setup {
+    excluded_buftypes = { "nofile", "prompt", "popup" },
     cursorline = false,
     signcolumn = false,
   }
