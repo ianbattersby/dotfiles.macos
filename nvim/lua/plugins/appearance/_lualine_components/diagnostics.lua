@@ -41,12 +41,12 @@ M.update_status = function(self)
   end
 
   if #vim.lsp.buf_get_clients() == 0 then
-    return (colors["error"] or "") .. "⨯"
+    return (colors["error"] or "") .. "  "
   end
 
   local status = M.super.update_status(self)
   if status == "" then
-    return (colors["hint"] or "") .. "✓"
+    return (colors["green"] or "") .. "  "
   else
     return status
   end
