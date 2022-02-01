@@ -48,7 +48,8 @@ function M:on_attach()
     end
 
     -- Enable completion triggered by <c-x><c-o>
-    --buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr()")
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
