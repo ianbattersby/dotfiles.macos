@@ -3,7 +3,12 @@ local function config()
     enabled = true,
   }
 
-  vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
+  require("which-key").register({
+    c = {
+      name = "Annotate",
+      n = { " require('neogen').generate()<CR>", "Annotate" },
+    },
+  }, { prefix = "<leader>" })
 end
 
 return {
@@ -11,6 +16,7 @@ return {
     use {
       "danymat/neogen",
       requires = { "nvim-treesitter/nvim-treesitter" },
+      after = "which-key.nvim",
       config = config,
     }
   end,

@@ -48,13 +48,13 @@ local function config()
           ["<C-q>"] = actions.send_to_qflist,
           ["<C-s>"] = actions.cycle_previewers_next,
           ["<C-a>"] = actions.cycle_previewers_prev,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<C-t>"] = trouble.open_with_trouble,
           ["<C-h>"] = "which_key",
         },
         n = {
           ["<C-s>"] = actions.cycle_previewers_next,
           ["<C-a>"] = actions.cycle_previewers_prev,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<C-t>"] = trouble.open_with_trouble,
           ["cd"] = function(prompt_bufnr)
             local selection = require("telescope.actions.state").get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ":p:h")
@@ -78,37 +78,23 @@ local function config()
   require("telescope").load_extension "dap"
 
   -- Key mapping
-  vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>lua require'telescope.builtin'.find_files({})<CR>", { noremap = true })
+  require("which-key").register {
+    ["<C-p>"] = { "<CMD>lua require'telescope.builtin'.find_files({})<CR>", "Find Files" },
+    ["<C-s>"] = { "<CMD>Telescope live_grep<CR>", "Search Files" },
+  }
 
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>ff",
-    "<CMD>lua require'telescope.builtin'.find_files({})<CR>",
-    { noremap = true }
-  )
-
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fg",
-    "<CMD>lua if not pcall(require'telescope.builtin'.git_files, { sort_last_used = true }) then require'telescope.builtin'.find_files({}) end<CR>",
-    { noremap = true }
-  )
-
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fl",
-    "<CMD>lua require'telescope.builtin'.find_files({ sort_last_used = true })<CR>",
-    { noremap = true }
-  )
-
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fb",
-    "<CMD>lua require'telescope.builtin'.buffers({ sort_last_used = true })<CR>",
-    { noremap = true }
-  )
-
-  vim.api.nvim_set_keymap("n", "<C-s>", "<CMD>Telescope live_grep<CR>", { noremap = true })
+  require("which-key").register({
+    f = {
+      name = "Find",
+      f = { "<CMD>lua require'telescope.builtin'.find_files({})<CR>", "Files" },
+      l = { "<CMD>lua require'telescope.builtin'.find_files({ sort_last_used = true })<CR>", "Last Opened" },
+      g = {
+        "<CMD>lua if not pcall(require'telescope.builtin'.git_files, { sort_last_used = true }) then require'telescope.builtin'.find_files({}) end<CR>",
+        "Git-files",
+      },
+      b = { "<CMD>lua require'telescope.builtin'.buffers({ sort_last_used = true })<CR>", "Buffers" },
+    },
+  }, { prefix = "<leader>" })
 end
 
 return {
@@ -116,7 +102,7 @@ return {
     use {
       "nvim-telescope/telescope.nvim",
       config = config,
-      after = { "trouble.nvim" },
+      after = { "trouble.nvim", "which-key.nvim" },
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },

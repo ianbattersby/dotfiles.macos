@@ -5,7 +5,8 @@ local lconfig = require("lspbuilder").new {
   {
     mode = "n",
     keybinding = "<leader>cc",
-    action = '<cmd>lua require("rust-tools.hover_actions").hover_actions()<CR>',
+    action = ':lua require("rust-tools.hover_actions").hover_actions()<CR>',
+    desc = "Rust Actions",
   },
 }
 

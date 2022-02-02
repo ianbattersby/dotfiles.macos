@@ -42,10 +42,10 @@ local function packer_setup()
       --require("packer_compiled")
 
       require("plugins.appearance").setup(use)
+      require("plugins.navigation").setup(use)
       require("plugins.editing").setup(use)
       require("plugins.lsp").setup(use)
       require("plugins.org").setup(use)
-      require("plugins.navigation").setup(use)
       require("plugins.terminal").setup(use)
     end,
     config = {

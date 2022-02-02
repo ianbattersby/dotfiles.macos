@@ -6,13 +6,14 @@ local function config()
     auto_close = true,
   }
 
-  vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>tw",
-    "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { silent = true, noremap = true }
-  )
+  require("which-key").register({
+    t = {
+      name = "Diagnostics",
+      t = { ":TroubleToggle<CR>", "Show (Buffer)" },
+      w = { ":TroubleToggle workspace_diagnostics<CR>", "Show (Workspace)" },
+    },
+  }, { prefix = "<leader>" })
+
   -- vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", {
   --   silent = true,
   --   noremap = true,
@@ -29,6 +30,7 @@ return {
       requires = {
         { "kyazdani42/nvim-web-devicons" },
       },
+      after = "which-key.nvim",
       config = config,
     }
   end,

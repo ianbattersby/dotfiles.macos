@@ -58,37 +58,63 @@ local function config()
   end
 
   -- Key mapping
-  local opts = { noremap = true, silent = true }
+  -- Let's use whichkey to make our mappings more transparent.
+  require("which-key").register({
+    ["<F5>"] = { "<cmd>lua require('dap').continue()<CR>", "Run/Continue" },
+    ["<F10>"] = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
+    ["<F11>"] = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
+    ["<F12>"] = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
+  }, { prefix = "" })
 
-  vim.api.nvim_set_keymap("n", "<leader>dc", "<CMD>lua require('dap').continue()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<leader>dr", "<CMD>lua require'dap'.repl.open()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<Leader>b", "<CMD>lua require('dap').toggle_breakpoint()<CR>", opts)
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>B",
-    "<CMD>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition > '))<CR>",
-    opts
-  )
-  vim.api.nvim_set_keymap("n", "<F5>", "<CMD>lua require('dap').continue()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<F11>", "<CMD>lua require('dap').step_into()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<F10>", "<CMD>lua require('dap').step_over()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<F12>", "<CMD>lua require('dap').step_out()<CR>", opts)
-
-  -- Evaluate expressions
-  vim.api.nvim_set_keymap("v", "<leader>de", "<CMD>lua require('dapui').eval()<CR>", opts)
-  vim.api.nvim_set_keymap("n", "<leader>dE", "<CMD>lua require('dapui').eval(vim.fn.input 'Expression > ')<CR>", opts)
-
-  -- Hover window
-  vim.api.nvim_set_keymap("n", "<Leader>dh", "<CMD>lua require('dap.ui.widgets').hover()<CR>", opts)
-
-  -- Wire-up variable scopes floating window (easier than squashed side-bar)
-  vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>ds",
-    "<CMD>lua require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes)<CR>",
-    opts
-  )
+  require("which-key").register({
+    d = {
+      name = "Debug",
+      c = { "<cmd>lua require('dap').continue()<CR>", "Run/Continue" },
+      s = {
+        name = "Step",
+        c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
+        v = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
+        i = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
+        o = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
+      },
+      e = { "<cmd>lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
+      E = { "<cmd>lua require('dapui').eval(vim.fn.input 'Expression expression: ')<CR>", "Evaluate Expression" },
+      h = {
+        name = "Hover",
+        --h = { "<cmd>lua require('dap.ui.variables').hover()<CR>", "Hover" },
+        h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "Hover" },
+        v = { "<cmd>lua require('dap.ui.variables').visual_hover()<CR>", "Visual Hover" },
+      },
+      u = {
+        name = "UI",
+        h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "Hover" },
+        f = { "local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", "Float" },
+      },
+      r = {
+        name = "Repl",
+        o = { "<cmd>lua require('dap').repl.open()<CR>", "Open" },
+        l = { "<cmd>lua require('dap').repl.run_last()<CR>", "Run Last" },
+      },
+      b = {
+        "<cmd>lua require('dap').toggle_breakpoint()<CR>",
+        "Create Breakpoint",
+      },
+      B = {
+        name = "Breakpoints",
+        c = {
+          "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+          "Breakpoint Condition",
+        },
+        m = {
+          "<cmd>lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>",
+          "Log Point Message",
+        },
+        t = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Create" },
+      },
+      v = { "<cmd>lua require('dap').scopes()<CR>", "Variable Scopes" },
+      --i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle Debug" },
+    },
+  }, { prefix = "<leader>" })
 
   -- You can set trigger characters OR it will default to '.'
   -- You can also trigger with the omnifunc, <c-x><c-o>
@@ -227,6 +253,7 @@ return {
         { "mfussenegger/nvim-dap-python" },
         { "jbyuki/one-small-step-for-vimkind" },
       },
+      after = "which-key.nvim",
       config = config,
     }
   end,

@@ -5,28 +5,32 @@ local function config()
     signcolumn = false,
   }
 
-  vim.api.nvim_set_keymap("n", "<leader>fsn", ":FocusSplitNicely<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fsc", ":FocusSplitCycle<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fsl", ":FocusSplitLeft<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fsu", ":FocusSplitUp<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fsr", ":FocusSplitRight<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fsd", ":FocusSplitDown<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fm", ":FocusMaximize<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fe", ":FocusEqual<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>fx", ":FocusMaxOrEqual<CR>", { silent = true })
-
-  vim.api.nvim_set_keymap("n", "<leader>h", ":FocusSplitLeft<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>j", ":FocusSplitDown<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>k", ":FocusSplitUp<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<leader>l", ":FocusSplitRight<CR>", { silent = true })
-
-  vim.api.nvim_set_keymap("n", "<leader>x", ":q<CR>", { silent = true })
+  require("which-key").register({
+    s = {
+      name = "Split",
+      n = { ":FocusSplitNicely<CR>", "Nicely" },
+      c = { ":FocusSplitCycle<CR>", "Cycle" },
+      l = { ":FocusSplitLeft<CR>", "Left" },
+      u = { ":FocusSplitUp<CR>", "Up" },
+      r = { ":FocusSplitRight<CR>", "Right" },
+      d = { ":FocussplitDown<CR>", "Down" },
+      m = { ":FocusMaximise<CR>", "Maximise" },
+      e = { ":FocusEqual<CR>", "Equalize" },
+      x = { ":FocusMaxOrEqual<CR>", "Balance" },
+    },
+    h = { ":FocusSplitLeft<CR>", "Split Left" },
+    j = { ":FocusSplitDown<CR>", "Split Down" },
+    k = { ":FocusSplitUp<CR>", "Split Up" },
+    l = { ":FocusSplitRight<CR>", "Split Right" },
+    x = { ":q<CR>", "Quit Vim" },
+  }, { prefix = "<leader>" })
 end
 
 return {
   setup = function(use)
     use {
       "beauwilliams/focus.nvim",
+      after = "which-key.nvim",
       config = config,
     }
   end,
