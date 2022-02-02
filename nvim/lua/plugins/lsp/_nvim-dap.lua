@@ -59,62 +59,72 @@ local function config()
 
   -- Key mapping
   -- Let's use whichkey to make our mappings more transparent.
-  require("which-key").register({
-    ["<F5>"] = { "<cmd>lua require('dap').continue()<CR>", "Run/Continue" },
-    ["<F10>"] = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
-    ["<F11>"] = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
-    ["<F12>"] = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
-  }, { prefix = "" })
+  require("which-key").register {
+    ["<F5>"] = { ":lua require('dap').continue()<CR>", "Run/Continue" },
+    ["<F10>"] = { ":lua require('dap').step_over()<CR>", "Step Over" },
+    ["<F11>"] = { ":lua require('dap').step_into()<CR>", "Step Into" },
+    ["<F12>"] = { ":lua require('dap').step_out()<CR>", "Step Out" },
+  }
 
   require("which-key").register({
     d = {
       name = "Debug",
-      c = { "<cmd>lua require('dap').continue()<CR>", "Run/Continue" },
+      c = { ":lua require('dap').continue()<CR>", "Run/Continue" },
       s = {
         name = "Step",
-        c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
-        v = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
-        i = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
-        o = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
+        c = { ":lua require('dap').continue()<CR>", "Continue" },
+        v = { ":lua require('dap').step_over()<CR>", "Step Over" },
+        i = { ":lua require('dap').step_into()<CR>", "Step Into" },
+        o = { ":lua require('dap').step_out()<CR>", "Step Out" },
       },
-      e = { "<cmd>lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
-      E = { "<cmd>lua require('dapui').eval(vim.fn.input 'Expression expression: ')<CR>", "Evaluate Expression" },
+      --     e = { ":lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
+      -- E = { ":lua require('dapui').eval(vim.fn.input 'Expression expression: ')<CR>", "Evaluate Expression" },
       h = {
         name = "Hover",
-        --h = { "<cmd>lua require('dap.ui.variables').hover()<CR>", "Hover" },
-        h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "Hover" },
-        v = { "<cmd>lua require('dap.ui.variables').visual_hover()<CR>", "Visual Hover" },
+        --h = { ":lua require('dap.ui.variables').hover()<CR>", "Hover" },
+        h = { ":lua require('dap.ui.widgets').hover()<CR>", "Hover" },
+        v = { ":lua require('dap.ui.variables').visual_hover()<CR>", "Visual Hover" },
       },
       u = {
         name = "UI",
-        h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "Hover" },
+        h = { ":lua require('dap.ui.widgets').hover()<CR>", "Hover" },
         f = { "local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", "Float" },
       },
       r = {
         name = "Repl",
-        o = { "<cmd>lua require('dap').repl.open()<CR>", "Open" },
-        l = { "<cmd>lua require('dap').repl.run_last()<CR>", "Run Last" },
+        o = { ":lua require('dap').repl.open()<CR>", "Open" },
+        l = { ":lua require('dap').repl.run_last()<CR>", "Run Last" },
       },
       b = {
-        "<cmd>lua require('dap').toggle_breakpoint()<CR>",
+        ":lua require('dap').toggle_breakpoint()<CR>",
         "Create Breakpoint",
       },
       B = {
         name = "Breakpoints",
         c = {
-          "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+          ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
           "Breakpoint Condition",
         },
         m = {
-          "<cmd>lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>",
+          ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>",
           "Log Point Message",
         },
-        t = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Create" },
+        t = { ":lua require('dap').toggle_breakpoint()<CR>", "Create" },
       },
-      v = { "<cmd>lua require('dap').scopes()<CR>", "Variable Scopes" },
-      --i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle Debug" },
+      v = { ":lua require('dap').scopes()<CR>", "Variable Scopes" },
+      --i = { ":lua require('dap').toggle()<CR>", "Toggle Debug" },
     },
   }, { prefix = "<leader>" })
+
+  -- Evaluate expressions
+  -- (if you do this through which-key you get a horrible performance hit :'()
+  vim.api.nvim_set_keymap("v", "<leader>de", "<CMD>lua require('dapui').eval()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>dE",
+    "<CMD>lua require('dapui').eval(vim.fn.input 'Expression > ')<CR>",
+    { noremap = true, silent = true }
+  )
 
   -- You can set trigger characters OR it will default to '.'
   -- You can also trigger with the omnifunc, <c-x><c-o>

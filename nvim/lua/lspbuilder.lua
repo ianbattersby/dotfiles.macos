@@ -47,11 +47,11 @@ function M:on_attach()
       g = {
         name = "Goto",
         d = { ":lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-        D = { ":lua vim.lsp.buf.definition()<CR>", "Definition" },
-        i = { ":lua vim.lsp.buf.implementation()<CR>", "Implementation" },
-        r = { ":Trouble lsp_references<CR>", "References" },
+        D = { ":TroubleToggle lsp_definitions<CR>", "Definition" },
+        i = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
+        r = { ":TroubleToggle lsp_references<CR>", "References" },
       },
-      D = { ":lua vim.lsp.buf.type_definition()<CR>", "Type Definition" },
+      D = { ":TroubleToggle lsp_type_definitions<CR>", "Type Definition" },
       K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
       q = { ":TroubleToggle document_diagnostics<CR>", "Diagnotics" },
       w = {
@@ -59,6 +59,7 @@ function M:on_attach()
         l = { ":lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List Folders" },
         a = { ":lua vim.lsp.buf.add_workspace_folder()<CR>", "Add Folder" },
         r = { ":lua vim.l;sp.buf.remove_workspace_folder()<CR>", "Remove Folder" },
+        d = { ":TroubleToggle workspace_diagnostics<CR>", "Diagnotics" },
       },
       r = {
         name = "Refactor",

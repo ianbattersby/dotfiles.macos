@@ -102,7 +102,7 @@ return {
     use {
       "nvim-telescope/telescope.nvim",
       config = config,
-      after = { "trouble.nvim", "which-key.nvim" },
+      after = { "trouble.nvim", "which-key.nvim", "nvim-dap" },
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
