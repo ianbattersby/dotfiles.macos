@@ -49,7 +49,8 @@ function M:on_attach()
         d = { ":lua vim.lsp.buf.declaration()<CR>", "Declaration" },
         D = { ":TroubleToggle lsp_definitions<CR>", "Definition" },
         i = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
-        r = { ":TroubleToggle lsp_references<CR>", "References" },
+        r = { ":Telescope lsp_references<CR>", "References" },
+        s = { ":Telescope lsp_document_symbols<CR>", "Symbols (Document)" },
       },
       D = { ":TroubleToggle lsp_type_definitions<CR>", "Type Definition" },
       K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
@@ -67,7 +68,8 @@ function M:on_attach()
       },
       c = {
         name = "Code",
-        a = { ":lua vim.lsp.buf.code_action()<CR>", "Action" },
+        a = { ":Telescope lsp_code_actions<CR>", "Action (Cursor)" },
+        r = { ":Telescope lsp_range_code_actions<CR>", "Action (Document)" },
       },
     }, { prefix = "<leader>", buffer = bufnr })
 
@@ -77,6 +79,14 @@ function M:on_attach()
       ["[d"] = { ':lua require("trouble").previous({skip_groups = true, jump = true})<CR>', "Diagnostic Previous" },
     }, { buffer = bufnr })
 
+    -- Treesitter specific mappings
+    if require("vim.treesitter.highlighter").active[bufnr] then
+      require("which-key").register({
+        g = {
+          t = { ":Telescope treesitter<CR>", "Symbols (Treesitter)" },
+        },
+      }, { prefix = "<leader>", buffer = bufnr })
+    end
     -- Load custom keymaps
     --print(require("utils").tprint(self.keymaps))
     for _, keymap in ipairs(self.keymaps) do
