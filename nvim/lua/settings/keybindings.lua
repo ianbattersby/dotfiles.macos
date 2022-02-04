@@ -1,11 +1,11 @@
 return {
   setup = function()
     -- Use C-Space to Esc out of any mode
-    vim.api.nvim_set_keymap("n", "<C-Space>", "<Esc><CMD>noh<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("v", "<C-Space>", "<Esc>gV", { noremap = true })
-    vim.api.nvim_set_keymap("o", "<C-Space>", "<Esc>", { noremap = true })
-    vim.api.nvim_set_keymap("c", "<C-Space>", "<C-c>", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<C-Space>", "<Esc>", { noremap = true })
+    -- vim.api.nvim_set_keymap("n", "<C-Space>", "<Esc><CMD>noh<CR>", { noremap = true })
+    -- vim.api.nvim_set_keymap("v", "<C-Space>", "<Esc>gV", { noremap = true })
+    -- vim.api.nvim_set_keymap("o", "<C-Space>", "<Esc>", { noremap = true })
+    -- vim.api.nvim_set_keymap("c", "<C-Space>", "<C-c>", { noremap = true })
+    -- vim.api.nvim_set_keymap("i", "<C-Space>", "<Esc>", { noremap = true })
 
     -- Terminal sees <C-@> as <C-space>
     vim.api.nvim_set_keymap("n", "<C-@>", "<Esc><CMD>noh<CR>", { noremap = true })
