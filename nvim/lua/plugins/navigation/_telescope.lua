@@ -2,7 +2,10 @@ local function config()
   local actions = require "telescope.actions"
   local trouble = require "trouble.providers.telescope"
 
+  local dbpath = vim.fn.stdpath "data" .. "/databases/"
+
   require("telescope").setup {
+
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -70,17 +73,27 @@ local function config()
         override_file_sorter = true,
         case_mode = "smart_case",
       },
+      frecency = {
+        db_root = dbpath,
+        workspaces = {
+          ["dot"] = "/home/ian/.dotfiles",
+          ["conf"] = "/home/ian/.dotfiles/nvim",
+          ["code"] = "/home/ian/code",
+        },
+      },
     },
   }
 
   -- Load extensions
   require("telescope").load_extension "fzf"
   require("telescope").load_extension "dap"
+  require("telescope").load_extension "frecency"
 
   -- Key mapping
   require("which-key").register {
     ["<C-p>"] = { "<CMD>lua require'telescope.builtin'.find_files({})<CR>", "Find Files" },
     ["<C-s>"] = { "<CMD>Telescope live_grep<CR>", "Search Files" },
+    ["<leader><leader>"] = { "<CMD>Telescope frecency<CR>", "Smart Files" },
   }
 
   require("which-key").register({
@@ -107,6 +120,7 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-dap.nvim" },
+        { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua", opt = false } },
       },
     }
   end,
