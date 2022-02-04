@@ -29,13 +29,15 @@ function M:on_attach()
       vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]], false)
 
       require("which-key").register({
-        ["<C-k><C-d>"] = {
-          ":lua vim.lsp.buf."
-            .. (client.resolved_capabilities.document_range_formatting and "range_" or "")
-            .. "formatting()<CR>",
-          "Format Document",
+        c = {
+          f = {
+            ":lua vim.lsp.buf."
+              .. (client.resolved_capabilities.document_range_formatting and "range_" or "")
+              .. "formatting()<CR>",
+            "Format Document",
+          },
         },
-      }, { buffer = bufnr })
+      }, { prefix = "<leader>", buffer = bufnr })
     end
 
     -- Enable completion triggered by <c-x><c-o>
@@ -74,7 +76,7 @@ function M:on_attach()
       c = {
         name = "Code",
         a = { ":Telescope lsp_code_actions<CR>", "Action (Cursor)" },
-        r = { ":Telescope lsp_range_code_actions<CR>", "Action (Document)" },
+        d = { ":Telescope lsp_range_code_actions<CR>", "Action (Document)" },
       },
     }, { prefix = "<leader>", buffer = bufnr })
 
