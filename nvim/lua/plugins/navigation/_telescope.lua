@@ -90,6 +90,7 @@ local function config()
   require("telescope").load_extension "packer"
   require("telescope").load_extension "file_browser"
   require("telescope").load_extension "frecency"
+  require("telescope").load_extension "notify"
 
   -- Key mapping
   require("which-key").register {
@@ -117,7 +118,7 @@ return {
     use {
       "nvim-telescope/telescope.nvim",
       config = config,
-      after = { "trouble.nvim", "which-key.nvim", "nvim-dap" },
+      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },

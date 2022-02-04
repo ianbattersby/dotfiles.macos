@@ -6,5 +6,6 @@ return {
     require("plugins.appearance._indent-blankline").setup(use)
     require("plugins.appearance._lualine").setup(use)
     require("plugins.appearance._theme").setup(use)
+    require("plugins.appearance._nvim-notify").setup(use)
   end,
 }
