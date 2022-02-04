@@ -87,6 +87,8 @@ local function config()
   -- Load extensions
   require("telescope").load_extension "fzf"
   require("telescope").load_extension "dap"
+  require("telescope").load_extension "packer"
+  require("telescope").load_extension "file_browser"
   require("telescope").load_extension "frecency"
 
   -- Key mapping
@@ -121,6 +123,8 @@ return {
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-dap.nvim" },
         { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua", opt = false } },
+        { "nvim-telescope/telescope-file-browser.nvim" },
+        { "nvim-telescope/telescope-packer.nvim" },
       },
     }
   end,
