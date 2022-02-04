@@ -1,5 +1,8 @@
 local function config()
-  require("notify").setup {}
+  require("notify").setup {
+    render = "minimal",
+  }
+
   vim.notify = require "notify"
 end
 
