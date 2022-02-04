@@ -91,6 +91,7 @@ local function config()
   require("telescope").load_extension "file_browser"
   require("telescope").load_extension "frecency"
   require("telescope").load_extension "notify"
+  require("telescope").load_extension "ui-select"
 
   -- Key mapping
   require("which-key").register {
