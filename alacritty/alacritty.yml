@@ -934,6 +934,7 @@ key_bindings:
   - { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   - { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
+  - { key: T,              mods: Command,                    action: CreateNewWindow       }
 
   - { key: Paste,                   action: Paste                        }
   - { key: Copy,                    action: Copy                         }
