@@ -3,6 +3,7 @@ return {
     local opt = vim.opt -- to set options
     vim.g.mapleader = " "
     opt.autoindent = true
+    opt.cindent = true
     opt.cmdheight = 1
     opt.backspace = { "indent", "eol", "start" }
     opt.clipboard = "unnamedplus"
@@ -14,7 +15,6 @@ return {
     opt.expandtab = true -- Use spaces instead of tabs
     opt.foldenable = false
     opt.foldmethod = "indent"
-    opt.formatoptions = "l"
     opt.hidden = true -- Enable background buffers
     opt.hlsearch = true -- Highlight found searches
     opt.ignorecase = true -- Ignore case
@@ -22,6 +22,8 @@ return {
     opt.incsearch = true -- Shows the match while typing
     opt.joinspaces = false -- No double spaces with join
     vim.o.lazyredraw = true
+    opt.breakindent = true
+    opt.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
     opt.linebreak = true -- Stop words being broken on wrap
     opt.number = true -- Show line numbers
     opt.list = true -- Show some invisible characters
@@ -60,6 +62,17 @@ return {
     vim.g.python_host_prog = "/usr/local/bin/python"
     vim.g.python3_host_prog = "/usr/local/bin/python3"
     vim.g.ruby_host_prog = "/usr/local/bin/ruby"
+    -- Formatting (inspiration from teej)
+    opt.formatoptions = opt.formatoptions
+      - "a" -- Auto formatting is BAD.
+      - "t" -- Don't auto format my code. I got linters for that.
+      + "c" -- In general, I like it when comments respect textwidth
+      + "q" -- Allow formatting comments w/ gq
+      - "o" -- O and o, don't continue comments
+      + "r" -- But do continue when pressing enter.
+      + "n" -- Indent past the formatlistpat, not underneath it.
+      + "j" -- Auto-remove comments if possible.
+      - "2" -- I'm not in gradeschool anymore
 
     vim.cmd [[
 			set ai
