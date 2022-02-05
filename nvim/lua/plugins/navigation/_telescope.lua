@@ -127,6 +127,7 @@ return {
         { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua", opt = false } },
         { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-packer.nvim" },
+        { "nvim-telescope/telescope-ui-select.nvim" },
       },
     }
   end,
