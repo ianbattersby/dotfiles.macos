@@ -2,7 +2,7 @@ local name = "onedark"
 
 local function config()
   require("onedark").setup {
-    sidebars = { "terminal", "telescope", "packer", "trouble", "NvimTree", "alpha" },
+    sidebars = { "terminal", "telescope", "packer", "trouble", "NvimTree", "alpha", "Outline" },
   }
 end
 

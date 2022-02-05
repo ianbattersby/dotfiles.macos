@@ -14,6 +14,7 @@ local function config()
       "NvimTree",
       "Trouble",
       "dap-repl",
+      "Outline",
     },
     check_ts = true,
     ts_config = {
