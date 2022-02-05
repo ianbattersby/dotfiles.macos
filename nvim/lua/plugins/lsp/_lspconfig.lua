@@ -8,6 +8,7 @@ local function config()
   local function make_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.codeLens = { dynamicRegistration = false }
 
     -- Enhance capabilities according to lsp-status
     capabilities = vim.tbl_extend("keep", capabilities or {}, lspstatus.capabilities)
