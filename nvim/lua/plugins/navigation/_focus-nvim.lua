@@ -13,7 +13,7 @@ local function config()
       l = { ":FocusSplitLeft<CR>", "Left" },
       u = { ":FocusSplitUp<CR>", "Up" },
       r = { ":FocusSplitRight<CR>", "Right" },
-      d = { ":FocussplitDown<CR>", "Down" },
+      d = { ":FocusSplitDown<CR>", "Down" },
       m = { ":FocusMaximise<CR>", "Maximise" },
       e = { ":FocusEqual<CR>", "Equalize" },
       x = { ":FocusMaxOrEqual<CR>", "Balance" },

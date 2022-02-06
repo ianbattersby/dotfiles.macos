@@ -77,7 +77,7 @@ local function config()
         i = { ":lua require('dap').step_into()<CR>", "Step Into" },
         o = { ":lua require('dap').step_out()<CR>", "Step Out" },
       },
-      --     e = { ":lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
+      -- e = { ":lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
       -- E = { ":lua require('dapui').eval(vim.fn.input 'Expression expression: ')<CR>", "Evaluate Expression" },
       h = {
         name = "Hover",
