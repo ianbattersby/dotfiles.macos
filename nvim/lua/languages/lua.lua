@@ -1,3 +1,12 @@
+local lconfig = require("lspbuilder").new {
+  {
+    mode = "n",
+    keybinding = "<leader>t",
+    action = "<Plug>PlenaryTestFile",
+    desc = "Run Tests",
+  },
+}
+
 local config = {
   settings = {
     Lua = {
@@ -27,6 +36,7 @@ local config = {
       },
     },
   },
+  on_attach = lconfig:on_attach(),
 }
 
 return { server = "sumneko_lua", config = config }
