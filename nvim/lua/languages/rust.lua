@@ -82,8 +82,8 @@ local config = {
       end,
     },
     ["RustViewCrateGraph"] = {
-      function(backend, output)
-        require("rust-tools.crate_graph").view_crate_graph(backend, output)
+      function(backend, output, pipe)
+        require("rust-tools.crate_graph").view_crate_graph(backend, output, pipe)
       end,
       "-nargs=* -complete=customlist,v:lua.rust_tools_get_graphviz_backends",
       description = "`:RustViewCrateGraph [<backend> [<output>]]` Show the crate graph",
