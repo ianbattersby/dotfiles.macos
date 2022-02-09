@@ -6,7 +6,7 @@ local function config()
   require("which-key").register({
     c = {
       name = "Annotate",
-      n = { " require('neogen').generate()<CR>", "Annotate" },
+      n = { ":lua require('neogen').generate()<CR>", "Annotate" },
     },
   }, { prefix = "<leader>" })
 end

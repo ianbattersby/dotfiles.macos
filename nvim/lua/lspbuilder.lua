@@ -50,7 +50,11 @@ function M:on_attach()
         --T = { ":lua vim.lsp.buf.type_definition()<CR>" },
       },
       K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
-      q = { ":TroubleToggle document_diagnostics<CR>", "Diagnotics" },
+      q = {
+        name = "Diagnostics",
+        q = { ":TroubleToggle document_diagnostics<CR>", "Document" },
+        w = { ":TroubleToggle workspace_diagnostics<CR>", "Workspace" },
+      },
       w = {
         name = "Workspace",
         l = { ":lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List Folders" },
@@ -58,15 +62,15 @@ function M:on_attach()
         r = { ":lua vim.l;sp.buf.remove_workspace_folder()<CR>", "Remove Folder" },
         d = { ":TroubleToggle workspace_diagnostics<CR>", "Diagnotics" },
       },
-      r = {
-        name = "Refactor",
-        r = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
-      },
       c = {
         name = "Code",
         a = { ":Telescope lsp_code_actions<CR>", "Action (Cursor)" },
         d = { ":Telescope lsp_range_code_actions<CR>", "Action (Document)" },
         l = { ":lua vim.lsp.codelens.run()<CR>", "Code Lens" },
+        r = {
+          name = "Refactor",
+          r = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
+        },
       },
     }, { prefix = "<leader>", buffer = bufnr })
 
