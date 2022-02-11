@@ -5,7 +5,6 @@ local function config()
   local dbpath = vim.fn.stdpath "data" .. "/databases/"
 
   require("telescope").setup {
-
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -17,23 +16,48 @@ local function config()
         "--smart-case",
         "--trim",
       },
-      layout_strategy = "flex",
+
+      prompt_prefix = "❯ ",
+      selection_caret = "❯ ",
+
+      winblend = 8,
+
+      layout_strategy = "horizontal",
       layout_config = {
-        horizontal = {
-          preview_width = 0.65,
-          mirror = false,
-        },
-        vertical = {
-          mirror = false,
-        },
+        width = 0.95,
+        height = 0.85,
+        -- preview_cutoff = 120,
         prompt_position = "top",
+
+        horizontal = {
+          preview_width = function(_, cols, _)
+            if cols > 200 then
+              return math.floor(cols * 0.4)
+            else
+              return math.floor(cols * 0.6)
+            end
+          end,
+        },
+
+        vertical = {
+          width = 0.9,
+          height = 0.95,
+          preview_height = 0.5,
+        },
+
+        flex = {
+          horizontal = {
+            preview_width = 0.9,
+          },
+        },
       },
-      file_sorter = require("telescope.sorters").get_fzy_sorter,
-      prompt_prefix = " 🔍 ",
+
+      selection_strategy = "reset",
+      sorting_strategy = "ascending",
+      scroll_strategy = "cycle",
       color_devicons = true,
 
-      sorting_strategy = "ascending",
-
+      file_sorter = require("telescope.sorters").get_fzy_sorter,
       file_previewer = require("telescope.previewers").vim_buffer_cat.new,
       grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
       qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
@@ -93,23 +117,34 @@ local function config()
   require("telescope").load_extension "notify"
   require("telescope").load_extension "ui-select"
 
+  -- Let's use the get_ivy theme in places
+  local findfiles_command =
+    "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"ascending\" })"
+  local recentfiles_command = findfiles_command:gsub("{", "{ sort_last_used = true,")
+  local livegrep_command =
+    "require'telescope.builtin'.live_grep(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"descending\" })"
+  local frecency_command = "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy {})"
+  local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files, require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"ascending\", sort_last_used = \"true\" }) then "
+    .. findfiles_command
+    .. " end"
+  local buffers_command =
+    "require'telescope.builtin'.buffers(require 'telescope.themes'.get_ivy { sort_last_used = true })"
+
   -- Key mapping
   require("which-key").register {
-    ["<C-p>"] = { "<CMD>lua require'telescope.builtin'.find_files({})<CR>", "Find Files" },
-    ["<C-s>"] = { "<CMD>Telescope live_grep<CR>", "Search Files" },
-    ["<leader><leader>"] = { "<CMD>Telescope frecency<CR>", "Smart Files" },
+    ["<C-p>"] = { ":lua " .. findfiles_command .. "<CR>", "Find Files" },
+    ["<C-s>"] = { ":lua " .. livegrep_command .. "<CR>", "Search Files" },
+    ["<leader><leader>"] = { ":lua " .. frecency_command .. "<CR>", "Smart Files" },
   }
 
   require("which-key").register({
     f = {
       name = "Find",
-      f = { "<CMD>lua require'telescope.builtin'.find_files({})<CR>", "Files" },
-      l = { "<CMD>lua require'telescope.builtin'.find_files({ sort_last_used = true })<CR>", "Last Opened" },
-      g = {
-        "<CMD>lua if not pcall(require'telescope.builtin'.git_files, { sort_last_used = true }) then require'telescope.builtin'.find_files({}) end<CR>",
-        "Git-files",
-      },
-      b = { "<CMD>lua require'telescope.builtin'.buffers({ sort_last_used = true })<CR>", "Buffers" },
+      f = { ":lua " .. findfiles_command .. "<CR>", "Files (ascending)" },
+      l = { ":lua " .. recentfiles_command .. "<CR>", "Files (recent)" },
+      g = { ":lua " .. gitfiles_copmmand .. "<CR>", "Files (git)" },
+      b = { ":lua " .. buffers_command .. "<CR>", "Buffers" },
+      s = { ":lua " .. livegrep_command .. "<CR>", "Files (content)" },
     },
   }, { prefix = "<leader>" })
 end
