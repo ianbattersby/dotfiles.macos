@@ -116,6 +116,9 @@ local function config()
           ["code"] = "/home/ian/code",
         },
       },
+      ["ui-select"] = {
+        require("telescope.themes").get_dropdown {},
+      },
     },
   }
 
