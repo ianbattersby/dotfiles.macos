@@ -134,7 +134,7 @@ local function config()
   require("which-key").register {
     ["<C-p>"] = { ":lua " .. findfiles_command .. "<CR>", "Find Files" },
     ["<C-s>"] = { ":lua " .. livegrep_command .. "<CR>", "Search Files" },
-    ["<leader><leader>"] = { ":lua " .. frecency_command .. "<CR>", "Smart Files" },
+    -- ["<leader><leader>"] = { ":lua " .. frecency_command .. "<CR>", "Smart Files" },
   }
 
   require("which-key").register({
