@@ -10,7 +10,7 @@ return {
   name = name,
   setup = function(use)
     use {
-      "monsonjeremy/onedark.nvim",
+      "ful1e5/onedark.nvim",
       config = config,
       run = ":colorscheme onedark",
     }

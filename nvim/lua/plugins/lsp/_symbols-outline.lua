@@ -9,7 +9,7 @@ local function config()
   }, { prefix = "<leader>" })
 
   vim.cmd([[
-hi FocusedSymbol guibg=]] .. colors.green .. [[
+hi FocusedSymbol guibg=]] .. colors.orange0 .. [[
 
 augroup ft_outline
   au!
