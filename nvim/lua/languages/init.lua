@@ -1,5 +1,6 @@
 return {
   ["bash"] = require "languages.bash",
+  ["c#"] = require "languages.csharp",
   ["css"] = require "languages.css",
   ["dockerfile"] = require "languages.dockerfile",
   ["go"] = require "languages.go",
