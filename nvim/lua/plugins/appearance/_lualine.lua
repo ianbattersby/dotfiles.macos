@@ -8,7 +8,7 @@ local function config()
       theme = require("plugins.appearance._theme").name,
       componentseparators = { "", "" },
       section_separators = { "", "" },
-      extensions = { "fzf" },
+      --extensions = { "fzf" },
       disabled_filetypes = { "alpha", "NvimTree", "packer", "Trouble", "Outline" },
     },
     sections = {

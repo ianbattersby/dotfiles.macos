@@ -92,11 +92,11 @@ local function config()
       },
     },
     extensions = {
-      fzf = {
-        override_generic_sorter = false,
-        override_file_sorter = true,
-        case_mode = "smart_case",
-      },
+      -- fzf = {
+      --   override_generic_sorter = false,
+      --   override_file_sorter = true,
+      --   case_mode = "smart_case",
+      -- },
       frecency = {
         db_root = dbpath,
         workspaces = {
@@ -109,7 +109,8 @@ local function config()
   }
 
   -- Load extensions
-  require("telescope").load_extension "fzf"
+  require("telescope").load_extension "zf-native"
+  -- require("telescope").load_extension "fzf"
   require("telescope").load_extension "dap"
   require("telescope").load_extension "packer"
   require("telescope").load_extension "file_browser"
@@ -157,7 +158,8 @@ return {
       after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
       requires = {
         { "nvim-lua/plenary.nvim" },
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+        { "natecraddock/telescope-zf-native.nvim" },
+        -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-dap.nvim" },
         { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua", opt = false } },
         { "nvim-telescope/telescope-file-browser.nvim" },
