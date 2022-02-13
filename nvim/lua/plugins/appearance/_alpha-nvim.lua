@@ -2,7 +2,7 @@ local function config()
   require("alpha").setup(require("alpha.themes.startify").opts)
 
   require("which-key").register({
-    a = { ":Alpha<CR>", "Show (Workspace)" },
+    a = { ":Alpha<CR>", "Startup" },
   }, { prefix = "<leader>" })
 end
 

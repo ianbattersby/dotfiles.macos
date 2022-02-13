@@ -1,10 +1,12 @@
 local function config()
+  local telescope = require "telescope"
   local actions = require "telescope.actions"
   local trouble = require "trouble.providers.telescope"
+  local which_key = require "which-key"
 
   local dbpath = vim.fn.stdpath "data" .. "/databases/"
 
-  require("telescope").setup {
+  telescope.setup {
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -91,6 +93,15 @@ local function config()
         },
       },
     },
+
+    pickers = {
+      find_files = { theme = "ivy", hidden = false },
+      git_files = { theme = "ivy", hidden = false, sort_last_used = true },
+      live_grep = { theme = "ivy", hidden = false },
+      buffers = { theme = "ivy", hidden = false, sort_last_used = true },
+      frecency = { theme = "ivy", hidden = false }, -- This doesn't work, but why?
+    },
+
     extensions = {
       -- fzf = {
       --   override_generic_sorter = false,
@@ -109,42 +120,39 @@ local function config()
   }
 
   -- Load extensions
-  require("telescope").load_extension "zf-native"
-  -- require("telescope").load_extension "fzf"
-  require("telescope").load_extension "dap"
-  require("telescope").load_extension "packer"
-  require("telescope").load_extension "file_browser"
-  require("telescope").load_extension "frecency"
-  require("telescope").load_extension "notify"
-  require("telescope").load_extension "ui-select"
+  telescope.load_extension "zf-native"
+  -- telescope.load_extension "fzf"
+  telescope.load_extension "dap"
+  telescope.load_extension "packer"
+  telescope.load_extension "file_browser"
+  telescope.load_extension "frecency"
+  telescope.load_extension "notify"
+  telescope.load_extension "ui-select"
 
   -- Let's use the get_ivy theme in places
-  local livegrep_command = "require'telescope.builtin'.live_grep(require'telescope.themes'.get_ivy {hidden = false})"
-  local findfiles_command = "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy {hidden = false})"
+  local livegrep_command = "require'telescope.builtin'.live_grep()"
+  local findfiles_command = "require'telescope.builtin'.find_files()"
   local recentfiles_command = findfiles_command:gsub("{", "{ sort_last_used = true,")
-  local frecency_command = "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy {})"
-  local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files, require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"ascending\", sort_last_used = \"true\" }) then "
-    .. findfiles_command
-    .. " end"
-  local buffers_command =
-    "require'telescope.builtin'.buffers(require 'telescope.themes'.get_ivy { sort_last_used = true })"
+  local frecency_command = "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{})"
+  local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files) then " .. findfiles_command .. " end"
+  local buffers_command = "require'telescope.builtin'.buffers()"
 
   -- Key mapping
-  require("which-key").register {
+  which_key.register {
     ["<C-p>"] = { ":lua " .. findfiles_command .. "<CR>", "Find Files" },
     ["<C-s>"] = { ":lua " .. livegrep_command .. "<CR>", "Search Files" },
-    -- ["<leader><leader>"] = { ":lua " .. frecency_command .. "<CR>", "Smart Files" },
   }
 
-  require("which-key").register({
+  which_key.register({
     f = {
       name = "Find",
       f = { ":lua " .. findfiles_command .. "<CR>", "Files (ascending)" },
       l = { ":lua " .. recentfiles_command .. "<CR>", "Files (recent)" },
       g = { ":lua " .. gitfiles_copmmand .. "<CR>", "Files (git)" },
-      b = { ":lua " .. buffers_command .. "<CR>", "Buffers" },
+      x = { ":lua " .. frecency_command .. "<CR>", "Files (frecency)" },
       s = { ":lua " .. livegrep_command .. "<CR>", "Files (content)" },
     },
+    b = { ":lua " .. buffers_command .. "<CR>", "Buffers" },
   }, { prefix = "<leader>" })
 end
 
