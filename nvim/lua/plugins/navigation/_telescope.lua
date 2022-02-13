@@ -17,8 +17,8 @@ local function config()
         "--trim",
       },
 
-      prompt_prefix = "❯ ",
-      selection_caret = "❯ ",
+      prompt_prefix = " ",
+      selection_caret = " ",
 
       winblend = 8,
 
@@ -119,11 +119,9 @@ local function config()
   require("telescope").load_extension "ui-select"
 
   -- Let's use the get_ivy theme in places
-  local findfiles_command =
-    "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"descending\" })"
+  local livegrep_command = "require'telescope.builtin'.live_grep(require'telescope.themes'.get_ivy {hidden = false})"
+  local findfiles_command = "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy {hidden = false})"
   local recentfiles_command = findfiles_command:gsub("{", "{ sort_last_used = true,")
-  local livegrep_command =
-    "require'telescope.builtin'.live_grep(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"descending\" })"
   local frecency_command = "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy {})"
   local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files, require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"ascending\", sort_last_used = \"true\" }) then "
     .. findfiles_command
