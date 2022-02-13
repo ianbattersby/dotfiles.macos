@@ -119,7 +119,7 @@ local function config()
 
   -- Let's use the get_ivy theme in places
   local findfiles_command =
-    "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"ascending\" })"
+    "require'telescope.builtin'.find_files(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"descending\" })"
   local recentfiles_command = findfiles_command:gsub("{", "{ sort_last_used = true,")
   local livegrep_command =
     "require'telescope.builtin'.live_grep(require'telescope.themes'.get_ivy { hidden = false, sorting_strategy = \"descending\" })"
