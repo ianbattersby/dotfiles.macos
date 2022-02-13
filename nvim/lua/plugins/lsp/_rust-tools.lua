@@ -20,6 +20,7 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "mfussenegger/nvim-dap" },
       },
+      after = "nvim-dap",
       config = config,
     }
   end,

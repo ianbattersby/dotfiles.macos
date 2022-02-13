@@ -19,13 +19,15 @@ local function config()
       search = true,
     },
   }
+
+  require("scrollbar.handlers.search").setup {}
 end
 
 return {
   setup = function(use)
     use {
       "petertriho/nvim-scrollbar",
-      after = "onedark.nvim",
+      after = { "onedark.nvim", "nvim-hlslens" },
       config = config,
     }
   end,
