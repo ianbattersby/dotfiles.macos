@@ -132,6 +132,11 @@ local function config()
     }, {
       { name = "buffer" },
     }),
+    matching = {
+      disallow_fuzzy_matching = true,
+      disallow_partial_matching = false,
+      disallow_prefix_unmatching = false,
+    },
   }
 
   -- Use buffer source for `/`.
