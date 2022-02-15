@@ -41,8 +41,8 @@ function M:on_attach()
         i = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
         r = { ":Telescope lsp_references<CR>", "References" },
         s = {
-          ":Telescope "
-            .. (require("vim.treesitter.highlighter").active[bufnr] and "treesitter" or "lsp_document_symbols")
+          ":"
+            .. (require("vim.treesitter.highlighter").active[bufnr] and "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or "Telescope lsp_document_symbols")
             .. "<CR>",
           "Symbols",
         },
