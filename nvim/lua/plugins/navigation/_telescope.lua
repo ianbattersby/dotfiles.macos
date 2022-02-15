@@ -146,6 +146,7 @@ local function config()
   which_key.register {
     ["<C-p>"] = { ":lua " .. findfiles_command .. "<CR>", "Find Files" },
     ["<C-s>"] = { ":lua " .. livegrep_command .. "<CR>", "Search Files" },
+    ["<C-x>"] = { ":Telescope resume<CR>", "Resume" },
   }
 
   which_key.register({
