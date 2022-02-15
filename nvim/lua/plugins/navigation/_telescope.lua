@@ -135,8 +135,10 @@ local function config()
   -- Let's use the get_ivy theme in places
   local livegrep_command = "require'telescope.builtin'.live_grep()"
   local findfiles_command = "require'telescope.builtin'.find_files()"
-  local recentfiles_command = findfiles_command:gsub("{", "{ sort_last_used = true,")
-  local frecency_command = "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{})"
+  local recentfiles_command =
+    "require'telescope.builtin'.find_files({ prompt_title = 'Recent Files', sort_last_used = true })"
+  local frecency_command =
+    "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{hidden = false, layout_config = { padding = 1 }})"
   local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files) then " .. findfiles_command .. " end"
   local buffers_command = "require'telescope.builtin'.buffers()"
 
@@ -150,7 +152,7 @@ local function config()
     f = {
       name = "Find",
       f = { ":lua " .. findfiles_command .. "<CR>", "Files (ascending)" },
-      l = { ":lua " .. recentfiles_command .. "<CR>", "Files (recent)" },
+      r = { ":lua " .. recentfiles_command .. "<CR>", "Files (recent)" },
       g = { ":lua " .. gitfiles_copmmand .. "<CR>", "Files (git)" },
       x = { ":lua " .. frecency_command .. "<CR>", "Files (frecency)" },
       s = { ":lua " .. livegrep_command .. "<CR>", "Files (content)" },
