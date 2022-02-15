@@ -9,7 +9,17 @@ local function config()
       componentseparators = { "", "" },
       section_separators = { "", "" },
       --extensions = { "fzf" },
-      disabled_filetypes = { "alpha", "NvimTree", "packer", "Trouble", "Outline" },
+      disabled_filetypes = {
+        "alpha",
+        "NvimTree",
+        "packer",
+        "Trouble",
+        "Outline",
+        "dapui_scopes",
+        "dapui_breakpoints",
+        "dapui_stacks",
+        "dapui_watches",
+      },
     },
     sections = {
       lualine_a = { "mode" },
