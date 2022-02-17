@@ -54,7 +54,7 @@ return {
       "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
     opt.undodir = vim.fn.stdpath "data" .. "/undo"
     opt.undofile = true
-    vim.cmd "au TextYankPost * lua vim.highlight.on_yank {on_visual = true}"
+    vim.cmd "au TextYankPost * lua vim.highlight.on_yank {on_visual = true, timeout = 500}"
     -- Give me some fenced codeblock goodness
     vim.g.markdown_fenced_languages = { "html", "javascript", "typescript", "css", "scss", "lua", "vim" }
     opt.grepprg = "rg --vimgrep --no-heading"
