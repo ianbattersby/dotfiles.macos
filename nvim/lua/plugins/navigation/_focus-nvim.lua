@@ -22,7 +22,7 @@ local function config()
     j = { ":FocusSplitDown<CR>", "Split Down" },
     k = { ":FocusSplitUp<CR>", "Split Up" },
     l = { ":FocusSplitRight<CR>", "Split Right" },
-    x = { ":q<CR>", "Quit Vim" },
+    x = { ":bd<CR>", "Close Buffer" },
   }, { prefix = "<leader>" })
 end
 
