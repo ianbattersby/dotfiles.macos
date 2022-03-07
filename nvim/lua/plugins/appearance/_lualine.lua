@@ -19,6 +19,7 @@ local function config()
         "dapui_breakpoints",
         "dapui_stacks",
         "dapui_watches",
+        "DiffviewFiles",
       },
     },
     sections = {

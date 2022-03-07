@@ -1,6 +1,15 @@
 local function config()
   require("focus").setup {
-    excluded_buftypes = { "nofile", "prompt", "popup" },
+    excluded_buftypes = {
+      "nofile",
+      "prompt",
+      "popup",
+    },
+    excluded_filetypes = {
+      "DiffviewFiles",
+      "DiffviewFileHistory",
+      "DiffviewFilePanel",
+    },
     cursorline = false,
     signcolumn = false,
   }
