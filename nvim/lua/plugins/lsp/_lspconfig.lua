@@ -85,7 +85,7 @@ local function config()
   })
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
+    border = "single",
   })
 
   -- This is overrided by lsp_signature
@@ -105,7 +105,7 @@ local function config()
     max_height = 22,
     max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
     handler_opts = {
-      border = "double", -- double, rounded, single, shadow, none
+      border = "single", -- double, rounded, single, shadow, none
     },
     zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
     padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc

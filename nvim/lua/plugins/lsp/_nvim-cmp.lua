@@ -71,6 +71,9 @@ local function config()
     completion = {
       completeopt = "menu,menuone,noinsert",
     },
+    documentation = {
+      border = "single",
+    },
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
