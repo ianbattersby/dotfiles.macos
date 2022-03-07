@@ -21,7 +21,7 @@ return {
     opt.inccommand = "split" -- Get a preview of replacements
     opt.incsearch = true -- Shows the match while typing
     opt.joinspaces = false -- No double spaces with join
-    vim.o.lazyredraw = true
+    opt.lazyredraw = true
     opt.breakindent = true
     opt.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
     opt.linebreak = true -- Stop words being broken on wrap
@@ -32,7 +32,7 @@ return {
     opt.scrolloff = 4 -- Lines of context
     opt.shiftround = true -- Round indent
     opt.shiftwidth = 4 -- Size of an indent
-    vim.o.shortmess = vim.o.shortmess .. "c"
+    opt.shortmess = vim.o.shortmess .. "c"
     opt.showmode = false -- Don't display mode
     opt.showcmd = false
     opt.sidescrolloff = 8 -- Columns of context
