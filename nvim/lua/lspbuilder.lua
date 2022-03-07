@@ -50,6 +50,7 @@ function M:on_attach()
         --T = { ":lua vim.lsp.buf.type_definition()<CR>" },
       },
       K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
+      L = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
       q = {
         name = "Diagnostics",
         q = { ":TroubleToggle document_diagnostics<CR>", "Document" },
@@ -75,7 +76,7 @@ function M:on_attach()
     }, { prefix = "<leader>", buffer = bufnr })
 
     require("which-key").register({
-      ["C-k"] = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
+      ["L"] = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
       ["]d"] = { ':lua require("trouble").next({skip_groups = true, jump = true})<CR>', "Diagnostic Next" },
       ["[d"] = { ':lua require("trouble").previous({skip_groups = true, jump = true})<CR>', "Diagnostic Previous" },
     }, { buffer = bufnr })
