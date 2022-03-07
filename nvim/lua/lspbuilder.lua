@@ -92,7 +92,7 @@ function M:on_attach()
     -- Map 'K' to hover if this isn't lua
     if filetype ~= "lua" then
       require("which-key").register({
-        ["K"] = { ":lua vim.lsp.buf.hover", "lsp:hover" },
+        ["K"] = { ":lua vim.lsp.buf.hover()<CR>", "lsp:hover" },
       }, { buffer = bufnr })
     end
 
