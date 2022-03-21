@@ -21,6 +21,7 @@ local function config()
         "dapui_watches",
         "DiffviewFiles",
       },
+      globalstatus = true,
     },
     sections = {
       lualine_a = { "mode" },
