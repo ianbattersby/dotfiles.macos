@@ -23,6 +23,7 @@ return {
   setup = function(use)
     use {
       "akinsho/nvim-bufferline.lua",
+      branch = "main",
       requires = "kyazdani42/nvim-web-devicons",
       after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
