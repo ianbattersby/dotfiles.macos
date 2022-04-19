@@ -71,18 +71,22 @@ local function config()
     completion = {
       completeopt = "menu,menuone,noinsert",
     },
-    documentation = {
-      border = "single",
+    window = {
+      completion = cmp.config.window.bordered { border = "single" },
+      documentation = cmp.config.window.bordered { border = "single" },
     },
+    -- view = {
+    --   entries = "native",
+    -- },
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    mapping = {
-      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    mapping = cmp.mapping.preset.insert {
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-y>"] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
       ["<C-e>"] = cmp.mapping {
         i = cmp.mapping.abort(),
@@ -144,6 +148,7 @@ local function config()
 
   -- Use buffer source for `/`.
   cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
     },
@@ -151,6 +156,7 @@ local function config()
 
   -- Use cmdline & path source for ':'.
   cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
     }, {
