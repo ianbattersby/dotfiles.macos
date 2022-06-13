@@ -42,10 +42,10 @@ return {
     vim.api.nvim_set_keymap("v", "y", "ygv<Esc>", { noremap = true })
 
     -- Shift + J/K moves selected lines down/up in visual mode
-    vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>m .+1<CR>==", { silent = true })
-    vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>m .-2<CR>==", { silent = true })
-    vim.api.nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>==gv=gv", { silent = true })
-    vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>==gv=gv", { silent = true })
+    -- vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>m .+1<CR>==", { silent = true })
+    -- vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>m .-2<CR>==", { silent = true })
+    -- vim.api.nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>==gv=gv", { silent = true })
+    -- vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>==gv=gv", { silent = true })
 
     --After searching, pressing escape stops the highlight
     --vim.api.nvim_set_keymap("n", "<esc>", ":noh<cr><esc>", { silent = true })
