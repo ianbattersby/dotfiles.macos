@@ -136,6 +136,9 @@ function M:on_attach()
 
     -- Register lsp-status for updates
     require("lsp-status").on_attach(client)
+
+    -- Register nvim-navic for updates
+    require("nvim-navic").attach(client, bufnr)
   end
 end
 

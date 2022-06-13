@@ -1,5 +1,5 @@
 local function config()
-  local gps = require "nvim-gps"
+  local navic = require "nvim-navic"
   local components = require "plugins.appearance._lualine_components"
 
   require("lualine").setup {
@@ -29,10 +29,8 @@ local function config()
       lualine_c = {
         { components.progress_or_filename, path = 0, file_status = true },
         {
-          gps.get_location,
-          cond = function()
-            return package.loaded["nvim-treesitter"] ~= nil and gps.is_available()
-          end,
+          navic.get_location,
+          cond = navic.is_available,
         },
       },
       lualine_x = { "encoding", "fileformat", "filetype" },
@@ -55,7 +53,7 @@ return {
     use {
       "hoob3rt/lualine.nvim",
       requires = { { "kyazdani42/nvim-web-devicons", opt = true }, { "nvim-lua/lsp-status.nvim", opt = false } },
-      after = { "onedark.nvim" },
+      after = { "onedark.nvim", "nvim-navic" },
       config = config,
     }
   end,
