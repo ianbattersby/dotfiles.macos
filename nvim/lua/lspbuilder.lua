@@ -98,15 +98,15 @@ function M:on_attach()
     end
 
     -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-      vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]], false)
+    if client.server_capabilities.codeActionProvider then
+      vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]], false)
 
       require("which-key").register({
         c = {
           f = {
             ":lua vim.lsp.buf."
-              .. (client.resolved_capabilities.document_range_formatting and "range_" or "")
-              .. "formatting()<CR>",
+                .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
+                .. "formatting()<CR>",
             "Format Document",
           },
         },
@@ -114,7 +114,7 @@ function M:on_attach()
     end
 
     -- Set autocommands conditional on server_capabilities (thx teej)
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.documentHighlightProvider then
       vim.cmd [[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -124,7 +124,7 @@ function M:on_attach()
     ]]
     end
 
-    if client.resolved_capabilities.code_lens then
+    if client.server_capabilities.codeLensProvider then
       vim.cmd [[
       augroup lsp_document_codelens
         au! * <buffer>

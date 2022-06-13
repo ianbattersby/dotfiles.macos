@@ -63,45 +63,45 @@ local config = {
       },
     },
   },
-  commands = {
-    ["RustSetInlayHints"] = { require("rust-tools.inlay_hints").set_inlay_hints },
-    ["RustDisableInlayHints"] = { require("rust-tools.inlay_hints").disable_inlay_hints },
-    ["RustToggleInlayHints"] = { require("rust-tools.inlay_hints").toggle_inlay_hints },
-    ["RustExpandMacro"] = { require("rust-tools.expand_macro").expand_macro },
-    ["RustOpenCargo"] = { require("rust-tools.open_cargo_toml").open_cargo_toml },
-    ["RustParentModule"] = { require("rust-tools.parent_module").parent_module },
-    ["RustJoinLines"] = { require("rust-tools.join_lines").join_lines },
-    ["RustRunnables"] = { require("rust-tools.runnables").runnables },
-    ["RustDebuggables"] = { require("rust-tools.debuggables").debuggables },
-    ["RustHoverActions"] = { require("rust-tools.hover_actions").hover_actions },
-    ["RustHoverRange"] = { require("rust-tools.hover_range").hover_range },
-    ["RustMoveItemDown"] = { require("rust-tools.move_item").move_item },
-    ["RustMoveItemUp"] = {
-      function()
-        require("rust-tools.move_item").move_item(true)
-      end,
-    },
-    ["RustViewCrateGraph"] = {
-      function(backend, output, pipe)
-        require("rust-tools.crate_graph").view_crate_graph(backend, output, pipe)
-      end,
-      "-nargs=* -complete=customlist,v:lua.rust_tools_get_graphviz_backends",
-      description = "`:RustViewCrateGraph [<backend> [<output>]]` Show the crate graph",
-    },
-    ["RustSSR"] = {
-      function(query)
-        require("rust-tools.ssr").ssr(query)
-      end,
-      "-nargs=?",
-      description = "`:RustSSR [query]` Structural Search Replace",
-    },
-    ["RustReloadWorkspace"] = { require("rust-tools/workspace_refresh").reload_workspace },
-    ["RustCodeAction"] = {
-      function()
-        require("rust-tools/code_action_group").code_action_group()
-      end,
-    },
-  },
+  -- commands = {
+  --   ["RustSetInlayHints"] = { require("rust-tools.inlay_hints").set_inlay_hints },
+  --   ["RustDisableInlayHints"] = { require("rust-tools.inlay_hints").disable_inlay_hints },
+  --   ["RustToggleInlayHints"] = { require("rust-tools.inlay_hints").toggle_inlay_hints },
+  --   ["RustExpandMacro"] = { require("rust-tools.expand_macro").expand_macro },
+  --   ["RustOpenCargo"] = { require("rust-tools.open_cargo_toml").open_cargo_toml },
+  --   ["RustParentModule"] = { require("rust-tools.parent_module").parent_module },
+  --   ["RustJoinLines"] = { require("rust-tools.join_lines").join_lines },
+  --   ["RustRunnables"] = { require("rust-tools.runnables").runnables },
+  --   ["RustDebuggables"] = { require("rust-tools.debuggables").debuggables },
+  --   ["RustHoverActions"] = { require("rust-tools.hover_actions").hover_actions },
+  --   ["RustHoverRange"] = { require("rust-tools.hover_range").hover_range },
+  --   ["RustMoveItemDown"] = { require("rust-tools.move_item").move_item },
+  --   ["RustMoveItemUp"] = {
+  --     function()
+  --       require("rust-tools.move_item").move_item(true)
+  --     end,
+  --   },
+  --   ["RustViewCrateGraph"] = {
+  --     function(backend, output, pipe)
+  --       require("rust-tools.crate_graph").view_crate_graph(backend, output, pipe)
+  --     end,
+  --     "-nargs=* -complete=customlist,v:lua.rust_tools_get_graphviz_backends",
+  --     description = "`:RustViewCrateGraph [<backend> [<output>]]` Show the crate graph",
+  --   },
+  --   ["RustSSR"] = {
+  --     function(query)
+  --       require("rust-tools.ssr").ssr(query)
+  --     end,
+  --     "-nargs=?",
+  --     description = "`:RustSSR [query]` Structural Search Replace",
+  --   },
+  --   ["RustReloadWorkspace"] = { require("rust-tools/workspace_refresh").reload_workspace },
+  --   ["RustCodeAction"] = {
+  --     function()
+  --       require("rust-tools/code_action_group").code_action_group()
+  --     end,
+  --   },
+  -- },
   handlers = {
     ["textDocument/hover"] = require("rust-tools.utils.utils").mk_handler(require("rust-tools.hover_actions").handler),
     ["experimental/serverStatus"] = require("rust-tools.utils.utils").mk_handler(
@@ -141,6 +141,42 @@ local config = {
 }
 
 local function finalize()
+  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting_seq_sync, {})
+  vim.api.nvim_create_user_command("RustSetInlayHints", require("rust-tools.inlay_hints").set_inlay_hints, {})
+  vim.api.nvim_create_user_command("RustDisableInlayHints", require("rust-tools.inlay_hints").disable_inlay_hints, {})
+  vim.api.nvim_create_user_command("RustToggleInlayHints", require("rust-tools.inlay_hints").toggle_inlay_hints, {})
+  vim.api.nvim_create_user_command("RustExpandMacro", require("rust-tools.expand_macro").expand_macro, {})
+  vim.api.nvim_create_user_command("RustOpenCargo", require("rust-tools.open_cargo_toml").open_cargo_toml, {})
+  vim.api.nvim_create_user_command("RustParentModule", require("rust-tools.parent_module").parent_module, {})
+  vim.api.nvim_create_user_command("RustJoinLines", require("rust-tools.join_lines").join_lines, {})
+  vim.api.nvim_create_user_command("RustRunnables", require("rust-tools.runnables").runnables, {})
+  vim.api.nvim_create_user_command("RustDebuggables", require("rust-tools.debuggables").debuggables, {})
+  vim.api.nvim_create_user_command("RustHoverActions", require("rust-tools.hover_actions").hover_actions, {})
+  vim.api.nvim_create_user_command("RustHoverRange", require("rust-tools.hover_range").hover_range, {})
+  vim.api.nvim_create_user_command("RustMoveItemDown", require("rust-tools.move_item").move_item, {})
+
+  vim.api.nvim_create_user_command("RustMoveItemUp", function()
+    require("rust-tools.move_item").move_item(true)
+  end, {})
+
+  vim.api.nvim_create_user_command("RustViewCrateGraph", function(backend, output, pipe)
+    require("rust-tools.crate_graph").view_crate_graph(backend, output, pipe)
+  end, {
+    nargs = "*",
+    complete = vim.g.rust_tools_get_graphviz_backends,
+    desc = "`:RustViewCrateGraph [<backend> [<output>]]` Show the crate graph",
+  })
+
+  vim.api.nvim_create_user_command("RustSSR", function(query)
+    require("rust-tools.ssr").ssr(query)
+  end, {
+    nargs = "?",
+    desc = "`:RustSSR [query]` Structural Search Replace",
+  })
+
+  vim.api.nvim_create_user_command("RustReloadWorkspace", require("rust-tools/workspace_refresh").reload_workspace, {})
+  vim.api.nvim_create_user_command("RustCodeAction", require("rust-tools/code_action_group").code_action_group, {})
+
   require("rust-tools.commands").setup_lsp_commands()
   require("rust-tools.utils.utils").override_apply_text_edits()
 end
