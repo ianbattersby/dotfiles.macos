@@ -42,8 +42,12 @@ function M:on_attach()
         r = { ":Telescope lsp_references<CR>", "References" },
         s = {
           ":"
-            .. (require("vim.treesitter.highlighter").active[bufnr] and "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or "Telescope lsp_document_symbols")
-            .. "<CR>",
+              ..
+              (
+              require("vim.treesitter.highlighter").active[bufnr] and
+                  "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or
+                  "Telescope lsp_document_symbols")
+              .. "<CR>",
           "Symbols",
         },
         T = { ":TroubleToggle lsp_type_definitions<CR>", "Definition" },
