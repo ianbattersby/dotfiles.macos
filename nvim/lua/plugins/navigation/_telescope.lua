@@ -167,6 +167,7 @@ return {
     use {
       "nvim-telescope/telescope.nvim",
       config = config,
+      opt = false,
       after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
       requires = {
         { "nvim-lua/plenary.nvim" },
