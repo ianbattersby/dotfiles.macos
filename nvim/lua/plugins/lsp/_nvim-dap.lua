@@ -118,12 +118,18 @@ local function config()
 
   -- Evaluate expressions
   -- (if you do this through which-key you get a horrible performance hit :'()
-  vim.api.nvim_set_keymap("v", "<leader>de", "<CMD>lua require('dapui').eval()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(
+    "v",
+    "<leader>de",
+    "<CMD>lua require('dapui').eval()<CR>",
+    { noremap = true, silent = true, desc = "Evaluate visual text" }
+  )
+
   vim.api.nvim_set_keymap(
     "n",
     "<leader>dE",
     "<CMD>lua require('dapui').eval(vim.fn.input 'Expression > ')<CR>",
-    { noremap = true, silent = true }
+    { noremap = true, silent = true, desc = "Evaluate expression" }
   )
 
   -- You can set trigger characters OR it will default to '.'

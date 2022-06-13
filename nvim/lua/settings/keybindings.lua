@@ -18,7 +18,7 @@ return {
     --vim.api.nvim_set_keymap("n", "<leader>sop", "<CMD>source %", { noremap = true })
 
     -- Quick save
-    vim.api.nvim_set_keymap("n", "<leader>w", "<CMD>w", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<leader>w", "<CMD>w", { noremap = true, desc = "Quick save" })
 
     -- Quick buffer switching
     -- vim.api.nvim_set_keymap(
@@ -29,8 +29,8 @@ return {
     -- )
 
     -- Tab to switch buffers in Normal mode
-    vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, desc = "Next tab" })
+    vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, desc = "Previous tab" })
 
     -- Circumvent OS X hash issue
     vim.api.nvim_set_keymap("i", "<A-3>", "<C-v>035", { silent = true, noremap = false })
