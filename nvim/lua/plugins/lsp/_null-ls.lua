@@ -8,7 +8,7 @@ local function config()
       null_ls.builtins.formatting.prettier.with {
         filetypes = { "html", "markdown" },
       },
-      null_ls.builtins.formatting.stylua,
+      --null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.terraform_fmt,
       null_ls.builtins.code_actions.eslint,
       null_ls.builtins.code_actions.shellcheck,
