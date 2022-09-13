@@ -1,5 +1,5 @@
 local function config()
-  require("rust-tools.config").setup {
+  require("rust-tools").setup {
     -- debugging stuff
     dap = {
       adapter = require("rust-tools.dap").get_codelldb_adapter(

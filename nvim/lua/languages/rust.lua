@@ -111,7 +111,7 @@ local config = {
   on_attach = lconfig:on_attach(),
   root_dir = function(filename)
     local fname = filename or vim.api.nvim_buf_get_name(0)
-    local cargo_crate_dir = require("lspconfig.util").root_pattern "Cargo.toml"(fname)
+    local cargo_crate_dir = require("lspconfig.util").root_pattern "Cargo.toml" (fname)
     local cmd = { "cargo", "metadata", "--no-deps", "--format-version", "1" }
     if cargo_crate_dir ~= nil then
       cmd[#cmd + 1] = "--manifest-path"
@@ -134,17 +134,19 @@ local config = {
       cargo_workspace_dir = vim.fn.json_decode(cargo_metadata)["workspace_root"]
     end
     return cargo_workspace_dir
-      or cargo_crate_dir
-      or require("lspconfig.util").root_pattern "rust-project.json"(fname)
-      or require("lspconfig.util").find_git_ancestor(fname)
+        or cargo_crate_dir
+        or require("lspconfig.util").root_pattern "rust-project.json" (fname)
+        or require("lspconfig.util").find_git_ancestor(fname)
   end,
 }
 
 local function finalize()
   vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting_seq_sync, {})
-  vim.api.nvim_create_user_command("RustSetInlayHints", require("rust-tools.inlay_hints").set_inlay_hints, {})
-  vim.api.nvim_create_user_command("RustDisableInlayHints", require("rust-tools.inlay_hints").disable_inlay_hints, {})
-  vim.api.nvim_create_user_command("RustToggleInlayHints", require("rust-tools.inlay_hints").toggle_inlay_hints, {})
+  vim.api.nvim_create_user_command("RustSetInlayHints", require("rust-tools.inlay_hints").set, {})
+  vim.api.nvim_create_user_command("RustUnsetInlayHints", require("rust-tools.inlay_hints").unset, {})
+  vim.api.nvim_create_user_command("RustEnableInlayHints", require("rust-tools.inlay_hints").enable, {})
+  vim.api.nvim_create_user_command("RustDisableInlayHints", require("rust-tools.inlay_hints").disable, {})
+  vim.api.nvim_create_user_command("RustOpenExternalDocs", require("rust-tools.external_docs").open_external_docs, {})
   vim.api.nvim_create_user_command("RustExpandMacro", require("rust-tools.expand_macro").expand_macro, {})
   vim.api.nvim_create_user_command("RustOpenCargo", require("rust-tools.open_cargo_toml").open_cargo_toml, {})
   vim.api.nvim_create_user_command("RustParentModule", require("rust-tools.parent_module").parent_module, {})
