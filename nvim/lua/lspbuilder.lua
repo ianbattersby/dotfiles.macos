@@ -142,7 +142,9 @@ function M:on_attach()
     require("lsp-status").on_attach(client)
 
     -- Register nvim-navic for updates
-    require("nvim-navic").attach(client, bufnr)
+    if client.server_capabilities.documentSymbols then
+      require("nvim-navic").attach(client, bufnr)
+    end
   end
 end
 
