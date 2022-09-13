@@ -1,12 +1,13 @@
 local function config()
-  require("pretty-fold").setup {}
+  require("fold-preview").setup {}
 end
 
 return {
   setup = function(use)
     use {
-      "anuvyklack/pretty-fold.nvim",
+      "anuvyklack/fold-preview.nvim",
       requires = 'anuvyklack/nvim-keymap-amend',
+      after = 'pretty-fold.nvim',
       config = config,
     }
   end,
