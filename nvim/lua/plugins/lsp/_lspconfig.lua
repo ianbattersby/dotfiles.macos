@@ -3,7 +3,8 @@ local function config()
   local languages = require "languages"
   local lspstatus = require "lsp-status"
 
-  local lspinstaller_servers = require "nvim-lsp-installer.servers"
+  require("mason").setup { ui = { border = "single" } }
+  require("mason-lspconfig").setup { automatic_installation = true }
 
   local function make_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -25,8 +26,6 @@ local function config()
   end
 
   local function setup_servers()
-    local displayinfo = false
-
     for _, language_impl in pairs(vim.tbl_keys(languages)) do
       local language = languages[language_impl]
 
@@ -42,33 +41,12 @@ local function config()
           configuration.on_attach = lconfig:on_attach()
         end
 
-        local server_available, requested_server = lspinstaller_servers.get_server(language.server)
-        --print("LspInstaller server available for ", language.server, "? ", server_available)
-
-        if server_available then
-          --print("Using LspInstaller for: ", language.server)
-          requested_server:on_ready(function()
-            requested_server:setup(configuration)
-          end)
-          if not requested_server:is_installed() then
-            --print("Installing Lsp server: ", language.server)
-            requested_server:install()
-            displayinfo = true
-          end
-        else
-          --print("Manually configuring LSP config for: ", language.server)
-          lspconfig[language.server].setup(configuration)
-          --vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-        end
+        lspconfig[language.server].setup(configuration)
 
         if language.finalize ~= nil then
           language.finalize()
         end
       end
-    end
-
-    if displayinfo == true then
-      require("nvim-lsp-installer").info_window.open()
     end
   end
 
@@ -110,12 +88,6 @@ local function config()
     zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
     padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
   }
-
-  require("nvim-lsp-installer").setup {
-    ui = {
-      border = "single"
-    }
-  }
 end
 
 return {
@@ -123,12 +95,13 @@ return {
     use {
       "neovim/nvim-lspconfig",
       requires = {
-        "williamboman/nvim-lsp-installer",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         "nvim-lua/lsp_extensions.nvim",
         "nvim-lua/lsp-status.nvim",
         "ray-x/lsp_signature.nvim",
       },
-      after = { "rust-tools.nvim", "nvim-lsp-installer", "nvim-cmp", "lsp-status.nvim", "which-key.nvim" },
+      after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim", "which-key.nvim" },
       config = config,
     }
   end,
