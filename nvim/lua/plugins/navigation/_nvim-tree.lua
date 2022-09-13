@@ -10,10 +10,6 @@ local function config()
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = false,
-    update_to_buf_dir = {
-      enable = true,
-      auto_open = true,
-    },
     update_focused_file = {
       enable = true,
       update_cwd = false,
@@ -41,12 +37,16 @@ local function config()
       height = 30,
       hide_root_folder = false,
       side = "left",
-      auto_resize = false,
       mappings = {
         custom_only = false,
         list = {},
       },
     },
+    actions = {
+      open_file = {
+        resize_window = true,
+      }
+    }
   }
 
   vim.cmd [[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]]
