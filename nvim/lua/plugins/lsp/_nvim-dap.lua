@@ -153,11 +153,11 @@ augroup END
   }
 
   -- Requires: while sleep 1; do codelldb --port 13000; done
-  dap.adapters.codelldb = {
-    type = "server",
-    host = "127.0.0.1",
-    port = 13000,
-  }
+  -- dap.adapters.codelldb = {
+  --   type = "server",
+  --   host = "127.0.0.1",
+  --   port = 13000,
+  -- }
 
   -- Currently experimental, sourced manually from MS repository:
   -- https://github.com/microsoft/vscode-cpptools/releases/tag/1.7.1
