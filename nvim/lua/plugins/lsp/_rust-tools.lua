@@ -3,10 +3,7 @@ local function config()
     -- debugging stuff
     dap = {
       adapter = require("rust-tools.dap").get_codelldb_adapter(
-        table.concat(
-          { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "bin", "codelldb" },
-          "/"
-        ),
+        table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
         table.concat(
           { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "lib", "liblldb.dylib" },
           "/"
