@@ -243,7 +243,11 @@ augroup END
   -- Go configuration using 'dap-go' extension
   dapgo.setup()
 
-  -- Python configuration using 'dap-python' extension
+  -- 'dap-python' extension expects:
+  -- mkdir .virtualenvs
+  -- cd .virtualenvs
+  -- python -m venv debugpy
+  -- debugpy/bin/python -m pip install debugpy
   dappython.setup "~/.virtualenvs/debugpy/bin/python"
   dappython.test_runner = "pytest"
 
