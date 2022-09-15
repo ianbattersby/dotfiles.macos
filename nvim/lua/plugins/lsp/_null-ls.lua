@@ -5,14 +5,12 @@ local function config()
   null_ls.setup {
     on_attach = lconfig:on_attach(),
     sources = {
-      null_ls.builtins.formatting.prettier.with {
-        filetypes = { "html", "markdown" },
-      },
-      --null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.terraform_fmt,
-      null_ls.builtins.code_actions.eslint,
+      null_ls.builtins.formatting.stylua,
+      --null_ls.builtins.formatting.terraform_fmt,
+      --null_ls.builtins.code_actions.eslint_d,
       null_ls.builtins.code_actions.shellcheck,
       null_ls.builtins.diagnostics.pylint,
+      null_ls.builtins.diagnostics.markdownlint,
     },
   }
 end
