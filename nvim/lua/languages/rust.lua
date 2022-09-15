@@ -14,7 +14,7 @@ local config = {
   settings = {
     ["rust-analyzer"] = {
       assist = {
-        importMergeBehavior = "last",
+        importMergeBehavior = "crate",
         importPrefix = "by_self",
       },
       cargo = {
@@ -111,7 +111,7 @@ local config = {
   on_attach = lconfig:on_attach(),
   root_dir = function(filename)
     local fname = filename or vim.api.nvim_buf_get_name(0)
-    local cargo_crate_dir = require("lspconfig.util").root_pattern "Cargo.toml" (fname)
+    local cargo_crate_dir = require("lspconfig.util").root_pattern "Cargo.toml"(fname)
     local cmd = { "cargo", "metadata", "--no-deps", "--format-version", "1" }
     if cargo_crate_dir ~= nil then
       cmd[#cmd + 1] = "--manifest-path"
@@ -134,9 +134,9 @@ local config = {
       cargo_workspace_dir = vim.fn.json_decode(cargo_metadata)["workspace_root"]
     end
     return cargo_workspace_dir
-        or cargo_crate_dir
-        or require("lspconfig.util").root_pattern "rust-project.json" (fname)
-        or require("lspconfig.util").find_git_ancestor(fname)
+      or cargo_crate_dir
+      or require("lspconfig.util").root_pattern "rust-project.json"(fname)
+      or require("lspconfig.util").find_git_ancestor(fname)
   end,
 }
 
