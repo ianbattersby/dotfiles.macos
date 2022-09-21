@@ -13,6 +13,7 @@ return {
       requires = { { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
       after = { "nvim-lspconfig", "nvim-dap" },
       config = config,
+      opt = false,
     }
   end,
 }
