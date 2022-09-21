@@ -97,7 +97,6 @@ return {
       requires = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "nvim-lua/lsp_extensions.nvim",
         "nvim-lua/lsp-status.nvim",
         "ray-x/lsp_signature.nvim",
       },
