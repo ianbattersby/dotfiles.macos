@@ -1,1 +1,1 @@
-return { server = "terraform_lsp", config = {} }
+return { server = "terraformls", config = {} }
