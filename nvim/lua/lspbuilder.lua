@@ -27,33 +27,33 @@ function M:on_attach()
 
     -- Mappings.
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v<cmd>lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v<cmd>lua.vim.lsp.formatexpr()")
 
-    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+    vim.bo.omnifunc = "v<cmd>lua.vim.lsp.omnifunc"
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     require("which-key").register({
       q = {
         name = "Diagnostics",
-        q = { ":TroubleToggle document_diagnostics<CR>", "Document" },
-        w = { ":TroubleToggle workspace_diagnostics<CR>", "Workspace" },
+        q = { "<cmd>TroubleToggle document_diagnostics<CR>", "Document" },
+        w = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Workspace" },
       },
       w = {
         name = "Workspace",
-        l = { ":lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List Folders" },
-        a = { ":lua vim.lsp.buf.add_workspace_folder()<CR>", "Add Folder" },
-        r = { ":lua vim.l;sp.buf.remove_workspace_folder()<CR>", "Remove Folder" },
-        d = { ":TroubleToggle workspace_diagnostics<CR>", "Diagnotics" },
+        l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List Folders" },
+        a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add Folder" },
+        r = { "<cmd>lua vim.l;sp.buf.remove_workspace_folder()<CR>", "Remove Folder" },
+        d = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Diagnotics" },
       },
       c = {
         name = "Code",
-        a = { ":Telescope lsp_code_actions<CR>", "Action (Cursor)" },
-        d = { ":Telescope lsp_range_code_actions<CR>", "Action (Document)" },
-        l = { ":lua vim.lsp.codelens.run()<CR>", "Code Lens" },
+        a = { "<cmd>Telescope lsp_code_actions<CR>", "Action (Cursor)" },
+        d = { "<cmd>Telescope lsp_range_code_actions<CR>", "Action (Document)" },
+        l = { "<cmd>lua vim.lsp.codelens.run()<CR>", "Code Lens" },
         r = {
           name = "Refactor",
-          r = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
+          r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         },
       },
     }, { prefix = "<leader>", buffer = bufnr })
@@ -61,9 +61,9 @@ function M:on_attach()
     require("which-key").register({
       g = {
         name = "Goto",
-        d = { ":TroubleToggle lsp_definitions<CR>", "Definition" },
-        D = { ":lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-        I = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
+        d = { "<cmd>TroubleToggle lsp_definitions<CR>", "Definition" },
+        D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
+        I = { "<cmd>TroubleToggle lsp_implementations<CR>", "Implementation" },
         l = {
           function()
             local config = {
@@ -86,21 +86,18 @@ function M:on_attach()
           end,
           "Show line diagnostics",
         },
-        r = { ":Telescope lsp_references<CR>", "References" },
-        s = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
+        r = { "<cmd>Telescope lsp_references<CR>", "References" },
+        s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature" },
         S = {
-          ":"
+          "<cmd>"
             .. (require("vim.treesitter.highlighter").active[bufnr] and "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or "Telescope lsp_document_symbols")
             .. "<CR>",
           "Symbols",
         },
-        T = { ":TroubleToggle lsp_type_definitions<CR>", "Definition" },
-        --T = { ":lua vim.lsp.buf.type_definition()<CR>" },
       },
-      K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
-      L = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
-      ["]d"] = { ':lua require("trouble").next({skip_groups = true, jump = true})<CR>', "Diagnostic Next" },
-      ["[d"] = { ':lua require("trouble").previous({skip_groups = true, jump = true})<CR>', "Diagnostic Previous" },
+      K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
+      ["]d"] = { "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>", "Diagnostic Next" },
+      ["[d"] = { "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>", "Diagnostic Previous" },
     }, { buffer = bufnr })
 
     -- Load custom keymaps
@@ -115,7 +112,7 @@ function M:on_attach()
     -- Map 'K' to hover if this isn't lua
     if filetype ~= "lua" then
       require("which-key").register({
-        ["K"] = { ":lua vim.lsp.buf.hover()<CR>", "lsp:hover" },
+        ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "lsp:hover" },
       }, { buffer = bufnr })
     end
 
@@ -126,7 +123,7 @@ function M:on_attach()
       require("which-key").register({
         c = {
           f = {
-            ":lua vim.lsp.buf."
+            "<cmd>lua vim.lsp.buf."
               .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
               .. "formatting()<CR>",
             "Format Document",
