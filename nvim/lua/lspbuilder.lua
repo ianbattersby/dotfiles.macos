@@ -34,27 +34,6 @@ function M:on_attach()
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     require("which-key").register({
-      g = {
-        name = "Goto",
-        d = { ":TroubleToggle lsp_definitions<CR>", "Definition" },
-        D = { ":lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-        i = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
-        r = { ":Telescope lsp_references<CR>", "References" },
-        s = {
-          ":"
-              ..
-              (
-              require("vim.treesitter.highlighter").active[bufnr] and
-                  "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or
-                  "Telescope lsp_document_symbols")
-              .. "<CR>",
-          "Symbols",
-        },
-        T = { ":TroubleToggle lsp_type_definitions<CR>", "Definition" },
-        --T = { ":lua vim.lsp.buf.type_definition()<CR>" },
-      },
-      K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
-      L = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
       q = {
         name = "Diagnostics",
         q = { ":TroubleToggle document_diagnostics<CR>", "Document" },
@@ -80,7 +59,46 @@ function M:on_attach()
     }, { prefix = "<leader>", buffer = bufnr })
 
     require("which-key").register({
-      ["L"] = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
+      g = {
+        name = "Goto",
+        d = { ":TroubleToggle lsp_definitions<CR>", "Definition" },
+        D = { ":lua vim.lsp.buf.declaration()<CR>", "Declaration" },
+        I = { ":TroubleToggle lsp_implementations<CR>", "Implementation" },
+        l = {
+          function()
+            local config = {
+              focusable = false,
+              style = "minimal",
+              border = "rounded",
+              source = "always",
+              header = "",
+              prefix = "",
+              scope = "line",
+              format = function(d)
+                local code = d.code or (d.user_data and d.user_data.lsp.code)
+                if code then
+                  return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+                end
+                return d.message
+              end,
+            }
+            vim.diagnostic.open_float(0, config)
+          end,
+          "Show line diagnostics",
+        },
+        r = { ":Telescope lsp_references<CR>", "References" },
+        s = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
+        S = {
+          ":"
+            .. (require("vim.treesitter.highlighter").active[bufnr] and "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or "Telescope lsp_document_symbols")
+            .. "<CR>",
+          "Symbols",
+        },
+        T = { ":TroubleToggle lsp_type_definitions<CR>", "Definition" },
+        --T = { ":lua vim.lsp.buf.type_definition()<CR>" },
+      },
+      K = { ":lua vim.lsp.buf.hover()<CR>", "Hover" },
+      L = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature" },
       ["]d"] = { ':lua require("trouble").next({skip_groups = true, jump = true})<CR>', "Diagnostic Next" },
       ["[d"] = { ':lua require("trouble").previous({skip_groups = true, jump = true})<CR>', "Diagnostic Previous" },
     }, { buffer = bufnr })
@@ -109,8 +127,8 @@ function M:on_attach()
         c = {
           f = {
             ":lua vim.lsp.buf."
-                .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
-                .. "formatting()<CR>",
+              .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
+              .. "formatting()<CR>",
             "Format Document",
           },
         },

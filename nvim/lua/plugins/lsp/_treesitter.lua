@@ -43,24 +43,24 @@ local function config()
     indent = {
       enable = false,
     },
-    refactor = {
-      highlight_current_scope = { enable = false },
-      highlight_definitions = { enable = true },
-      smart_rename = { enable = true, keymaps = { smart_rename = "gnr" } },
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition_lsp_fallback = "gnd",
-        },
-      },
-    },
+    -- refactor = {
+    --   highlight_current_scope = { enable = false },
+    --   highlight_definitions = { enable = true },
+    --   smart_rename = { enable = true, keymaps = { smart_rename = "gnr" } },
+    --   navigation = {
+    --     enable = true,
+    --     keymaps = {
+    --       goto_definition_lsp_fallback = "gnd",
+    --     },
+    --   },
+    -- },
     incremental_selection = {
-      enable = true,
+      enable = false,
       keymaps = {
-        init_selection = "gs",
-        node_incremental = "gj",
-        scope_incremental = "gl",
-        node_decremental = "gk",
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
       },
     },
   }
@@ -70,7 +70,7 @@ return {
   setup = function(use)
     use {
       "nvim-treesitter/nvim-treesitter",
-      requires = { "nvim-treesitter/nvim-treesitter-refactor" },
+      --requires = { "nvim-treesitter/nvim-treesitter-refactor" },
       run = ":TSUpdate",
       config = config,
     }
