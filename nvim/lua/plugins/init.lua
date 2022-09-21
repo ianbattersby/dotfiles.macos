@@ -22,24 +22,11 @@ local function packer_setup()
       use "wbthomason/packer.nvim"
       use "lewis6991/impatient.nvim"
 
-      -- use {
-      --   "nathom/filetype.nvim",
-      --   config = function()
-      --     require("filetype").setup {
-      --       overrides = {
-      --         extensions = {
-      --           tf = "terraform",
-      --         },
-      --       },
-      --     }
-      --   end,
-      -- }
-
       -- Use experimental built-in filetype lua-based support
       vim.g.do_filetype_lua = 1
 
       -- Do not source the default filetype.vim
-      --vim.g.did_load_filetypes = 0
+      vim.g.did_load_filetypes = 0
 
       -- Ensure we source packer_compiled from custom path
       --require("packer_compiled")
