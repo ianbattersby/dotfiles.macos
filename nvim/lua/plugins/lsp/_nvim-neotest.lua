@@ -1,12 +1,12 @@
 local function config()
-  require("neotest").setup({
+  require("neotest").setup {
     adapters = {
-      require("neotest-python")({
+      require "neotest-python" {
         dap = { justMyCode = false },
-      }),
-      require("neotest-plenary"),
-    }
-  })
+      },
+      require "neotest-plenary",
+    },
+  }
 end
 
 return {
@@ -16,7 +16,6 @@ return {
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "antoinemadec/FixCursorHold.nvim",
         "nvim-neotest/neotest-python",
         "nvim-neotest/neotest-plenary",
       },
