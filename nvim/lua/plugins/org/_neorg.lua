@@ -28,6 +28,7 @@ return {
     use {
       "nvim-neorg/neorg",
       config = config,
+      opt = true,
     }
   end,
 }
