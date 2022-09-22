@@ -5,10 +5,10 @@ local function config()
     m = {
       name = "Mind",
       o = { "<cmd>MindOpenMain<CR>", "Open" },
-      x = { "<cmd>MindClose<CR>", "Close" },
-      p = { "<cmd>MindOpenProject", "Project" },
-      s = { "<cmd>MindOpenSmartProject", "Smart Project" },
-      r = { "<cmd>MindReloadState", "Reload" },
+      q = { "<cmd>MindClose<CR>", "Close" },
+      p = { "<cmd>MindOpenProject<CR>", "Project" },
+      s = { "<cmd>MindOpenSmartProject<CR>", "Smart Project" },
+      r = { "<cmd>MindReloadState<CR>", "Reload" },
     },
   }, { prefix = "<leader>" })
 end
