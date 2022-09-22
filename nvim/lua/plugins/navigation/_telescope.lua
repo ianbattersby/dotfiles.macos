@@ -95,11 +95,11 @@ local function config()
     },
 
     pickers = {
-      find_files = { theme = "ivy", hidden = false },
-      git_files = { theme = "ivy", hidden = false, sort_last_used = true },
-      live_grep = { theme = "ivy", hidden = false },
-      buffers = { theme = "ivy", hidden = false, sort_last_used = true },
-      frecency = { theme = "ivy", hidden = false }, -- This doesn't work, but why?
+      find_files = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
+      git_files = { theme = "ivy", hidden = false, sort_last_used = true, layout_config = { prompt_padding = 1 } },
+      live_grep = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
+      buffers = { theme = "ivy", hidden = false, sort_last_used = true, layout_config = { prompt_padding = 1 } },
+      frecency = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } }, -- This doesn't work, but why?
     },
 
     extensions = {
@@ -138,7 +138,7 @@ local function config()
   local recentfiles_command =
     "require'telescope.builtin'.find_files({ prompt_title = 'Recent Files', sort_last_used = true })"
   local frecency_command =
-    "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{hidden = false, layout_config = { padding = 1 }})"
+    "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{hidden = false, layout_config = { prompt_padding = 1 }})"
   local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files) then " .. findfiles_command .. " end"
   local buffers_command = "require'telescope.builtin'.buffers()"
 
