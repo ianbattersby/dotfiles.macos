@@ -80,5 +80,7 @@ return {
 			filetype indent plugin on
 			syntax enable
 		]]
+
+    vim.g.ts_highlight_lua = true -- experimental
   end,
 }
