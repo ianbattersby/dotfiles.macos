@@ -1,4 +1,9 @@
 local function config()
+  require("symbols-outline").setup {
+    with = 65,
+    preview_bg_highlight = "bg",
+  }
+
   local theme = require("plugins.appearance._theme").name
   local colors = require(theme .. ".colors").setup()
 
@@ -18,13 +23,6 @@ augroup ft_outline
 augroup end
 ]])
 end
-
-vim.g.symbols_outline = {
-  auto_preview = false,
-  relative_width = true,
-  width = 65,
-  preview_bg_highlight = "bg",
-}
 
 return {
   setup = function(use)
