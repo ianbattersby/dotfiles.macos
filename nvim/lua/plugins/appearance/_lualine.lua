@@ -20,6 +20,7 @@ local function config()
         "dapui_stacks",
         "dapui_watches",
         "DiffviewFiles",
+        "mind",
       },
       globalstatus = true,
     },

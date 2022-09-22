@@ -1,5 +1,5 @@
 return {
   setup = function(use)
-    require("plugins.org._neorg").setup(use)
+    require("plugins.org._mind-nvim").setup(use)
   end,
 }

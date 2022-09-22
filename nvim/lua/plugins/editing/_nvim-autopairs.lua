@@ -15,6 +15,7 @@ local function config()
       "Trouble",
       "dap-repl",
       "Outline",
+      "mind",
     },
     check_ts = true,
     ts_config = {

@@ -14,6 +14,7 @@ local function config()
       "Trouble",
       "TelescopePrompt",
       "Outline",
+      "mind",
     },
     space_char_blankline = " ",
     show_current_context = true,
