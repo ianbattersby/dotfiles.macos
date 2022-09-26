@@ -34,7 +34,6 @@ local function config()
     },
     view = {
       width = 35,
-      height = 30,
       hide_root_folder = false,
       side = "left",
       mappings = {
@@ -45,8 +44,8 @@ local function config()
     actions = {
       open_file = {
         resize_window = true,
-      }
-    }
+      },
+    },
   }
 
   vim.cmd [[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]]
