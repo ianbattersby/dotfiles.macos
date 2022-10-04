@@ -141,7 +141,7 @@ local config = {
 }
 
 local function finalize()
-  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting_seq_sync, {})
+  vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
   vim.api.nvim_create_user_command("RustSetInlayHints", require("rust-tools.inlay_hints").set, {})
   vim.api.nvim_create_user_command("RustUnsetInlayHints", require("rust-tools.inlay_hints").unset, {})
   vim.api.nvim_create_user_command("RustEnableInlayHints", require("rust-tools.inlay_hints").enable, {})

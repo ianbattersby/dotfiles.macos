@@ -4,7 +4,7 @@ return {
     vim.g.mapleader = " "
     opt.autoindent = true
     opt.cindent = true
-    opt.cmdheight = 1
+    opt.cmdheight = 0
     opt.backspace = { "indent", "eol", "start" }
     opt.clipboard = "unnamedplus"
     opt.completeopt = "menu,menuone,noselect"
