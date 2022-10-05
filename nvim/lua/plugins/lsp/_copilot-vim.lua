@@ -27,7 +27,7 @@ return {
   setup = function(use)
     use {
       "github/copilot.vim",
-      --after = "which-key.nvim",
+      opt = true,
       config = config,
     }
   end,

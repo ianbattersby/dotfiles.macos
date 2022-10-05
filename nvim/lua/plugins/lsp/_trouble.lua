@@ -14,7 +14,6 @@ return {
       requires = {
         { "kyazdani42/nvim-web-devicons" },
       },
-      after = "which-key.nvim",
       config = config,
     }
   end,

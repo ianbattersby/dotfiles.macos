@@ -177,12 +177,12 @@ return {
     use {
       "hrsh7th/nvim-cmp",
       requires = {
-        { "hrsh7th/cmp-nvim-lsp", opt = false },
-        { "hrsh7th/cmp-buffer", opt = false },
-        { "hrsh7th/cmp-path", opt = false },
-        { "hrsh7th/cmp-cmdline", opt = false },
-        { "L3MON4D3/LuaSnip", opt = false },
-        { "saadparwaiz1/cmp_luasnip", opt = false },
+        { "hrsh7th/cmp-nvim-lsp" },
+        { "hrsh7th/cmp-buffer" },
+        { "hrsh7th/cmp-path" },
+        { "hrsh7th/cmp-cmdline" },
+        { "L3MON4D3/LuaSnip" },
+        { "saadparwaiz1/cmp_luasnip" },
         { "rafamadriz/friendly-snippets" },
         { "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", config = tabnine_config },
       },

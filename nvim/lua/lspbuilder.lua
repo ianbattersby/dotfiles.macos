@@ -33,103 +33,154 @@ function M:on_attach()
     vim.bo.omnifunc = "v<cmd>lua.vim.lsp.omnifunc"
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    require("which-key").register({
-      q = {
-        name = "Diagnostics",
-        q = { "<cmd>TroubleToggle document_diagnostics<CR>", "Document" },
-        w = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Workspace" },
-      },
-      w = {
-        name = "Workspace",
-        l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List Folders" },
-        a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add Folder" },
-        r = { "<cmd>lua vim.l;sp.buf.remove_workspace_folder()<CR>", "Remove Folder" },
-        d = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Diagnotics" },
-      },
-      c = {
-        name = "Code",
-        a = { "<cmd>Telescope lsp_code_actions<CR>", "Action (Cursor)" },
-        d = { "<cmd>Telescope lsp_range_code_actions<CR>", "Action (Document)" },
-        l = { "<cmd>lua vim.lsp.codelens.run()<CR>", "Code Lens" },
-        r = {
-          name = "Refactor",
-          r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-        },
-      },
-    }, { prefix = "<leader>", buffer = bufnr })
+    vim.keymap.set(
+      "n",
+      "<leader>qq",
+      "<CMD>TroubleToggle document_diagnostics<CR>",
+      { noremap = true, silent = true, desc = "Document", buffer = bufnr }
+    )
 
-    require("which-key").register({
-      g = {
-        name = "Goto",
-        d = { "<cmd>TroubleToggle lsp_definitions<CR>", "Definition" },
-        D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-        I = { "<cmd>TroubleToggle lsp_implementations<CR>", "Implementation" },
-        l = {
-          function()
-            local config = {
-              focusable = false,
-              style = "minimal",
-              border = "rounded",
-              source = "always",
-              header = "",
-              prefix = "",
-              scope = "line",
-              format = function(d)
-                local code = d.code or (d.user_data and d.user_data.lsp.code)
-                if code then
-                  return string.format("%s [%s]", d.message, code):gsub("1. ", "")
-                end
-                return d.message
-              end,
-            }
-            vim.diagnostic.open_float(0, config)
-          end,
-          "Show line diagnostics",
-        },
-        r = { "<cmd>Telescope lsp_references<CR>", "References" },
-        s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature" },
-        S = {
-          "<cmd>"
-            .. (require("vim.treesitter.highlighter").active[bufnr] and "lua require'telescope.builtin'.treesitter(require'telescope.themes'.get_ivy({}))" or "Telescope lsp_document_symbols")
-            .. "<CR>",
-          "Symbols",
-        },
-      },
-      K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-      ["]d"] = { "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>", "Diagnostic Next" },
-      ["[d"] = { "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>", "Diagnostic Previous" },
-    }, { buffer = bufnr })
+    vim.keymap.set(
+      "n",
+      "<leader>qw",
+      "<CMD>TroubleToggle workspace_diagnostics<CR>",
+      { noremap = true, silent = true, desc = "Workspace", buffer = bufnr }
+    )
+
+    vim.keymap.set("n", "<leader>wl", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, { noremap = true, silent = true, desc = "List Folders", buffer = bufnr })
+
+    vim.keymap.set("n", "<leader>wa", function()
+      vim.lsp.buf.add_workspace_folder()
+    end, { noremap = true, silent = true, desc = "Add Folder", buffer = bufnr })
+
+    vim.keymap.set("n", "<leader>wr", function()
+      vim.lsp.buf.remove_workspace_folder()
+    end, { noremap = true, silent = true, desc = "Remove Folder", buffer = bufnr })
+
+    vim.keymap.set(
+      "n",
+      "<leader>wd",
+      "<CMD>TroubleToggle workspace_diagnostics<CR>",
+      { noremap = true, silent = true, desc = "Diagnostics", buffer = bufnr }
+    )
+
+    vim.keymap.set(
+      "n",
+      "<leader>ca",
+      "<CMD>Telescope lsp_code_actions<CR>",
+      { noremap = true, silent = true, desc = "Actions", buffer = bufnr }
+    )
+
+    vim.keymap.set(
+      "n",
+      "<leader>cd",
+      "<CMD>Telescope lsp_range_code_actions<CR>",
+      { noremap = true, silent = true, desc = "Actions (Range)", buffer = bufnr }
+    )
+
+    vim.keymap.set("n", "<leader>cl", function()
+      vim.lsp.codelens.run()
+    end, { noremap = true, silent = true, desc = "Lens", buffer = bufnr })
+
+    vim.keymap.set("n", "<leader>crr", function()
+      vim.lsp.buf.rename()
+    end, { noremap = true, silent = true, desc = "Rename", buffer = bufnr })
+
+    vim.keymap.set(
+      "n",
+      "gd",
+      "<CMD>TroubleToggle lsp_definitions()<CR>",
+      { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
+    )
+
+    vim.keymap.set("n", "gD", function()
+      vim.lsp.buf.declaration()
+    end, { noremap = true, silent = true, desc = "Definition", buffer = bufnr })
+
+    vim.keymap.set(
+      "n",
+      "gI",
+      "<CMD>TroubleToggle lsp_implementations()<CR>",
+      { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
+    )
+
+    vim.keymap.set("n", "gl", function()
+      local config = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+        scope = "line",
+        format = function(d)
+          local code = d.code or (d.user_data and d.user_data.lsp.code)
+          if code then
+            return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+          end
+          return d.message
+        end,
+      }
+      vim.diagnostic.open_float(0, config)
+    end, { noremap = true, silent = true, desc = "Show Line Diagnostics", buffer = bufnr })
+
+    vim.keymap.set(
+      "n",
+      "gr",
+      require("telescope.builtin").lsp_references,
+      { noremap = true, silent = true, desc = "References", buffer = bufnr }
+    )
+
+    vim.keymap.set(
+      "n",
+      "gs",
+      vim.lsp.buf.signature_help,
+      { noremap = true, silent = true, desc = "Signature", buffer = bufnr }
+    )
+
+    vim.keymap.set("n", "gS", function()
+      if require("vim.treesitter.highlighter").active[bufnr] then
+        require("telescope.builtin").treesitter(require("telescope.themes").get_ivy {})
+      else
+        require("telescope.builtin").lsp_document_symbols()
+      end
+    end, { noremap = true, silent = true, desc = "Symbols", buffer = bufnr })
+
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
+
+    vim.keymap.set("n", "]d", function()
+      require("trouble").next { skip_groups = true, jump = true }
+    end, { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
+
+    vim.keymap.set("n", "[d]", function()
+      require("trouble").previous { skip_groups = true, jump = true }
+    end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
 
     -- Load custom keymaps
     --print(require("utils").tprint(self.keymaps))
     for _, keymap in ipairs(self.keymaps) do
-      require("which-key").register(
-        { [keymap.keybinding] = { keymap.action, keymap.desc } },
-        { mode = keymap.mode, buffer = bufnr }
+      vim.keymap.set(
+        keymap.mode,
+        keymap.keybinding,
+        keymap.action,
+        { noremap = true, silent = true, desc = keymap.desc, buffer = bufnr }
       )
-    end
-
-    -- Map 'K' to hover if this isn't lua
-    if filetype ~= "lua" then
-      require("which-key").register({
-        ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "lsp:hover" },
-      }, { buffer = bufnr })
     end
 
     -- Set some keybinds conditional on server capabilities
     if client.server_capabilities.codeActionProvider then
       vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]], false)
 
-      require("which-key").register({
-        c = {
-          f = {
-            "<cmd>lua vim.lsp.buf."
-              .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
-              .. "formatting()<CR>",
-            "Format Document",
-          },
-        },
-      }, { prefix = "<leader>", buffer = bufnr })
+      vim.keymap.set(
+        "n",
+        "<leader>cf",
+        "<cmd>lua vim.lsp.buf."
+          .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
+          .. "formatting()<CR>",
+        { noremap = true, silent = true, desc = "Format Document", buffer = bufnr }
+      )
     end
 
     -- Set autocommands conditional on server_capabilities (thx teej)

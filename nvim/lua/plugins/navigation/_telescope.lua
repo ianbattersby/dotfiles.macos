@@ -166,19 +166,18 @@ return {
   setup = function(use)
     use {
       "nvim-telescope/telescope.nvim",
-      config = config,
-      opt = false,
-      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "natecraddock/telescope-zf-native.nvim" },
         -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-telescope/telescope-dap.nvim" },
-        { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua", opt = false } },
+        { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } },
         { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
+      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
+      config = config,
     }
   end,
 }

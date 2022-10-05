@@ -44,7 +44,7 @@ return {
     opt.splitright = true -- Put new windows right of current
     opt.tabstop = 4 -- Number of spaces tabs count for
     opt.softtabstop = 4
-    --opt.termguicolors = true -- You will have bad experience for diagnostic messages when it's default 4000.
+    opt.termguicolors = true -- You will have bad experience for diagnostic messages when it's default 4000.
     vim.o.whichwrap = vim.o.whichwrap .. "<,>" -- Wrap movement between lines in edit mode with arrows
     opt.wrap = false
     -- opt.cc = "80"

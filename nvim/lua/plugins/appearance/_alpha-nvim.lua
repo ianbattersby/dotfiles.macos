@@ -1,9 +1,7 @@
 local function config()
   require("alpha").setup(require("alpha.themes.startify").opts)
 
-  require("which-key").register({
-    a = { ":Alpha<CR>", "Startup" },
-  }, { prefix = "<leader>" })
+  vim.keymap.set("n", "<leader>a", "<CMD>Alpha<CR>", { noremap = true, silent = true, desc = "Startup" })
 end
 
 return {
@@ -11,7 +9,7 @@ return {
     use {
       "goolord/alpha-nvim",
       requires = { "kyazdani42/nvim-web-devicons" },
-      after = { "onedark.nvim", "nvim-web-devicons", "which-key.nvim" },
+      after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
     }
   end,

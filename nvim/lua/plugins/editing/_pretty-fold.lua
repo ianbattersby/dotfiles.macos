@@ -6,7 +6,7 @@ return {
   setup = function(use)
     use {
       "anuvyklack/pretty-fold.nvim",
-      requires = 'anuvyklack/nvim-keymap-amend',
+      requires = "anuvyklack/nvim-keymap-amend",
       config = config,
     }
   end,

@@ -4,7 +4,7 @@ return {
       "Julian/vim-textobj-variable-segment",
       requires = { "kana/vim-textobj-user" },
       after = "vim-textobj-user",
-      branch = "main"
+      branch = "main",
     }
   end,
 }

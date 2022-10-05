@@ -13,15 +13,24 @@ local function config()
   }
 
   -- Key-mapping
-  require("which-key").register({
-    name = "Session",
-    l = { ':lua require("session_manager").load_last_session()<CR>', "Last" },
-    o = { ':lua require("session_manager").load_session()<CR>', "Load" },
-    d = { ':lua require("session_manager").delete_session()<CR>', "Delete" },
-    s = { ':lua require("session_manager").save_session()<CR>', "Save" },
-    ["/"] = { ':lua require("session_manager").load_current_dir_session()<CR>', "Directory" },
-    ["<leader>"] = { ':lua require("session_manager").load_last_session()<CR>', "Last" },
-  }, { prefix = "<leader><leader>" })
+  vim.keymap.set("n", "<leader><leader>l", function()
+    require("session_manager").load_last_session()
+  end, { noremap = true, silent = true, desc = "Last" })
+  vim.keymap.set("n", "<leader><leader>o", function()
+    require("session_manager").load_session()
+  end, { noremap = true, silent = true, desc = "Load" })
+  vim.keymap.set("n", "<leader><leader>d", function()
+    require("session_manager").delete_session()
+  end, { noremap = true, silent = true, desc = "Delete" })
+  vim.keymap.set("n", "<leader><leader>s", function()
+    require("session_manager").save_session()
+  end, { noremap = true, silent = true, desc = "Save" })
+  vim.keymap.set("n", "<leader><leader>/", function()
+    require("session_manager").load_current_dir_session()
+  end, { noremap = true, silent = true, desc = "Directory" })
+  vim.keymap.set("n", "<leader><leader><leader>", function()
+    require("session_manager").load_last_session()
+  end, { noremap = true, silent = true, desc = "Last" })
 end
 
 return {
@@ -29,7 +38,6 @@ return {
     use {
       "Shatur/neovim-session-manager",
       requires = { "nvim-lua/plenary.nvim" },
-      after = { "plenary.nvim", "which-key.nvim" },
       config = config,
     }
   end,

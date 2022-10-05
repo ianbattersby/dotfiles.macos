@@ -100,7 +100,7 @@ return {
         "nvim-lua/lsp-status.nvim",
         "ray-x/lsp_signature.nvim",
       },
-      after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim", "which-key.nvim" },
+      after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim" },
       config = config,
     }
   end,

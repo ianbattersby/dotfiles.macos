@@ -6,6 +6,7 @@ return {
   setup = function(use)
     use {
       "TimUntersberger/neogit",
+      module = "neogit",
       requires = { "nvim-lua/plenary.nvim" },
       config = config,
     }

@@ -53,7 +53,10 @@ return {
   setup = function(use)
     use {
       "hoob3rt/lualine.nvim",
-      requires = { { "kyazdani42/nvim-web-devicons", opt = true }, { "nvim-lua/lsp-status.nvim", opt = false } },
+      requires = {
+        { "kyazdani42/nvim-web-devicons" },
+        { "nvim-lua/lsp-status.nvim" },
+      },
       after = { "onedark.nvim", "nvim-navic" },
       config = config,
     }

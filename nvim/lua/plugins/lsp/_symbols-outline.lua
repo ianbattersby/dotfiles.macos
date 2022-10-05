@@ -7,11 +7,7 @@ local function config()
   local theme = require("plugins.appearance._theme").name
   local colors = require(theme .. ".colors").setup()
 
-  require("which-key").register({
-    c = {
-      s = { ":SymbolsOutline<CR>", "Symbols" },
-    },
-  }, { prefix = "<leader>" })
+  vim.keymap.set("n", "<leader>cs", "<CMD>SymbolsOutline<CR>", { noremap = true, silent = true, desc = "Symbols" })
 
   vim.cmd([[
 hi FocusedSymbol guibg=]] .. colors.orange0 .. [[
@@ -28,7 +24,6 @@ return {
   setup = function(use)
     use {
       "simrat39/symbols-outline.nvim",
-      after = "which-key.nvim",
       config = config,
     }
   end,

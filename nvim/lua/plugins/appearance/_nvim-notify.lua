@@ -11,7 +11,6 @@ return {
     use {
       "rcarriga/nvim-notify",
       requires = { "nvim-lua/plenary.nvim" },
-      after = { "which-key.nvim" },
       config = config,
     }
   end,

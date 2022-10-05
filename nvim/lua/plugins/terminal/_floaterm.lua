@@ -1,14 +1,16 @@
 local function config()
-  require("which-key").register({
-    ["\\"] = { ":FloatermNew --autoclose=2 --height=0.9 --width=0.9 --wintype=floating<CR>", "Terminal" },
-  }, { prefix = "<leader>" })
+  vim.keymap.set(
+    "n",
+    "<leader>\\",
+    "<CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 --wintype=floating<CR>",
+    { noremap = true, silent = true, desc = "Terminal" }
+  )
 end
 
 return {
   setup = function(use)
     use {
       "voldikss/vim-floaterm",
-      after = "which-key.nvim",
       config = config,
     }
   end,

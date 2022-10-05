@@ -57,79 +57,59 @@ local function config()
   end
 
   -- Key mapping
-  -- Let's use whichkey to make our mappings more transparent.
-  require("which-key").register {
-    ["<F5>"] = { ":lua require('dap').continue()<CR>", "Run/Continue" },
-    ["<F10>"] = { ":lua require('dap').step_over()<CR>", "Step Over" },
-    ["<F11>"] = { ":lua require('dap').step_into()<CR>", "Step Into" },
-    ["<F12>"] = { ":lua require('dap').step_out()<CR>", "Step Out" },
-  }
-
-  require("which-key").register({
-    d = {
-      name = "Debug",
-      c = { ":lua require('dap').continue()<CR>", "Run/Continue" },
-      s = {
-        name = "Step",
-        c = { ":lua require('dap').continue()<CR>", "Continue" },
-        v = { ":lua require('dap').step_over()<CR>", "Step Over" },
-        i = { ":lua require('dap').step_into()<CR>", "Step Into" },
-        o = { ":lua require('dap').step_out()<CR>", "Step Out" },
-      },
-      -- e = { ":lua require('dapui').eval()<CR>", "Evaluate", mode = "i" },
-      -- E = { ":lua require('dapui').eval(vim.fn.input 'Expression expression: ')<CR>", "Evaluate Expression" },
-      h = {
-        name = "Hover",
-        --h = { ":lua require('dap.ui.variables').hover()<CR>", "Hover" },
-        h = { ":lua require('dap.ui.widgets').hover()<CR>", "Hover" },
-        v = { ":lua require('dap.ui.variables').visual_hover()<CR>", "Visual Hover" },
-      },
-      u = {
-        name = "UI",
-        h = { ":lua require('dap.ui.widgets').hover()<CR>", "Hover" },
-        f = { "local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", "Float" },
-      },
-      r = {
-        name = "Repl",
-        o = { ":lua require('dap').repl.open()<CR>", "Open" },
-        l = { ":lua require('dap').repl.run_last()<CR>", "Run Last" },
-      },
-      b = {
-        ":lua require('dap').toggle_breakpoint()<CR>",
-        "Create Breakpoint",
-      },
-      B = {
-        name = "Breakpoints",
-        c = {
-          ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-          "Breakpoint Condition",
-        },
-        m = {
-          ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>",
-          "Log Point Message",
-        },
-        t = { ":lua require('dap').toggle_breakpoint()<CR>", "Create" },
-      },
-      v = { ":lua require('dap').scopes()<CR>", "Variable Scopes" },
-      --i = { ":lua require('dap').toggle()<CR>", "Toggle Debug" },
-    },
-  }, { prefix = "<leader>" })
+  vim.keymap.set("n", "<F5>", require("dap").continue, { noremap = true, silent = true, desc = "Run/Continue" })
+  vim.keymap.set("n", "<F10>", require("dap").step_over, { noremap = true, silent = true, desc = "Step Over" })
+  vim.keymap.set("n", "<F11>", require("dap").step_into, { noremap = true, silent = true, desc = "Step Into" })
+  vim.keymap.set("n", "<F12>", require("dap").step_out, { noremap = true, silent = true, desc = "Step Out" })
+  vim.keymap.set("n", "<leader>dc", require("dap").continue, { noremap = true, silent = true, desc = "Continue" })
+  vim.keymap.set("n", "<leader>dsc", require("dap").continue, { noremap = true, silent = true, desc = "Continue" })
+  vim.keymap.set("n", "<leader>dsv", require("dap").step_over, { noremap = true, silent = true, desc = "Step Over" })
+  vim.keymap.set("n", "<leader>dsi", require("dap").step_into, { noremap = true, silent = true, desc = "Step Into" })
+  vim.keymap.set("n", "<leader>dso", require("dap").step_out, { noremap = true, silent = true, desc = "Step Out" })
+  vim.keymap.set("n", "<leader>dhh", require("dap.ui.widgets").hover, { noremap = true, silent = true, desc = "Hover" })
+  vim.keymap.set("n", "<leader>dh", require("dap.ui.widgets").hover, { noremap = true, silent = true, desc = "Hover" })
+  vim.keymap.set("n", "<leader>dro", require("dap").repl.open, { noremap = true, silent = true, desc = "Open" })
+  vim.keymap.set("n", "<leader>drl", require("dap").run_last, { noremap = true, silent = true, desc = "Run Last" })
+  vim.keymap.set(
+    "n",
+    "<leader>db",
+    require("dap").toggle_breakpoint,
+    { noremap = true, silent = true, desc = "Toggle Breakpoint" }
+  )
+  vim.keymap.set("n", "<leader>dBc", function()
+    vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
+      require("dap").set_breakpoint(input)
+    end)
+  end, { noremap = true, silent = true, desc = "Toggle Breakpoint" })
+  vim.keymap.set("n", "<leader>dBm", function()
+    vim.ui.input({ prompt = "Log point message: " }, function(input)
+      require("dap").set_breakpoint { nil, nil, input }
+    end)
+  end, { noremap = true, silent = true, desc = "Log Point Message" })
+  vim.keymap.set(
+    "n",
+    "<leader>dBt",
+    require("dap").toggle_breakpoint,
+    { noremap = true, silent = true, desc = "Toggle" }
+  )
+  vim.keymap.set("n", "<leader>dv", function()
+    local widgets = require "dap.ui.widgets"
+    widgets.centered_float(widgets.scopes)
+  end, { noremap = true, silent = true, desc = "Scoped Variables" })
 
   -- Evaluate expressions
-  -- (if you do this through which-key you get a horrible performance hit :'()
-  vim.api.nvim_set_keymap(
+  vim.keymap.set(
     "v",
     "<leader>de",
-    "<CMD>lua require('dapui').eval()<CR>",
+    require("dapui").eval,
     { noremap = true, silent = true, desc = "Evaluate visual text" }
   )
 
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>dE",
-    "<CMD>lua require('dapui').eval(vim.fn.input 'Expression > ')<CR>",
-    { noremap = true, silent = true, desc = "Evaluate expression" }
-  )
+  vim.keymap.set("n", "<leader>dE", function()
+    vim.ui.input({ prompt = "Expression > " }, function(input)
+      require("dapui").eval(input)
+    end)
+  end, { noremap = true, silent = true, desc = "Evaluate expression" })
 
   -- You can set trigger characters OR it will default to '.'
   -- You can also trigger with the omnifunc, <c-x><c-o>
@@ -272,7 +252,6 @@ return {
         { "mfussenegger/nvim-dap-python" },
         { "jbyuki/one-small-step-for-vimkind" },
       },
-      after = "which-key.nvim",
       config = config,
     }
   end,
