@@ -38,19 +38,6 @@ local function config()
         custom_bg = "NONE",
       },
     },
-    -- sidebars = {
-    --   "terminal",
-    --   "telescope",
-    --   "packer",
-    --   "trouble",
-    --   "NvimTree",
-    --   "neo-tree",
-    --   "alpha",
-    --   "Outline",
-    --   "DiffviewFiles",
-    --   "mind",
-    -- },
-    --dark_float = true,
   }
 
   vim.cmd [[colorscheme catppuccin]]

@@ -11,7 +11,6 @@ local function config()
       --extensions = { "fzf" },
       disabled_filetypes = {
         "alpha",
-        "NvimTree",
         "packer",
         "Trouble",
         "Outline",

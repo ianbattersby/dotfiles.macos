@@ -10,7 +10,7 @@ local function config()
       "help",
       "alpha",
       "packer",
-      "NvimTree",
+      "neo-tree",
       "Trouble",
       "TelescopePrompt",
       "Outline",

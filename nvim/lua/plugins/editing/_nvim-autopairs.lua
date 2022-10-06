@@ -11,7 +11,7 @@ local function config()
       "clap_input",
       "packer",
       "help",
-      "NvimTree",
+      "neo-tree",
       "Trouble",
       "dap-repl",
       "Outline",
