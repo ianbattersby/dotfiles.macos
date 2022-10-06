@@ -57,7 +57,6 @@ return {
       "kyazdani42/nvim-tree.lua",
       module = "nvim-tree",
       requires = { "kyazdani42/nvim-web-devicons" },
-      after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
     }
   end,

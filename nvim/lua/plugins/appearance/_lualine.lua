@@ -57,7 +57,7 @@ return {
         { "kyazdani42/nvim-web-devicons" },
         { "nvim-lua/lsp-status.nvim" },
       },
-      after = { "onedark.nvim", "nvim-navic" },
+      after = { "nvim-navic" },
       config = config,
     }
   end,

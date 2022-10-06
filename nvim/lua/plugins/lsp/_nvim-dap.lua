@@ -4,6 +4,12 @@ local function config()
   local dapgo = require "dap-go"
   local dappython = require "dap-python"
 
+  local sign = vim.fn.sign_define
+
+  sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+  sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+  sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
+
   dapui.setup {
     icons = { expanded = "▾", collapsed = "▸" },
     mappings = {

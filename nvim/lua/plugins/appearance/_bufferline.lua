@@ -3,6 +3,7 @@ local function config()
     default = true,
   }
   require("bufferline").setup {
+    highlights = require("catppuccin.groups.integrations.bufferline").get(),
     options = {
       separator_style = "thin",
       numbers = "buffer_id",
@@ -25,7 +26,6 @@ return {
       "akinsho/nvim-bufferline.lua",
       branch = "main",
       requires = "kyazdani42/nvim-web-devicons",
-      after = { "onedark.nvim", "nvim-web-devicons" },
       config = config,
     }
   end,
