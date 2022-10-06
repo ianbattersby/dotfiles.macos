@@ -176,9 +176,9 @@ function M:on_attach()
       vim.keymap.set(
         "n",
         "<leader>cf",
-        "<cmd>lua vim.lsp.buf."
-          .. (client.server_capabilities.documentRangeFormattingProvider and "range_" or "")
-          .. "formatting()<CR>",
+        "<cmd>lua vim.lsp.buf.format"
+          .. (client.server_capabilities.documentRangeFormattingProvider and "expr" or "")
+          .. "()<CR>",
         { noremap = true, silent = true, desc = "Format Document", buffer = bufnr }
       )
     end
