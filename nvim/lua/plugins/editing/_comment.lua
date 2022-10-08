@@ -4,7 +4,6 @@ local function config()
     mappings = {
       basic = true,
       extra = true,
-      extended = true,
     },
   }
 end
