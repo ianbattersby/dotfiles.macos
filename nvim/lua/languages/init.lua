@@ -13,4 +13,5 @@ return {
   ["typescript"] = require "languages.typescript",
   ["vim"] = require "languages.vim",
   ["yaml"] = require "languages.yaml",
+  ["zig"] = require "languages.zig",
 }
