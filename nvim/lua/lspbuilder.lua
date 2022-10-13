@@ -86,7 +86,7 @@ function M:on_attach()
     vim.keymap.set(
       "n",
       "gd",
-      "<CMD>TroubleToggle lsp_definitions()<CR>",
+      "<CMD>TroubleToggle lsp_definitions<CR>",
       { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
     )
 
@@ -97,7 +97,7 @@ function M:on_attach()
     vim.keymap.set(
       "n",
       "gI",
-      "<CMD>TroubleToggle lsp_implementations()<CR>",
+      "<CMD>TroubleToggle lsp_implementations<CR>",
       { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
     )
 
