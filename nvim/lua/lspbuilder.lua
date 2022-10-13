@@ -210,15 +210,22 @@ function M:on_attach()
       vim.api.nvim_create_augroup("LspDocumentCodeLens", { clear = false })
       vim.api.nvim_clear_autocmds { buffer = bufnr, group = "LspDocumentCodeLens" }
 
-      vim.api.nvim_create_autocmd(
-        "BufEnter",
-        { group = "LspDocumentCodeLens", buffer = bufnr, callback = require("vim.lsp.codelens").refresh(), once = true }
-      )
+      vim.api.nvim_create_autocmd("BufEnter", {
+        group = "LspDocumentCodeLens",
+        buffer = bufnr,
+        callback = function()
+          require("vim.lsp.codelens").refresh()
+        end,
+        once = true,
+      })
 
-      vim.api.nvim_create_autocmd(
-        { "BufEnter, CursorHold" },
-        { group = "LspDocumentCodeLens", buffer = bufnr, callback = require("vim.lsp.codelens").refresh() }
-      )
+      vim.api.nvim_create_autocmd({ "BufEnter, CursorHold" }, {
+        group = "LspDocumentCodeLens",
+        buffer = bufnr,
+        callback = function()
+          require("vim.lsp.codelens").refresh()
+        end,
+      })
     end
 
     -- Register lsp-status for updates
