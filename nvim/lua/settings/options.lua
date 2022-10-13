@@ -21,7 +21,7 @@ return {
     opt.inccommand = "split" -- Get a preview of replacements
     opt.incsearch = true -- Shows the match while typing
     opt.joinspaces = false -- No double spaces with join
-    opt.lazyredraw = true
+    opt.lazyredraw = false
     opt.breakindent = true
     opt.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
     opt.linebreak = true -- Stop words being broken on wrap
