@@ -64,12 +64,9 @@ function M:on_attach()
       { noremap = true, silent = true, desc = "Diagnostics", buffer = bufnr }
     )
 
-    vim.keymap.set(
-      "n",
-      "<leader>ca",
-      "<CMD>Telescope lsp_code_actions<CR>",
-      { noremap = true, silent = true, desc = "Actions", buffer = bufnr }
-    )
+    vim.keymap.set("n", "<leader>ca", function()
+      vim.lsp.buf.code_action()
+    end, { noremap = true, silent = true, desc = "Actions", buffer = bufnr })
 
     vim.keymap.set(
       "n",
