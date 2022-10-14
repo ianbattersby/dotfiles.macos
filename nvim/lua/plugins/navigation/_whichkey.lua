@@ -18,7 +18,7 @@ local function config()
     m = { name = "Mind" },
     q = { name = "Diagnostics" },
     s = { name = "Split" },
-    t = { mame = "Terminal" },
+    t = { name = "Terminal" },
     w = { name = "Workspace" },
   }, { prefix = "<leader>" })
 

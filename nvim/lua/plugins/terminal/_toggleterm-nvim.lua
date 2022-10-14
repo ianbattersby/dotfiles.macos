@@ -21,7 +21,7 @@ return {
           "n",
           "<leader>tf",
           "<CMD>ToggleTerm direction='float'<CR>",
-          { noremap = true, silent = true, desc = "Toggle" }
+          { noremap = true, silent = true, desc = "Float" }
         )
         vim.keymap.set(
           "n",
@@ -40,10 +40,22 @@ return {
           pattern = "term://*",
           callback = function()
             vim.keymap.set("t", "<C-Space>", [[<C-\><C-n>]], { buffer = 0 })
-            vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], { buffer = 0 })
-            vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { buffer = 0 })
-            vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { buffer = 0 })
-            vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { buffer = 0 })
+            vim.keymap.set("t", "<C-h>", [[<CMD>wincmd h<CR>]], { buffer = 0 })
+            vim.keymap.set("t", "<C-j>", [[<CMD>wincmd j<CR>]], { buffer = 0 })
+            vim.keymap.set("t", "<C-k>", [[<CMD>wincmd k<CR>]], { buffer = 0 })
+            vim.keymap.set("t", "<C-l>", [[<CMD>wincmd l<CR>]], { buffer = 0 })
+          end,
+        })
+
+        vim.api.nvim_create_autocmd("TermEnter", {
+          pattern = "term://*toggleterm#*",
+          callback = function()
+            vim.keymap.set(
+              "n",
+              "<c-t>",
+              [[<CMD>exec v:count1 . "ToggleTerm"<CR>]],
+              { buffer = 0, silent = true, noremap = true }
+            )
           end,
         })
       end,
