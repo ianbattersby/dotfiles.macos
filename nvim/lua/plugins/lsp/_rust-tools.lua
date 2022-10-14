@@ -1,6 +1,12 @@
 local function config()
   require("rust-tools").setup {
     -- debugging stuff
+    tools = {
+      autoSetHints = true,
+      runnables = { use_telescope = true },
+      inlay_hints = { show_parameter_hints = true },
+      hover_actions = { auto_focus = true },
+    },
     dap = {
       adapter = require("rust-tools.dap").get_codelldb_adapter(
         table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
