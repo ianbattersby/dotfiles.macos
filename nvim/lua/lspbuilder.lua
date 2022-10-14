@@ -25,10 +25,10 @@ function M:on_attach()
   return function(client, bufnr)
     -- Mappings.
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v<cmd>lua.vim.lsp.omnifunc")
-    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v<cmd>lua.vim.lsp.formatexpr()")
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
-    vim.bo.omnifunc = "v<cmd>lua.vim.lsp.omnifunc"
+    --vim.bo.omnifunc = "v<cmd>lua.vim.lsp.omnifunc"
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set(
