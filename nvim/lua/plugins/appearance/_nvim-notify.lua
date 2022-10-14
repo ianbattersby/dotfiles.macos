@@ -3,7 +3,8 @@ local function config()
     render = "minimal",
   }
 
-  vim.notify = require "notify"
+  -- Let's assume noice will do this
+  --vim.notify = require "notify"
 end
 
 return {

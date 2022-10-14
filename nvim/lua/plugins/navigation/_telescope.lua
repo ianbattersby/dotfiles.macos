@@ -131,6 +131,7 @@ local function config()
   telescope.load_extension "frecency"
   telescope.load_extension "notify"
   telescope.load_extension "ui-select"
+  telescope.load_extension "noice"
 
   -- Let's use the get_ivy theme in places
   local livegrep_command = "require'telescope.builtin'.live_grep()"
@@ -176,7 +177,7 @@ return {
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
-      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify" },
+      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify", "noice.nvim" },
       config = config,
     }
   end,

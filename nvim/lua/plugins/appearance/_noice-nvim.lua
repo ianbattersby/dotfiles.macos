@@ -1,5 +1,12 @@
 local function config()
-  require("noice").setup()
+  require("noice").setup {
+    notify = {
+      enabled = true,
+    },
+    hacks = {
+      slip_duplicate_messages = true,
+    },
+  }
 end
 
 return {
