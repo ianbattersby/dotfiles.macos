@@ -1,5 +1,5 @@
 local function config()
-  require("nvim-navic").setup {}
+  require("nvim-navic").setup { depth_limit = 3 }
 end
 
 return {
