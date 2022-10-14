@@ -17,6 +17,25 @@ return {
         "nvim-lua/plenary.nvim",
         "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
+        {
+          -- only needed if you want to use the commands with "_with_window_picker" suffix
+          "s1n7ax/nvim-window-picker",
+          tag = "v1.*",
+          config = function()
+            require("window-picker").setup {
+              use_winbar = "smart",
+              autoselect_one = true,
+              include_current = false,
+              filter_rules = {
+                bo = {
+                  filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+                  buftype = { "terminal" },
+                },
+              },
+              other_win_hl_color = "#e35e4f",
+            }
+          end,
+        },
       },
       config = config,
     }
