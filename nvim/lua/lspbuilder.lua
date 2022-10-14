@@ -232,7 +232,7 @@ function M:on_attach()
     require("lsp-status").on_attach(client)
 
     -- Register nvim-navic for updates
-    if client.server_capabilities.documentSymbols then
+    if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
     end
   end
