@@ -12,6 +12,7 @@ local function config()
       "fterm",
       "term",
       "toggleterm",
+      "Trouble",
     },
     cursorline = false,
     signcolumn = false,

@@ -3,7 +3,7 @@ local function config()
     position = "bottom",
     height = 10,
     auto_open = false,
-    auto_close = true,
+    auto_close = false,
   }
 end
 
