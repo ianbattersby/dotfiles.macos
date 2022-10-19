@@ -23,12 +23,11 @@ end
 
 function M:on_attach()
   return function(client, bufnr)
-    -- Mappings.
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
-    --vim.bo.omnifunc = "v<cmd>lua.vim.lsp.omnifunc"
+    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set(
@@ -154,7 +153,6 @@ function M:on_attach()
     end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
 
     -- Load custom keymaps
-    --print(require("utils").tprint(self.keymaps))
     for _, keymap in ipairs(self.keymaps) do
       vim.keymap.set(
         keymap.mode,
@@ -165,19 +163,18 @@ function M:on_attach()
     end
 
     -- Set some keybinds conditional on server capabilities
-    if client.server_capabilities.codeActionProvider then
-      -- vim.api.nvim_exec([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]], false)
+    if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format()
+          vim.lsp.buf.format { timeout_ms = 2000 }
         end,
       })
 
       vim.keymap.set(
         "n",
         "<leader>cf",
-        "<cmd>lua vim.lsp.buf.format"
+        "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })"
           .. (client.server_capabilities.documentRangeFormattingProvider and "expr" or "")
           .. "()<CR>",
         { noremap = true, silent = true, desc = "Format Document", buffer = bufnr }
