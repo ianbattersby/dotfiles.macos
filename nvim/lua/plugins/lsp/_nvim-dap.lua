@@ -120,7 +120,13 @@ local function config()
   -- You can set trigger characters OR it will default to '.'
   -- You can also trigger with the omnifunc, <c-x><c-o>
   vim.api.nvim_create_augroup("DanRepl", { clear = true })
-  vim.api.nvim_create_autocmd("FileType", { group = "DanRepl", callback = function() require("dap.ext.autocompl").attach() end })
+  vim.api.nvim_create_autocmd("FileType", {
+    group = "DanRepl",
+    pattern = "dan-repl",
+    callback = function()
+      require("dap.ext.autocompl").attach()
+    end,
+  })
 
   -- Configure different adapters
   dap.adapters.nlua = function(callback, dapconfig)
