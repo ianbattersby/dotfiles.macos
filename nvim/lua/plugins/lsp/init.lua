@@ -10,7 +10,7 @@ return {
     require("plugins.lsp._trouble").setup(use)
     require("plugins.lsp._nvim-neotest").setup(use)
     require("plugins.lsp._codelens-extensions").setup(use)
-    require("plugins.lsp._copilot-vim").setup(use)
+    --require("plugins.lsp._copilot-vim").setup(use)
     require("plugins.lsp._neogen").setup(use)
     require("plugins.lsp._symbols-outline").setup(use)
   end,

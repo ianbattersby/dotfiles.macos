@@ -66,10 +66,10 @@ local function config()
 
   require("lsp_signature").setup {
     bind = true,
-    doc_lines = 0,
+    doc_lines = 10,
     floating_window = true,
     floating_window_off_y = -2,
-    fix_pos = true,
+    fix_pos = false,
     hint_enable = true,
     hint_prefix = " ",
     hint_scheme = "String",
