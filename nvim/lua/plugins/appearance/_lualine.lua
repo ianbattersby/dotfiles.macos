@@ -33,7 +33,30 @@ local function config()
           cond = navic.is_available,
         },
       },
-      lualine_x = { "encoding", "fileformat", "filetype" },
+      lualine_x = {
+        "encoding",
+        "fileformat",
+        "filetype",
+        {
+          require("noice").api.status.message.get_hl,
+          cond = require("noice").api.status.message.has,
+        },
+        {
+          require("noice").api.statusline.command.get,
+          cond = require("noice").api.statusline.command.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.statusline.mode.get,
+          cond = require("noice").api.statusline.mode.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.statusline.search.get,
+          cond = require("noice").api.statusline.search.has,
+          color = { fg = "#ff9e64" },
+        },
+      },
       lualine_y = { { components.diagnostics } }, --"progress" },
       lualine_z = { "location" },
     },

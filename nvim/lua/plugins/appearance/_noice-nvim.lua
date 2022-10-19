@@ -6,6 +6,9 @@ local function config()
     hacks = {
       slip_duplicate_messages = true,
     },
+    lsp_progress = {
+      enabled = true,
+    },
   }
 end
 
