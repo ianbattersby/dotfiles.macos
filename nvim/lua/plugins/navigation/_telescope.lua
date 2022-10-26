@@ -177,7 +177,7 @@ return {
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
-      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "nvim-notify", "noice.nvim" },
+      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "noice.nvim" },
       config = config,
     }
   end,

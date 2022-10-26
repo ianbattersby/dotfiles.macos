@@ -37,10 +37,10 @@ local function config()
         "encoding",
         "fileformat",
         "filetype",
-        {
-          require("noice").api.status.message.get_hl,
-          cond = require("noice").api.status.message.has,
-        },
+        -- {
+        --   require("noice").api.status.message.get_hl,
+        --   cond = require("noice").api.status.message.has,
+        -- },
         {
           require("noice").api.statusline.command.get,
           cond = require("noice").api.statusline.command.has,
