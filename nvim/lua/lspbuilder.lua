@@ -106,8 +106,7 @@ function M:on_attach()
         style = "minimal",
         border = "rounded",
         source = "always",
-        header = "",
-        prefix = "",
+        prefix = " ",
         scope = "line",
         format = function(d)
           local code = d.code or (d.user_data and d.user_data.lsp.code)
@@ -148,7 +147,7 @@ function M:on_attach()
       require("trouble").next { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
 
-    vim.keymap.set("n", "[d]", function()
+    vim.keymap.set("n", "[d", function()
       require("trouble").previous { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
 
@@ -181,34 +180,46 @@ function M:on_attach()
       )
     end
 
-    -- Set autocommands conditional on server_capabilities (thx teej)
-    if client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
-      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "LspDocumentHighlight" }
+    --if client.server_capabilities.documentDiagnosticProvider then
+    vim.api.nvim_create_autocmd("CursorHold", {
+      buffer = bufnr,
+      callback = function()
+        local opts = {
+          focusable = false,
+          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+          border = "rounded",
+          source = "always",
+          prefix = " ",
+          scope = "cursor",
+        }
+        vim.diagnostic.open_float(nil, opts)
+      end,
+    })
+    --end
 
-      vim.api.nvim_create_autocmd("CursorHold", {
-        group = "LspDocumentHighlight",
+    if client.server_capabilities.documentHighlightProvider then
+      vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = "lsp_document_highlight",
         buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.document_highlight()
-        end,
+        callback = vim.lsp.buf.document_highlight,
       })
 
-      vim.api.nvim_create_autocmd("CursorMoved", {
-        group = "LspDocumentHighlight",
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = "lsp_document_highlight",
         buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.clear_references()
-        end,
+        callback = vim.lsp.buf.clear_references,
       })
     end
 
     if client.server_capabilities.codeLensProvider then
-      vim.api.nvim_create_augroup("LspDocumentCodeLens", { clear = false })
-      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "LspDocumentCodeLens" }
+      vim.api.nvim_create_augroup("lsp_document_codelens", { clear = false })
+      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_codelens" }
 
       vim.api.nvim_create_autocmd("BufEnter", {
-        group = "LspDocumentCodeLens",
+        group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
           require("vim.lsp.codelens").refresh()
@@ -217,7 +228,7 @@ function M:on_attach()
       })
 
       vim.api.nvim_create_autocmd({ "BufEnter, CursorHold" }, {
-        group = "LspDocumentCodeLens",
+        group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
           require("vim.lsp.codelens").refresh()
