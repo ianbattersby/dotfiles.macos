@@ -1,29 +1,28 @@
 local function config()
   require("noice").setup {
+    views = {
+      notify = {
+        render = "minimal",
+      },
+    },
     messages = {
       enabled = true,
-      view = "mini",
-      view_error = "split",
-      view_warn = "mini",
-      view_history = "split",
-      view_search = "virtualtext",
+      -- view = "popup",
+      -- view_error = "split",
+      -- view_warn = "mini",
+      -- view_history = "split",
+      -- view_search = "virtualtext",
     },
     notify = {
       enabled = true,
+      view = "mini",
     },
-    hacks = {
-      slip_duplicate_messages = true,
-    },
-    lsp = {
-      progress = {
-        enabled = true,
-      },
-      hover = {
-        enabled = true,
-      },
-    },
-    format = {
-      default = "{message}",
+    -- format = {
+    --   default = "{message}",
+    -- },
+    presets = {
+      lsp_doc_border = true,
+      --bottom_search = true,
     },
   }
 end
@@ -32,10 +31,10 @@ return {
   setup = function(use)
     use {
       "folke/noice.nvim",
-      event = "VimEnter",
+      --event = "VimEnter",
       requires = {
         "MunifTanjim/nui.nvim",
-        --"rcarriga/nvim-notify",
+        "rcarriga/nvim-notify",
       },
       config = config,
     }

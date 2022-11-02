@@ -129,7 +129,7 @@ local function config()
   telescope.load_extension "packer"
   telescope.load_extension "file_browser"
   telescope.load_extension "frecency"
-  telescope.load_extension "notify"
+  --telescope.load_extension "notify"
   telescope.load_extension "ui-select"
   telescope.load_extension "noice"
 
