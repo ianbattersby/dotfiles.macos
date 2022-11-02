@@ -5,6 +5,10 @@ local function config()
     c = {
       name = "Code",
       r = { name = "Refactor" },
+      t = {
+        name = "Testing",
+        d = { name = "Debug" },
+      },
     },
     d = {
       name = "Debug",

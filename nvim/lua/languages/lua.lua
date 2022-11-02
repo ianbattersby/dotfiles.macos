@@ -1,10 +1,10 @@
 local lconfig = require("lspbuilder").new {
-  {
-    mode = "n",
-    keybinding = "<leader>ct",
-    action = "<Plug>PlenaryTestFile",
-    desc = "Run Tests",
-  },
+  -- {
+  --   mode = "n",
+  --   keybinding = "<leader>ctp",
+  --   action = "<Plug>PlenaryTestFile",
+  --   desc = "Run Tests",
+  -- },
 }
 
 local config = {

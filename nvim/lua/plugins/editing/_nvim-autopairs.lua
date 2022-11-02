@@ -16,6 +16,7 @@ local function config()
       "dap-repl",
       "Outline",
       "mind",
+      "neotest-summary",
     },
     check_ts = true,
     ts_config = {

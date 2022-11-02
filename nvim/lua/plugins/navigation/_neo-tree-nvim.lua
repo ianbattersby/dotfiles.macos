@@ -28,7 +28,7 @@ return {
               include_current = false,
               filter_rules = {
                 bo = {
-                  filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+                  filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix", "neotest-summary" },
                   buftype = { "terminal" },
                 },
               },
