@@ -27,6 +27,8 @@ local function config()
       "toml",
       "yaml",
       "hcl",
+      "markdown",
+      "zig",
     }, --"maintained", --vim.tbl_keys(require'languages')),
     highlight = {
       enable = true,
