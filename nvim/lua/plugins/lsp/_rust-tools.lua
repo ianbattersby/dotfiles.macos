@@ -1,5 +1,5 @@
 local function config()
-  require("rust_tools").setup {
+  require("rust-tools").setup {
     -- debugging stuff
     tools = {
       autoSetHints = true,
