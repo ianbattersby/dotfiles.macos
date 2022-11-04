@@ -6,18 +6,19 @@ local M = {}
 -- 	end,
 -- })
 
-function M:init(config, keymaps)
+function M:init(config, keymaps, commands)
   config = config or {}
   setmetatable(config, self)
   self.__index = self
   self.keymaps = keymaps or {}
+  self.commands = commands or {}
   return config
 end
 
-function M.new(keymaps)
+function M.new(keymaps, commands)
   local inst = {}
   setmetatable(inst, { __index = M })
-  inst:init(nil, keymaps)
+  inst:init(nil, keymaps, commands)
   return inst
 end
 
@@ -159,6 +160,16 @@ function M:on_attach()
         keymap.action,
         { noremap = true, silent = true, desc = keymap.desc, buffer = bufnr }
       )
+    end
+
+    -- Load custom commands
+    for k, v in pairs(self.commands) do
+      vim.validate {
+        ["command.name"] = { v.name, "s" },
+        ["command.fn"] = { v.command, "f" },
+      }
+
+      vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
     end
 
     -- Set some keybinds conditional on server capabilities
