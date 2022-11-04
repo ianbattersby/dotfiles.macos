@@ -41,13 +41,19 @@ local function config()
 
   setup_servers()
 
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
+  local diagnostic_config = {
+    virtual_text = false,
     signs = true,
     update_in_insert = false,
     underline = true,
     severity_sort = true,
-  })
+    virtual_lines = true, --{ only_current_line = true },
+  }
+
+  vim.diagnostic.config(diagnostic_config)
+
+  vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "single",
@@ -76,6 +82,7 @@ local function config()
   --   zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
   --   padding = "", -- character to pad on left and right of signature can be ' ', or '|'  etc
   -- }
+  require("lsp_lines").setup {}
 end
 
 return {
@@ -87,6 +94,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "nvim-lua/lsp-status.nvim",
         --"ray-x/lsp_signature.nvim",
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       },
       after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim" },
       config = config,
