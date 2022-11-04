@@ -6,35 +6,29 @@ local function config()
   require("mason").setup { ui = { border = "single" } }
   require("mason-lspconfig").setup { automatic_installation = true }
 
-  local function make_config()
-    -- Enhance capabilities according to cmp_nvim_lsp
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-    return {
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname) or require("utils").find_session_directory()
-      end,
-      capabilities = capabilities,
-    }
-  end
-
   local function setup_servers()
     for _, language_impl in pairs(vim.tbl_keys(languages)) do
       local language = languages[language_impl]
+
+      local cmp_enhanced_config = vim.tbl_deep_extend(
+        "force",
+        lspconfig[language.server] or {},
+        { capabilities = require("cmp_nvim_lsp").default_capabilities() }
+      )
 
       if language then
         if language.initialize ~= nil then
           language.initialize()
         end
 
-        local configuration = vim.tbl_deep_extend("force", make_config(), language.config)
+        local language_config = vim.tbl_deep_extend("force", cmp_enhanced_config, language.config)
 
-        if configuration.on_attach == nil then
+        if language_config.on_attach == nil then
           local lconfig = require("lspbuilder").new()
-          configuration.on_attach = lconfig:on_attach()
+          language_config.on_attach = lconfig:on_attach()
         end
 
-        lspconfig[language.server].setup(configuration)
+        lspconfig[language.server].setup(language_config)
 
         if language.finalize ~= nil then
           language.finalize()
@@ -59,7 +53,7 @@ local function config()
     border = "single",
   })
 
-  -- This is overrided by lsp_signature
+  -- This is overrided by lsp_signature (and by noice.nvim)
   -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   --   border = "single",
   -- })

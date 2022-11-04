@@ -28,6 +28,7 @@ return {
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "mfussenegger/nvim-dap" },
+        { "neovim/nvim-lspconfig" },
       },
       after = "nvim-dap",
       config = config,
