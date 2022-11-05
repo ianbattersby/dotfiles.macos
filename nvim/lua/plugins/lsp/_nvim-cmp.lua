@@ -159,8 +159,8 @@ local function config()
   -- Use cmdline & path source for ':'.
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline {
-      ["<Down>"] = { c = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
-      ["<Up>"] = { c = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
+      -- ["<Down>"] = { c = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
+      -- ["<Up>"] = { c = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
       ["<C-Space>"] = { c = cmp.mapping.complete() },
       ["<C-CR>"] = { c = cmp.mapping.confirm { select = true } },
       ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
