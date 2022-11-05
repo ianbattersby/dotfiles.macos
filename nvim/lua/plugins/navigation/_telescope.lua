@@ -2,8 +2,6 @@ local function config()
   local telescope = require "telescope"
   local actions = require "telescope.actions"
   local trouble = require "trouble.providers.telescope"
-  local which_key = require "which-key"
-
   local dbpath = vim.fn.stdpath "data" .. "/databases/"
 
   telescope.setup {
@@ -100,6 +98,7 @@ local function config()
       live_grep = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
       buffers = { theme = "ivy", hidden = false, sort_last_used = true, layout_config = { prompt_padding = 1 } },
       frecency = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } }, -- This doesn't work, but why?
+      symbols = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
     },
 
     extensions = {
@@ -129,38 +128,61 @@ local function config()
   telescope.load_extension "packer"
   telescope.load_extension "file_browser"
   telescope.load_extension "frecency"
-  --telescope.load_extension "notify"
+  telescope.load_extension "notify"
   telescope.load_extension "ui-select"
   telescope.load_extension "noice"
 
   -- Let's use the get_ivy theme in places
-  local livegrep_command = "require'telescope.builtin'.live_grep()"
-  local findfiles_command = "require'telescope.builtin'.find_files()"
-  local recentfiles_command =
-    "require'telescope.builtin'.find_files({ prompt_title = 'Recent Files', sort_last_used = true })"
-  local frecency_command =
-    "require'telescope'.extensions.frecency.frecency(require'telescope.themes'.get_ivy{hidden = false, layout_config = { prompt_padding = 1 }})"
-  local gitfiles_copmmand = "if not pcall(require'telescope.builtin'.git_files) then " .. findfiles_command .. " end"
-  local buffers_command = "require'telescope.builtin'.buffers()"
+  local findfiles_fn = require("telescope.builtin").find_files
 
-  -- Key mapping
-  which_key.register {
-    ["<C-p>"] = { ":lua " .. findfiles_command .. "<CR>", "Find Files" },
-    ["<C-s>"] = { ":lua " .. livegrep_command .. "<CR>", "Search Files" },
-    ["<C-x>"] = { ":Telescope resume<CR>", "Resume" },
-  }
+  vim.keymap.set("n", "<C-x>", "<CMD>Telescope resume<CR>", { noremap = true, silent = true, desc = "Resume" })
+  vim.keymap.set("n", "<C-p>", findfiles_fn, { noremap = true, silent = true, desc = "Find Files" })
+  vim.keymap.set("n", "<leader>ff", findfiles_fn, { noremap = true, silent = true, desc = "Files (ascending)" })
 
-  which_key.register({
-    f = {
-      name = "Find",
-      f = { ":lua " .. findfiles_command .. "<CR>", "Files (ascending)" },
-      r = { ":lua " .. recentfiles_command .. "<CR>", "Files (recent)" },
-      g = { ":lua " .. gitfiles_copmmand .. "<CR>", "Files (git)" },
-      x = { ":lua " .. frecency_command .. "<CR>", "Files (frecency)" },
-      s = { ":lua " .. livegrep_command .. "<CR>", "Files (content)" },
-    },
-    b = { ":lua " .. buffers_command .. "<CR>", "Buffers" },
-  }, { prefix = "<leader>" })
+  vim.keymap.set(
+    "n",
+    "<C-s>",
+    require("telescope.builtin").live_grep,
+    { noremap = true, silent = true, desc = "Search Files" }
+  )
+
+  vim.keymap.set("n", "<leader>fr", function()
+    require("telescope.builtin").find_files { prompt_title = "Recent Files", sort_last_used = true }
+  end, { noremap = true, silent = true, desc = "Files (recent)" })
+
+  vim.keymap.set("n", "<leader>fx", function()
+    require("telescope").extensions.frecency.frecency(
+      require("telescope.themes").get_ivy { hidden = false, layout_config = { prompt_padding = 1 } }
+    )
+  end, { noremap = true, silent = true, desc = "Files (frecency)" })
+
+  vim.keymap.set(
+    "n",
+    "<leader>fg",
+    require("telescope.builtin").git_files,
+    { noremap = true, silent = true, desc = "Files (git)" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<leader>fs",
+    require("telescope.builtin").live_grep,
+    { noremap = true, silent = true, desc = "Files (content)" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<leader>b",
+    require("telescope.builtin").buffers,
+    { noremap = true, silent = true, desc = "Buffers" }
+  )
+
+  vim.keymap.set(
+    "n",
+    "<leader>cs",
+    require("telescope.builtin").treesitter,
+    { noremap = true, silent = true, desc = "Symbols (search)" }
+  )
 end
 
 return {
@@ -177,7 +199,7 @@ return {
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
-      after = { "trouble.nvim", "which-key.nvim", "nvim-dap", "noice.nvim" },
+      after = { "trouble.nvim", "nvim-dap", "noice.nvim" },
       config = config,
     }
   end,

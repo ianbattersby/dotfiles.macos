@@ -18,6 +18,9 @@ local function config()
       name = "Testing",
       d = { name = "Debug" },
     },
+    f = {
+      name = "Find",
+    },
     g = { name = "Goto" },
     m = { name = "Notes" },
     q = { name = "Diagnostics" },
