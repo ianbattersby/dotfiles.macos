@@ -19,23 +19,16 @@ local function merge_config()
 
   local rt_commands = {}
 
-  -- -nargs=* -complete=customlist,v:lua.rust_tools_get_graphviz_backends
   if rt_config.commands then
     for k, v in pairs(rt_config.commands) do
-      local nvim_opts = { desc = v.description or nil }
+      local nargs = v[2] and (string.match(v[2], "-nargs=([0-9?*]) ") or string.match(v[2], "-nargs=([0-9?*])$")) or nil
+      local complete = v[2] and (string.match(v[2], "-complete=(.*) ") or string.match(v[2], "-complete=(.*)$")) or nil
 
-      if k == "RustViewCrateGraph" then
-        -- There is no easy to way to translate this automatically, in example:
-        -- "-nargs=* -complete=customlist,v:lua.rust_tools_get_graphviz_backends"
-        nvim_opts = vim.tbl_deep_extend("force", nvim_opts, {
-          nargs = "*",
-          complete = function(_, _, _)
-            return require("rust-tools").rust_tools_get_graphviz_backends()
-          end,
-        })
-      elseif k == "RustSSR" then
-        nvim_opts = vim.tbl_deep_extend("force", nvim_opts, { nargs = "?" })
-      end
+      local nvim_opts = {
+        desc = v.description or nil,
+        nargs = nargs,
+        complete = complete,
+      }
 
       rt_commands[k] = {
         name = k,
