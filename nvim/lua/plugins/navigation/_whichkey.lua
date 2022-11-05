@@ -5,10 +5,6 @@ local function config()
     c = {
       name = "Code",
       r = { name = "Refactor" },
-      t = {
-        name = "Testing",
-        d = { name = "Debug" },
-      },
     },
     d = {
       name = "Debug",
@@ -17,6 +13,10 @@ local function config()
       u = { name = "UI" },
       r = { name = "Repl" },
       B = { name = "Breakpoints" },
+    },
+    e = {
+      name = "Testing",
+      d = { name = "Debug" },
     },
     g = { name = "Goto" },
     m = { name = "Mind" },
