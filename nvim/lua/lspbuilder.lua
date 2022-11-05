@@ -184,6 +184,10 @@ function M:on_attach()
       })
 
       vim.keymap.set("n", "<leader>cf", function()
+        vim.lsp.buf.format(format_opts)
+      end, { noremap = true, silent = true, desc = "Format Document", buffer = bufnr })
+
+      vim.keymap.set("v", "<C-k><C-k>", function()
         vim.lsp.buf.format(
           vim.tbl_deep_extend("keep", format_opts, client.server_capabilities.documentRangeFormattingProvider and {
             range = {}, -- Defaults to block in VISUAL mode
