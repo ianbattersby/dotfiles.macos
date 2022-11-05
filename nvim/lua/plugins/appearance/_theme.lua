@@ -37,6 +37,10 @@ local function config()
         enabled = false,
         custom_bg = "NONE",
       },
+      neotest = { enabled = true },
+      mini = { enabled = true },
+      noice = { enabled = true },
+      mason = { enabled = true },
     },
   }
 
