@@ -163,7 +163,7 @@ function M:on_attach()
     end
 
     -- Load custom commands
-    for k, v in pairs(self.commands) do
+    for _, v in pairs(self.commands) do
       vim.validate {
         ["command.name"] = { v.name, "s" },
         ["command.fn"] = { v.command, "f" },
@@ -174,21 +174,22 @@ function M:on_attach()
 
     -- Set some keybinds conditional on server capabilities
     if client.server_capabilities.documentFormattingProvider then
+      local format_opts = { timeout_ms = 2000 }
+
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format { timeout_ms = 2000 }
+          vim.lsp.buf.format(format_opts)
         end,
       })
 
-      vim.keymap.set(
-        "n",
-        "<leader>cf",
-        "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })"
-          .. (client.server_capabilities.documentRangeFormattingProvider and "expr" or "")
-          .. "()<CR>",
-        { noremap = true, silent = true, desc = "Format Document", buffer = bufnr }
-      )
+      vim.keymap.set("n", "<leader>cf", function()
+        vim.lsp.buf.format(
+          vim.tbl_deep_extend("keep", format_opts, client.server_capabilities.documentRangeFormattingProvider and {
+            range = {}, -- Defaults to block in VISUAL mode
+          } or {})
+        )
+      end, { noremap = true, silent = true, desc = "Format Document", buffer = bufnr })
     end
 
     --if client.server_capabilities.documentDiagnosticProvider then
