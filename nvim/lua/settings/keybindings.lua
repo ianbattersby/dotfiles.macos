@@ -49,5 +49,34 @@ return {
 
     --After searching, pressing escape stops the highlight
     --vim.keymap.set("n", "<esc>", ":noh<cr><esc>", { silent = true })
+
+    vim.keymap.set(
+      { "n", "i" },
+      "<C-h>",
+      "<CMD>wincmd h<CR>",
+      { silent = true, noremap = true, desc = "Navigate Left" }
+    )
+
+    vim.keymap.set(
+      { "n", "i" },
+      "<C-j>",
+      "<CMD>wincmd j<CR>",
+      { silent = true, noremap = true, desc = "Navigate Down" }
+    )
+
+    vim.keymap.set({ "n", "i" }, "<C-k>", "<CMD>wincmd k<CR>", { silent = true, noremap = true, desc = "Navigate Up" })
+
+    vim.keymap.set(
+      { "n", "i" },
+      "<C-l>",
+      "<CMD>wincmd l<CR>",
+      { silent = true, noremap = true, desc = "Navigate Right" }
+    )
+    vim.keymap.set(
+      { "n", "i" },
+      "<C-\\>",
+      "<CMD>wincmd p<CR>",
+      { silent = true, noremap = true, desc = "Navigate Previous" }
+    )
   end,
 }
