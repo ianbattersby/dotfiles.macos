@@ -162,7 +162,11 @@ local function config()
       -- ["<Down>"] = { c = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
       -- ["<Up>"] = { c = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
       ["<C-Space>"] = { c = cmp.mapping.complete() },
-      ["<C-CR>"] = { c = cmp.mapping.confirm { select = true } },
+      ["<C-j>"] = { c = cmp.mapping.confirm { select = false } },
+      ["<C-CR>"] = cmp.mapping(function()
+        cmp.mapping.confirm { select = true }
+        cmp.mapping.complete()
+      end),
       ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
       ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     },
