@@ -17,7 +17,6 @@ return {
   setup = function(use)
     use {
       "phaazon/mind.nvim",
-      module = "mind",
       requires = { "nvim-lua/plenary.nvim" },
       branch = "v2.2",
       config = config,

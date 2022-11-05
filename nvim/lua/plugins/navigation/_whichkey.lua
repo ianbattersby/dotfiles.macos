@@ -19,7 +19,7 @@ local function config()
       d = { name = "Debug" },
     },
     g = { name = "Goto" },
-    m = { name = "Mind" },
+    m = { name = "Notes" },
     q = { name = "Diagnostics" },
     s = { name = "Split" },
     t = { name = "Terminal" },
