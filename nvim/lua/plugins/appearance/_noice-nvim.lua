@@ -1,4 +1,28 @@
 local function config()
+  require("notify").setup {
+    stages = "static",
+    render = "minimal",
+    on_open = function(win)
+      local bufnr = vim.api.nvim_win_get_buf(win)
+
+      if bufnr then
+        vim.keymap.set(
+          "n",
+          "<C-Space>",
+          require("notify").dismiss,
+          { noremap = true, silent = true, desc = "Dismiss", buffer = bufnr }
+        )
+
+        vim.keymap.set(
+          "n",
+          "<C-t>",
+          "<CMD>tab split<CR>",
+          { noremap = true, silent = true, desc = "Split Tab", buffer = bufnr }
+        )
+      end
+    end,
+  }
+
   require("noice").setup {
     views = {
       notify = {

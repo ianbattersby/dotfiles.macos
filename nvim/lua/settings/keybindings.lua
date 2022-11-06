@@ -78,5 +78,12 @@ return {
       "<CMD>wincmd p<CR>",
       { silent = true, noremap = true, desc = "Navigate Previous" }
     )
+
+    vim.keymap.set(
+      { "n", "i" },
+      "<C-W><C-W>",
+      "<CMD>wincmd W<CR>",
+      { silent = true, noremap = true, desc = "Switch backward" }
+    )
   end,
 }
