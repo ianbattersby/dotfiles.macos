@@ -30,6 +30,7 @@ local function packer_setup()
       require("plugins.editing").setup(use)
       require("plugins.lsp").setup(use)
       require("plugins.org").setup(use)
+      require("plugins.help").setup(use)
       require("plugins.terminal").setup(use)
     end,
     config = {
