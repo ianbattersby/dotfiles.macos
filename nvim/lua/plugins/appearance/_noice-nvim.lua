@@ -2,25 +2,6 @@ local function config()
   require("notify").setup {
     stages = "static",
     render = "minimal",
-    on_open = function(win)
-      local bufnr = vim.api.nvim_win_get_buf(win)
-
-      if bufnr then
-        vim.keymap.set(
-          "n",
-          "<C-Space>",
-          require("notify").dismiss,
-          { noremap = true, silent = true, desc = "Dismiss", buffer = bufnr }
-        )
-
-        vim.keymap.set(
-          "n",
-          "<C-t>",
-          "<CMD>tab split<CR>",
-          { noremap = true, silent = true, desc = "Split Tab", buffer = bufnr }
-        )
-      end
-    end,
   }
 
   require("noice").setup {
@@ -39,7 +20,7 @@ local function config()
     },
     notify = {
       enabled = true,
-      view = "mini",
+      view = "notify",
     },
     -- format = {
     --   default = "{message}",
@@ -49,6 +30,20 @@ local function config()
       --bottom_search = true,
     },
   }
+
+  vim.keymap.set(
+    { "n", "i" },
+    "<C-Bslash>",
+    "<CMD>NoiceLast<CR>",
+    { silent = true, noremap = true, desc = "Last message" }
+  )
+
+  vim.keymap.set(
+    { "n", "i" },
+    "<C-]>",
+    "<CMD>NoiceTelescope<CR>",
+    { silent = true, noremap = true, desc = "Message history" }
+  )
 end
 
 return {
