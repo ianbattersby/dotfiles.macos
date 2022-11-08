@@ -216,10 +216,10 @@ function gem_install(){
 brew_install node
 brew_install yarn
 brew_install go
-brew_install python@3.8
+brew_install python@3.10
 
 #Python2 pip doesn't come with Catalina and brew no longer available
-[[ ! -e $PYTHON_PIP2_BIN/pip2 ]] && python "$SCRIPT_DIR/get-pip.py" --user
+#[[ ! -e $PYTHON_PIP2_BIN/pip2 ]] && python "$SCRIPT_DIR/get-pip.py" --user
 
 #Linting
 brew_install shellcheck #bash linting
@@ -323,12 +323,12 @@ brew_install ctags
 #Neovim
 brew_install neovim
 gem_install neovim
-pip_install 2 neovim
+#pip_install 2 neovim
 pip_install 3 neovim --upgrade
 pip_install 3 neovim-remote --upgrade
-pip_install 2 install --upgrade --user jedi #Python completion
+#pip_install 2 install --upgrade --user jedi #Python completion
 pip_install 3 install --upgrade --user jedi #Python completion
-pip_install 2 pylint --upgrade #Python linting
+#pip_install 2 pylint --upgrade #Python linting
 pip_install 3 pylint --upgrade #Python linting
 pip_install 3 gitlint #git linting
 
