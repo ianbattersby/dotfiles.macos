@@ -188,7 +188,8 @@ end
 return {
   setup = function(use)
     use {
-      "nvim-telescope/telescope.nvim",
+      "ianbattersby/telescope.nvim",
+      branch = "add-ivy-padding",
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "natecraddock/telescope-zf-native.nvim" },
