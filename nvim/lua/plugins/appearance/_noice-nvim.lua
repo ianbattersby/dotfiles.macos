@@ -1,13 +1,26 @@
 local function config()
-  require("notify").setup {
-    stages = "static",
-    render = "minimal",
-  }
-
   require("noice").setup {
     views = {
       notify = {
         render = "minimal",
+        on_open = function(win, notif)
+          local bufnr = vim.api.nvim_win_get_buf(win)
+
+          if bufnr then
+            vim.keymap.set(
+              "n",
+              "<C-Space>",
+              require("notify").dismiss,
+              { noremap = true, silent = true, desc = "Dismiss", buffer = bufnr }
+            )
+
+            vim.keymap.set("n", "<C-t>", function()
+              local opened = require("notify").open(notif)
+              vim.cmd "tab split"
+              vim.api.nvim_win_set_buf(0, opened.buffer)
+            end, { noremap = true, silent = true, desc = "Split Out", buffer = bufnr })
+          end
+        end,
       },
     },
     messages = {
@@ -44,8 +57,8 @@ end
 return {
   setup = function(use)
     use {
-      "folke/noice.nvim",
-      --event = "VimEnter",
+      "ianbattersby/noice.nvim",
+      branch = "extend-notify-events",
       requires = {
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
