@@ -47,7 +47,7 @@ local function config()
     update_in_insert = false,
     underline = true,
     severity_sort = true,
-    virtual_lines = true, --{ only_current_line = true },
+    virtual_lines = { only_current_line = true },
   }
 
   vim.diagnostic.config(diagnostic_config)
