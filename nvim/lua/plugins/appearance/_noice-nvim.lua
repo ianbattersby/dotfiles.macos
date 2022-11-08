@@ -22,28 +22,23 @@ local function config()
       enabled = true,
       view = "notify",
     },
-    -- format = {
-    --   default = "{message}",
-    -- },
+    commands = {
+      last = { view = "split" },
+      errors = { view = "split" },
+    },
     presets = {
       lsp_doc_border = true,
-      --bottom_search = true,
+      bottom_search = true,
     },
   }
 
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-Bslash>",
-    "<CMD>NoiceLast<CR>",
-    { silent = true, noremap = true, desc = "Last message" }
-  )
+  vim.keymap.set({ "n", "i" }, "<C-Bslash>", function()
+    require("noice").cmd "last"
+  end, { silent = true, noremap = true, desc = "Last message" })
 
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-]>",
-    "<CMD>NoiceTelescope<CR>",
-    { silent = true, noremap = true, desc = "Message history" }
-  )
+  vim.keymap.set({ "n", "i" }, "<C-]>", function()
+    require("noice").cmd "telescope"
+  end, { silent = true, noremap = true, desc = "Message history" })
 end
 
 return {
