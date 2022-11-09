@@ -63,7 +63,7 @@ local function config()
           latex_symbols = "[LaTeX]",
           neorg = "[Neorg]",
           path = "[Path]",
-          cmp_tabnine = "[TN]",
+          --cmp_tabnine = "[TN]",
         })[entry.source.name]
         return vim_item
       end,
@@ -137,7 +137,7 @@ local function config()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
-      { name = "cmp_tabnine" },
+      --{ name = "cmp_tabnine" },
     }, {
       { name = "buffer" },
     }),
@@ -195,7 +195,7 @@ return {
         { "L3MON4D3/LuaSnip" },
         { "saadparwaiz1/cmp_luasnip" },
         { "rafamadriz/friendly-snippets" },
-        { "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", config = tabnine_config },
+        --{ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", config = tabnine_config },
       },
       after = { "nvim-autopairs", "LuaSnip" },
       config = config,
