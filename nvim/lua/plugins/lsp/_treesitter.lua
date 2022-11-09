@@ -34,7 +34,7 @@ local function config()
       enable = true,
     },
     indent = {
-      enable = false,
+      enable = true,
     },
     -- refactor = {
     --   highlight_current_scope = { enable = false },
