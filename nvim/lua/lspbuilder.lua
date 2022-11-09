@@ -24,6 +24,8 @@ end
 
 function M:on_attach()
   return function(client, bufnr)
+    local treesitter_active = require("vim.treesitter.highlighter").active[bufnr]
+
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
@@ -135,14 +137,23 @@ function M:on_attach()
     )
 
     vim.keymap.set("n", "gS", function()
-      if require("vim.treesitter.highlighter").active[bufnr] then
+      if treesitter_active then
         require("telescope.builtin").treesitter(require("telescope.themes").get_ivy {})
       else
         require("telescope.builtin").lsp_document_symbols()
       end
     end, { noremap = true, silent = true, desc = "Symbols", buffer = bufnr })
 
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
+    vim.keymap.set("n", "K", function()
+      if treesitter_active then
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      else
+        vim.lsp.buf.hover()
+      end
+    end, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
 
     vim.keymap.set("n", "]d", function()
       require("trouble").next { skip_groups = true, jump = true }
@@ -151,6 +162,33 @@ function M:on_attach()
     vim.keymap.set("n", "[d", function()
       require("trouble").previous { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
+
+    if treesitter_active then -- we use treesitter to power the folds
+      vim.keymap.set(
+        "n",
+        "zR",
+        require("ufo").openAllFolds,
+        { desc = "Open all folds", noremap = true, silent = true, buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n",
+        "zM",
+        require("ufo").closeAllFolds,
+        { desc = "Close all folds", noremap = true, silent = true, buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n",
+        "zr",
+        require("ufo").openFoldsExceptKinds,
+        { desc = "Open folds (except Kinds)", noremap = true, silent = true, buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n",
+        "zm",
+        require("ufo").closeFoldsWith,
+        { desc = "Close folds with", noremap = true, silent = true, buffer = bufnr }
+      )
+    end
 
     -- Load custom keymaps
     for _, keymap in ipairs(self.keymaps) do
