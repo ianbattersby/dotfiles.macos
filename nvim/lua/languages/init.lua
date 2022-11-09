@@ -1,4 +1,5 @@
 return {
+  ["ansible"] = require "languages.ansible",
   ["bash"] = require "languages.bash",
   ["c#"] = require "languages.csharp",
   ["css"] = require "languages.css",
