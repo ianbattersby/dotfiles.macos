@@ -93,7 +93,7 @@ window:
     # General application class
     #general: Alacritty
 
-  opacity: 0.92
+  opacity: 0.97
 
   # GTK theme variant (Linux/BSD only)
   #
