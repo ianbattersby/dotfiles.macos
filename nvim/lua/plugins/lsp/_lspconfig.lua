@@ -45,7 +45,7 @@ local function config()
     virtual_text = false,
     signs = true,
     update_in_insert = false,
-    underline = true,
+    underline = false,
     severity_sort = true,
     virtual_lines = { only_current_line = true },
   }
