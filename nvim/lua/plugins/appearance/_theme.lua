@@ -5,6 +5,7 @@ local function config()
 
   require("catppuccin").setup {
     term_colors = true,
+    transparent_background = true,
     integrations = {
       gitsigns = true,
       neotree = true,
