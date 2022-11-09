@@ -252,13 +252,6 @@ cargo_install rusty-tags
 cargo_install ripgrep
 cargo_install ytop
 
-if [ ! -d ~/code/rust-analyzer ]; then
-    git clone https://github.com/rust-analyzer/rust-analyzer.git ~/code/rust-analyzer
-    pushd ~/code/rust-analyzer
-    cargo xtask install --server
-    popd
-fi
-
 #Install the corresponding linker tools so that cargo can produce a binary compatible with x86 64-bit Linux
 brew_tap filosottile/musl-cross
 brew_install musl-cross
@@ -267,19 +260,8 @@ brew_install musl-cross
 [[ -z $GOPATH ]] && GOPATH=~/code/go
 [[ ! -d $GOPATH ]] && mkdir -p $GOPATH
 
-[ ! -f "$GOPATH/bin/gopls" ] && GOPATH=~/code/go go get -u golang.org/x/tools/gopls #golang language server
-[ ! -f "$GOPATH/bin/hey" ] && GOPATH=~/code/go go get -u github.com/rakyll/hey #perf testing
-[ ! -f "$GOPATH/bin/vale" ] && GOPATH=~/code/go go get -u github.com/errata-ai/vale #rst, tex, text linting
-
-#Terraform LSP
-if [ ! -f "$GOPATH/bin/terraform-lsp" ]; then
-    GOPATH=~/code/go go get -u github.com/juliosueiras/terraform-lsp
-
-    pushd "$GOPATH/src/github.com/juliosueiras/terraform-lsp"
-    GO111MODULE=on GOPATH=~/code/go go mod download
-    GOPATH=~/code/go go build
-    popd
-fi
+[ ! -f "$GOPATH/bin/hey" ] && GOPATH=~/code/go go install github.com/rakyll/hey #perf testing
+[ ! -f "$GOPATH/bin/dlv" ] && GOPATH=~/code/go go install github.com/go-delve/delve/cmd/dlv@latest #dap-go debugging
 
 #Ruby
 if brew_install rbenv; then
