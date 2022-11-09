@@ -4,3 +4,4 @@ pack.old
 *_compiled.lua
 *.log
 plugin
+.mind
