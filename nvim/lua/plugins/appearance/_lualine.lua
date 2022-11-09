@@ -32,6 +32,21 @@ local function config()
           navic.get_location,
           cond = navic.is_available,
         },
+        {
+          require("noice").api.statusline.command.get,
+          cond = require("noice").api.statusline.command.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.statusline.mode.get,
+          cond = require("noice").api.statusline.mode.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.statusline.search.get,
+          cond = require("noice").api.statusline.search.has,
+          color = { fg = "#ff9e64" },
+        },
       },
       lualine_x = {
         "encoding",
@@ -78,6 +93,7 @@ return {
       requires = {
         { "kyazdani42/nvim-web-devicons" },
         { "nvim-lua/lsp-status.nvim" },
+        { "ianbattersby/noice.nvim" },
       },
       after = { "nvim-navic" },
       config = config,
