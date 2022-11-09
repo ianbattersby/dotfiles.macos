@@ -13,8 +13,12 @@ return {
     opt.ruler = true
     opt.encoding = "utf-8" -- Set default encoding to UTF-8
     opt.expandtab = true -- Use spaces instead of tabs
-    opt.foldenable = false
+    opt.foldenable = true
     opt.foldmethod = "indent"
+    opt.foldcolumn = "1"
+    opt.foldlevel = 99
+    opt.foldlevelstart = 99
+    opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     opt.hidden = true -- Enable background buffers
     opt.hlsearch = true -- Highlight found searches
     opt.ignorecase = true -- Ignore case

@@ -4,6 +4,8 @@ local function config()
     height = 10,
     auto_open = false,
     auto_close = false,
+    fold_open = "",
+    fold_closed = "",
   }
 end
 

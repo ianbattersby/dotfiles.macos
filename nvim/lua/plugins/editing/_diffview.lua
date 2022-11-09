@@ -1,5 +1,14 @@
 local function config()
-  require("diffview").setup {}
+  require("diffview").setup {
+    icons = { -- Only applies when use_icons is true.
+      folder_closed = "",
+      folder_open = "",
+    },
+    signs = {
+      fold_closed = "",
+      fold_open = "",
+    },
+  }
 
   local last_tabpage = vim.api.nvim_get_current_tabpage()
 
