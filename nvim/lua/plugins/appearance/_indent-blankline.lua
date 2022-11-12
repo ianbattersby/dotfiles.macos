@@ -17,11 +17,11 @@ local function config()
       "mind",
       "neotest-summary",
     },
-    space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = false,
     use_treesitter = true,
     colored_indent_levels = false,
+    char_highlight_list = { "VertSplit" },
   }
 end
 
@@ -29,6 +29,7 @@ return {
   setup = function(use)
     use {
       "lukas-reineke/indent-blankline.nvim",
+      requires = "nvim-treesitter/nvim-treesitter",
       config = config,
     }
   end,
