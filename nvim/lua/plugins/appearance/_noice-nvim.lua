@@ -46,7 +46,11 @@ local function config()
   }
 
   vim.keymap.set({ "n", "i" }, "<C-Bslash>", function()
-    require("noice").cmd "last"
+    if vim.api.nvim_buf_get_option(0, "filetype") == "noice" then
+      vim.cmd "q"
+    else
+      require("noice").cmd "last"
+    end
   end, { silent = true, noremap = true, desc = "Last message" })
 
   vim.keymap.set({ "n", "i" }, "<C-]>", function()
