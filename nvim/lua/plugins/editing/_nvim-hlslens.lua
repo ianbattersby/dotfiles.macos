@@ -25,7 +25,7 @@ local function config()
   vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], { noremap = true, silent = true })
   vim.api.nvim_set_keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], { noremap = true, silent = true })
 
-  vim.api.nvim_set_keymap("n", "<Leader>;", ":noh<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<Leader>l", ":noh<CR>", { noremap = true, silent = true })
 end
 
 return {

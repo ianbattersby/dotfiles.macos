@@ -1,10 +1,45 @@
 local M = {}
 
--- setmetatable(M, {
--- 	__call = function(cls, ...)
--- 		return cls.new(...)
--- 	end,
--- })
+local function attach_gitsigns(bufnr)
+  local gs = package.loaded.gitsigns
+
+  vim.keymap.set("n", "]g", function()
+    if vim.wo.diff then
+      return "]g"
+    end
+    vim.schedule(function()
+      gs.next_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Next hunk" })
+
+  vim.keymap.set("n", "[g", function()
+    if vim.wo.diff then
+      return "[g"
+    end
+    vim.schedule(function()
+      gs.prev_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Previous hunk" })
+
+  vim.keymap.set({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "Stage hunk", buffer = bufnr })
+  vim.keymap.set({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "Reset hunk", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hS", gs.stage_buffer, { desc = "Stage buffer", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { desc = "Previous hunk", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hb", function()
+    gs.blame_line { full = true }
+  end, { desc = "Blame line", buffer = bufnr })
+  vim.keymap.set("n", "<leader>htb", gs.toggle_current_line_blame, { desc = "Toggle line blame", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hd", gs.diffthis, { desc = "Diff file", buffer = bufnr })
+  vim.keymap.set("n", "<leader>hD", function()
+    gs.diffthis "~"
+  end, { desc = "Diff directory", buffer = bufnr })
+  vim.keymap.set("n", "<leader>htd", gs.toggle_deleted, { buffer = bufnr })
+  vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk", buffer = bufnr })
+end
 
 function M:init(config, keymaps, commands)
   config = config or {}
@@ -297,6 +332,9 @@ function M:on_attach()
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
     end
+
+    -- Attach git_signs
+    attach_gitsigns(bufnr)
   end
 end
 

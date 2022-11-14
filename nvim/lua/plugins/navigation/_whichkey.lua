@@ -2,10 +2,7 @@ local function config()
   require("which-key").setup {}
 
   require("which-key").register({
-    c = {
-      name = "Code",
-      r = { name = "Refactor" },
-    },
+    c = { name = "Code", r = { name = "Refactor" } },
     d = {
       name = "Debug",
       s = { name = "Step" },
@@ -14,22 +11,16 @@ local function config()
       r = { name = "Repl" },
       B = { name = "Breakpoints" },
     },
-    e = {
-      name = "Testing",
-      d = { name = "Debug" },
-    },
-    f = {
-      name = "Find",
-    },
+    e = { name = "Testing", d = { name = "Debug" } },
+    f = { name = "Find" },
     g = { name = "Goto" },
+    h = { name = "Hunk", t = { name = "Toggle" } },
     m = { name = "Notes" },
     q = { name = "Diagnostics" },
     s = { name = "Split" },
     t = { name = "Terminal" },
     w = { name = "Workspace" },
   }, { prefix = "<leader>" })
-
-  require("which-key").register({ name = "Session" }, { prefix = "<leader><leader>" })
 end
 
 return {
