@@ -45,7 +45,7 @@ local function config()
     },
   }
 
-  vim.keymap.set({ "n", "i" }, "<C-Bslash>", function()
+  vim.keymap.set({ "n", "i" }, "<C-]>", function()
     if vim.api.nvim_buf_get_option(0, "filetype") == "noice" then
       vim.cmd "q"
     else
@@ -53,7 +53,7 @@ local function config()
     end
   end, { silent = true, noremap = true, desc = "Last message" })
 
-  vim.keymap.set({ "n", "i" }, "<C-]>", function()
+  vim.keymap.set({ "n", "i" }, "<leader>fm", function()
     require("noice").cmd "telescope"
   end, { silent = true, noremap = true, desc = "Message history" })
 end
