@@ -53,7 +53,7 @@ local function config()
     end
   end, { silent = true, noremap = true, desc = "Last message" })
 
-  vim.keymap.set({ "n", "i" }, "<leader>fm", function()
+  vim.keymap.set({ "n" }, "<leader>fm", function()
     require("noice").cmd "telescope"
   end, { silent = true, noremap = true, desc = "Message history" })
 end
