@@ -7,7 +7,6 @@ return {
     require("plugins.navigation._whichkey").setup(use)
     require("plugins.navigation._neogit").setup(use)
     require("plugins.navigation._help-vsplit").setup(use)
-    require("plugins.navigation._focus-nvim").setup(use)
     require("plugins.navigation._session-manager").setup(use)
   end,
 }

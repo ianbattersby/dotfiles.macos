@@ -86,4 +86,6 @@ return {
       { silent = true, noremap = true, desc = "Switch backward" }
     )
   end,
+
+  vim.keymap.set("n", "<leader>x", "<CMD>bd<CR>", { noremap = true, silent = true, desc = "Close Buffer" }),
 }

@@ -37,7 +37,6 @@ return {
       module = "diffview",
       requires = "nvim-lua/plenary.nvim",
       config = config,
-      after = "focus.nvim",
     }
   end,
 }
