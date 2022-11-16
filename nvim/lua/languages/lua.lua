@@ -34,6 +34,9 @@ local config = {
       telemetry = {
         enable = false,
       },
+      completion = {
+        callSnippet = "Replace",
+      },
     },
   },
   on_attach = lconfig:on_attach(),

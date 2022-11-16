@@ -96,7 +96,7 @@ return {
         --"ray-x/lsp_signature.nvim",
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       },
-      after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim" },
+      after = { "rust-tools.nvim", "nvim-cmp", "lsp-status.nvim", "neodev.nvim" },
       config = config,
     }
   end,
