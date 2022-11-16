@@ -7,5 +7,6 @@ return {
     require("plugins.appearance._lualine").setup(use)
     require("plugins.appearance._theme").setup(use)
     require("plugins.appearance._noice-nvim").setup(use)
+    require("plugins.appearance._paint-nvim").setup(use)
   end,
 }
