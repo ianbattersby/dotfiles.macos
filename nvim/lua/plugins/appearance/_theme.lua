@@ -11,10 +11,15 @@ local function config()
       neotree = true,
       notify = true,
       treesitter = true,
+      treesitter_context = true,
       symbols_outline = true,
       telescope = true,
       lsp_trouble = true,
       which_key = true,
+      neotest = true,
+      mini = true,
+      noice = true,
+      mason = true,
       dap = {
         enabled = true,
         enable_ui = true, -- enable nvim-dap-ui
@@ -38,10 +43,6 @@ local function config()
         enabled = false,
         custom_bg = "NONE",
       },
-      neotest = { enabled = true },
-      mini = { enabled = true },
-      noice = { enabled = true },
-      mason = { enabled = true },
     },
   }
 

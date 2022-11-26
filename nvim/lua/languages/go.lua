@@ -1,7 +1,12 @@
 local config = {
-	settings = {
-		cmd = { "/opt/Homebrew/bin/gopls" },
-	},
+  hints = {
+    assignVariableTypes = true,
+    compositeLiteralFields = true,
+    constantValues = true,
+    functionTypeParameters = true,
+    parameterNames = true,
+    rangeVariableTypes = true,
+  },
 }
 
 return { server = "gopls", config = config }

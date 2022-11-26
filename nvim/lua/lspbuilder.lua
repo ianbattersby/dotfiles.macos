@@ -328,6 +328,9 @@ function M:on_attach()
     -- Register lsp-status for updates
     require("lsp-status").on_attach(client)
 
+    -- Register lsp-inlayhints for hints
+    require("lsp-inlayhints").on_attach(client, bufnr)
+
     -- Register nvim-navic for updates
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
