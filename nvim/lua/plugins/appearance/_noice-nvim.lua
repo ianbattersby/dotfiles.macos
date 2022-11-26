@@ -15,9 +15,11 @@ local function config()
             )
 
             vim.keymap.set("n", "<C-t>", function()
-              local opened = require("notify").open(notif)
-              vim.cmd "tab split"
-              vim.api.nvim_win_set_buf(0, opened.buffer)
+              if type(notif) == "table" then
+                local opened = require("notify").open(notif)
+                vim.cmd "tab split"
+                vim.api.nvim_win_set_buf(0, opened.buffer)
+              end
             end, { noremap = true, silent = true, desc = "Split Out", buffer = bufnr })
           end
         end,
