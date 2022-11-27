@@ -73,6 +73,7 @@ return {
   setup = function(use)
     use {
       "nvim-neotest/neotest",
+      module = "neotest",
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
