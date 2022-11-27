@@ -30,7 +30,7 @@ local function config()
     t = { name = "Terminal" },
     w = {
       name = "Workspace",
-      -- Remove these when packer.nvim support keymap descriptions again
+      -- Remove this when packer.nvim support keymap descriptions again
       v = { name = "Diff View" },
     },
   }, { prefix = "<leader>" })

@@ -3,48 +3,39 @@ local name = "catppuccin"
 local function config()
   vim.g.catppuccin_flavour = "frappe"
 
-  require("catppuccin").setup {
-    term_colors = true,
-    transparent_background = false,
-    integrations = {
-      gitsigns = true,
-      neotree = true,
-      notify = true,
-      treesitter = true,
-      treesitter_context = true,
-      symbols_outline = true,
-      telescope = true,
-      lsp_trouble = true,
-      which_key = true,
-      neotest = true,
-      mini = true,
-      noice = true,
-      mason = true,
-      dap = {
-        enabled = true,
-        enable_ui = true, -- enable nvim-dap-ui
-      },
-      native_lsp = {
-        enabled = true,
-        virtual_text = {
-          errors = { "italic" },
-          hints = { "italic" },
-          warnings = { "italic" },
-          information = { "italic" },
-        },
-        underlines = {
-          errors = { "underline" },
-          hints = { "underline" },
-          warnings = { "underline" },
-          information = { "underline" },
-        },
-      },
-      navic = {
-        enabled = false,
-        custom_bg = "NONE",
-      },
-    },
-  }
+  local settings = {}
+  local integrations = {}
+  local dap_integration = {}
+  local navic_integration = {}
+
+  integrations.gitsigns = true
+  integrations.lsp_trouble = true
+  integrations.mason = true
+  integrations.mini = true
+  integrations.neotest = true
+  integrations.neotree = true
+  integrations.noice = true
+  integrations.notify = true
+  integrations.symbols_outline = true
+  integrations.telescope = true
+  integrations.treesitter = true
+  integrations.treesitter_context = true
+  integrations.which_key = true
+
+  dap_integration.enabled = true
+  dap_integration.enable_ui = true
+
+  navic_integration.enabled = true
+  navic_integration.custom_bg = "NONE"
+
+  integrations.navic = navic_integration
+  integrations.dap = dap_integration
+
+  settings.integrations = integrations
+  settings.term_colors = true
+  settings.transparent_background = false
+
+  require("catppuccin").setup(settings)
 
   vim.cmd [[colorscheme catppuccin]]
 end
