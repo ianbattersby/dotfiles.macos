@@ -7,7 +7,6 @@ return {
     use {
       "SmiteshP/nvim-navic",
       requires = { "neovim/nvim-lspconfig" },
-      after = { "nvim-lspconfig" },
       config = config,
     }
   end,

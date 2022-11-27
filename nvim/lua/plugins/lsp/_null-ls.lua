@@ -18,7 +18,6 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "neovim/nvim-lspconfig" },
       },
-      after = "nvim-lspconfig",
       config = config,
     }
   end,

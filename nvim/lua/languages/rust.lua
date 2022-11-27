@@ -5,6 +5,33 @@
 -- Hack to workaround the removal of config-based commands support:
 -- https://github.com/neovim/nvim-lspconfig/pull/2092
 
+local function initialize()
+  local packer_load = require "packer.load"
+
+  packer_load({ "rust-tools.nvim" }, {}, _G.packer_plugins)
+  packer_load({ "nvim-dap" }, {}, _G.packer_plugins)
+
+  require("rust-tools").setup {
+    -- debugging stuff
+    tools = {
+      runnables = { use_telescope = true },
+      inlay_hints = { auto = false }, --{ show_parameter_hints = true },
+      hover_actions = { auto_focus = true },
+    },
+    dap = {
+      adapter = require("rust-tools.dap").get_codelldb_adapter(
+        table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
+        table.concat(
+          { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "lib", "liblldb.dylib" },
+          "/"
+        )
+      ),
+    },
+  }
+
+  --require("rust-tools.dap").setup_adapter()
+end
+
 local function merge_config()
   local rt_config = require("rust-tools").config.options.server
 
@@ -40,10 +67,14 @@ local function merge_config()
 
   local config = vim.tbl_deep_extend("keep", {}, rt_config)
 
-  config.on_attach = require("lspbuilder").new(rt_keymaps, rt_commands):on_attach() -- Use our attach function
+  -- Use our attach function
+  config.on_attach = require("lspbuilder").new(rt_keymaps, rt_commands):on_attach(function()
+    require("rust-tools.dap").setup_adapter()
+  end)
+
   config.commands = {} -- Newer versions of lspconfig want you to use nvim_create_user_command
 
   return config
 end
 
-return { server = "rust_analyzer", config = merge_config() }
+return { server = "rust_analyzer", config = merge_config, initialize = initialize }

@@ -256,8 +256,8 @@ return {
   setup = function(use)
     use {
       "mfussenegger/nvim-dap",
-      --module = "nvim-dap",
-      opt = true,
+      keys = { "n", "<leader>d", "Debug" },
+      -- Remove these when packer.nvim support keymap descriptions again
       requires = {
         { "rcarriga/nvim-dap-ui" },
         { "theHamsta/nvim-dap-virtual-text" },

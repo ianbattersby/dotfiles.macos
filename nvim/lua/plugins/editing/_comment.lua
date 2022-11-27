@@ -12,7 +12,7 @@ return {
   setup = function(use)
     use {
       "numToStr/Comment.nvim",
-      after = "nvim-treesitter",
+      requires = "nvim-treesitter/nvim-treesitter",
       config = config,
     }
   end,

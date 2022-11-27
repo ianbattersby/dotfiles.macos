@@ -12,7 +12,8 @@ return {
   setup = function(use)
     use {
       "nvim-neo-tree/neo-tree.nvim",
-      module = "neo-tree",
+      keys = { "n", "\\", "File Explorer" },
+      cmd = ":Neotree",
       branch = "v2.x",
       requires = {
         "nvim-lua/plenary.nvim",

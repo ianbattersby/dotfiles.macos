@@ -17,6 +17,13 @@ return {
   setup = function(use)
     use {
       "phaazon/mind.nvim",
+      cmd = { "MindOpenMain", "MineOpenClose", "MineOpenProject", "MindOpenSmartProject" },
+      keys = {
+        { "n", "<leader>mo", "Open" },
+        { "n", "<leader>mq", "Close" },
+        { "n", "<leader>mp", "Project" },
+        { "n", "<leader>ms", "Smart Project" },
+      },
       requires = { "nvim-lua/plenary.nvim" },
       branch = "v2.2",
       config = config,

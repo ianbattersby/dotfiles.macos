@@ -10,8 +10,9 @@ return {
   setup = function(use)
     use {
       "ericpubu/lsp_codelens_extensions.nvim",
-      requires = { { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
-      after = { "nvim-lspconfig", "nvim-dap" },
+      requires = {
+        { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" }
+      },
       config = config,
     }
   end,

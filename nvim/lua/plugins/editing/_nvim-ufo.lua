@@ -47,7 +47,6 @@ return {
         "kevinhwang91/promise-async",
         "nvim-treesitter/nvim-treesitter",
       },
-      after = "nvim-treesitter",
       config = config,
     }
   end,

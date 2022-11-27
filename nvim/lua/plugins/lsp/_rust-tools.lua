@@ -1,23 +1,5 @@
 local function config()
-  require("rust-tools").setup {
-    -- debugging stuff
-    tools = {
-      runnables = { use_telescope = true },
-      inlay_hints = { auto = false }, --{ show_parameter_hints = true },
-      hover_actions = { auto_focus = true },
-    },
-    dap = {
-      adapter = require("rust-tools.dap").get_codelldb_adapter(
-        table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
-        table.concat(
-          { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "lib", "liblldb.dylib" },
-          "/"
-        )
-      ),
-    },
-  }
-
-  require("rust-tools.dap").setup_adapter()
+  -- Moved to language/rust.lua.initialize()
 end
 
 return {
@@ -29,7 +11,6 @@ return {
         { "mfussenegger/nvim-dap" },
         { "neovim/nvim-lspconfig" },
       },
-      after = "nvim-dap",
       config = config,
     }
   end,

@@ -34,7 +34,16 @@ return {
   setup = function(use)
     use {
       "sindrets/diffview.nvim",
-      module = "diffview",
+      cmd = {
+        "DiffviewOpen",
+        "DiffviewFileHistory",
+        "DiffviewClose",
+        "DiffviewFocusFiles",
+        "DiffviewToggleFiles",
+        "DiffviewRefresh",
+        "DiffviewLog",
+      },
+      keys = { "n", "<leader>wv", "Diff View" },
       requires = "nvim-lua/plenary.nvim",
       config = config,
     }

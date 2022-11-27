@@ -57,8 +57,12 @@ function M.new(keymaps, commands)
   return inst
 end
 
-function M:on_attach()
+function M:on_attach(fn)
   return function(client, bufnr)
+    if type(fn) == "function" and fn ~= nil then
+      fn()
+    end
+
     local treesitter_active = require("vim.treesitter.highlighter").active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>
