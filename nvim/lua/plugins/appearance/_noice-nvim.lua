@@ -58,6 +58,9 @@ local function config()
   vim.keymap.set({ "n" }, "<leader>fm", function()
     require("noice").cmd "telescope"
   end, { silent = true, noremap = true, desc = "Message history" })
+
+  -- Load Telescope extension
+  require("telescope").load_extension "noice"
 end
 
 return {
@@ -68,6 +71,7 @@ return {
       requires = {
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
+        "ianbattersby/telescope.nvim",
       },
       config = config,
     }

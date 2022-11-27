@@ -247,19 +247,25 @@ local function config()
 
   -- Enable virtual text
   require("nvim-dap-virtual-text").setup()
+
+  -- Enable Telescope extension
+  require("telescope").load_extension "dap"
 end
 
 return {
   setup = function(use)
     use {
       "mfussenegger/nvim-dap",
-      module = "nvim-dap",
+      --module = "nvim-dap",
+      opt = true,
       requires = {
         { "rcarriga/nvim-dap-ui" },
         { "theHamsta/nvim-dap-virtual-text" },
         { "leoluz/nvim-dap-go" },
         { "mfussenegger/nvim-dap-python" },
         { "jbyuki/one-small-step-for-vimkind" },
+        { "ianbattersby/telescope.nvim" },
+        { "nvim-telescope/telescope-dap.nvim" },
       },
       config = config,
     }

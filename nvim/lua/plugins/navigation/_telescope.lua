@@ -124,13 +124,11 @@ local function config()
   -- Load extensions
   telescope.load_extension "zf-native"
   -- telescope.load_extension "fzf"
-  telescope.load_extension "dap"
   telescope.load_extension "packer"
   telescope.load_extension "file_browser"
   telescope.load_extension "frecency"
   telescope.load_extension "notify"
   telescope.load_extension "ui-select"
-  telescope.load_extension "noice"
 
   -- Let's use the get_ivy theme in places
   local findfiles_fn = require("telescope.builtin").find_files
@@ -194,13 +192,11 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "natecraddock/telescope-zf-native.nvim" },
         -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        { "nvim-telescope/telescope-dap.nvim" },
         { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } },
         { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
       },
-      after = { "trouble.nvim", "nvim-dap", "noice.nvim" },
       config = config,
     }
   end,
