@@ -38,6 +38,7 @@ return {
   setup = function(use)
     use {
       "sudormrfbin/cheatsheet.nvim",
+      module = "cheatsheet",
       requires = {
         { "nvim-telescope/telescope.nvim" },
         { "nvim-lua/popup.nvim" },
