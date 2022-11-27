@@ -5,7 +5,7 @@ return {
     require("plugins.lsp._nvim-lspconfig").setup(use)
     require("plugins.lsp._null-ls").setup(use)
     require("plugins.lsp._nvim-cmp").setup(use)
-    require("plugins.lsp._nvim-type-fmt").setup(use)
+    --require("plugins.lsp._nvim-type-fmt").setup(use)
     require("plugins.lsp._glance-nvim").setup(use)
     require("plugins.lsp._nvim-dap").setup(use)
     require("plugins.lsp._nvim-navic").setup(use)
