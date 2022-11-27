@@ -12,6 +12,7 @@ return {
   setup = function(use)
     use {
       "nvim-neo-tree/neo-tree.nvim",
+      module = "neo-tree",
       branch = "v2.x",
       requires = {
         "nvim-lua/plenary.nvim",
