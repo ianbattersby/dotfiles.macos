@@ -123,7 +123,8 @@ function M:on_attach()
     vim.keymap.set(
       "n",
       "gd",
-      "<CMD>TroubleToggle lsp_definitions<CR>",
+      "<CMD>Glance definitions<CR>",
+      -- "<CMD>TroubleToggle lsp_definitions<CR>",
       { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
     )
 
@@ -134,7 +135,8 @@ function M:on_attach()
     vim.keymap.set(
       "n",
       "gI",
-      "<CMD>TroubleToggle lsp_implementations<CR>",
+      "<CMD>Glance implementations<CR>",
+      -- "<CMD>TroubleToggle lsp_implementations<CR>",
       { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
     )
 
@@ -160,7 +162,16 @@ function M:on_attach()
     vim.keymap.set(
       "n",
       "gr",
-      require("telescope.builtin").lsp_references,
+      "<CMD>Glance references<CR>",
+      -- require("telescope.builtin").lsp_references,
+      { noremap = true, silent = true, desc = "References", buffer = bufnr }
+    )
+
+    vim.keymap.set(
+      "n",
+      "gY",
+      "<CMD>Glance type_definitions<CR>",
+      -- require("telescope.builtin").lsp_references,
       { noremap = true, silent = true, desc = "References", buffer = bufnr }
     )
 
