@@ -253,6 +253,7 @@ return {
   setup = function(use)
     use {
       "mfussenegger/nvim-dap",
+      module = "nvim-dap",
       requires = {
         { "rcarriga/nvim-dap-ui" },
         { "theHamsta/nvim-dap-virtual-text" },
