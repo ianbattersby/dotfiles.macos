@@ -25,7 +25,7 @@ local function config()
     vim.api.nvim_set_hl(0, "LspInlayHint", hl)
   end
 
-  -- Initialise ls-inlayhints in the buffer on_attach
+  -- Initialise lsp-inlayhints in the buffer on_attach
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_inlayhints", { clear = true }),
     callback = function(args)

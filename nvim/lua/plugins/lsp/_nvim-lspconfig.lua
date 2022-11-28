@@ -53,13 +53,11 @@ local function config()
   vim.diagnostic.config(diagnostic_config)
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config)
+    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostic_config)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "single",
   })
-
-  require("lsp_lines").setup {}
 end
 
 return {
@@ -69,8 +67,6 @@ return {
       requires = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "nvim-lua/lsp-status.nvim",
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         "hrsh7th/nvim-cmp",
         "simrat39/rust-tools.nvim",
       },

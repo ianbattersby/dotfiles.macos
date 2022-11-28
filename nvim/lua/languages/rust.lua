@@ -29,7 +29,7 @@ local function initialize()
     },
   }
 
-  --require("rust-tools.dap").setup_adapter()
+  require("rust-tools.dap").setup_adapter()
 end
 
 local function merge_config()
@@ -68,10 +68,7 @@ local function merge_config()
   local config = vim.tbl_deep_extend("keep", {}, rt_config)
 
   -- Use our attach function
-  config.on_attach = require("lspbuilder").new(rt_keymaps, rt_commands):on_attach(function()
-    require("rust-tools.dap").setup_adapter()
-  end)
-
+  config.on_attach = require("lspbuilder").new(rt_keymaps, rt_commands):on_attach()
   config.commands = {} -- Newer versions of lspconfig want you to use nvim_create_user_command
 
   return config

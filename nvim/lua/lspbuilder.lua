@@ -16,12 +16,8 @@ function M.new(keymaps, commands)
   return inst
 end
 
-function M:on_attach(fn)
+function M:on_attach()
   return function(client, bufnr)
-    if type(fn) == "function" and fn ~= nil then
-      fn()
-    end
-
     local treesitter_active = require("vim.treesitter.highlighter").active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>
@@ -199,26 +195,6 @@ function M:on_attach(fn)
       )
     end
 
-    -- Load custom keymaps
-    for _, keymap in ipairs(self.keymaps) do
-      vim.keymap.set(
-        keymap.mode,
-        keymap.keybinding,
-        keymap.action,
-        { noremap = true, silent = true, desc = keymap.desc, buffer = bufnr }
-      )
-    end
-
-    -- Load custom commands
-    for _, v in pairs(self.commands) do
-      vim.validate {
-        ["command.name"] = { v.name, "s" },
-        ["command.fn"] = { v.command, "f" },
-      }
-
-      vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
-    end
-
     -- Set some keybinds conditional on server capabilities
     if client.server_capabilities.documentFormattingProvider then
       local format_opts = { timeout_ms = 2000 }
@@ -299,8 +275,25 @@ function M:on_attach(fn)
       })
     end
 
-    -- Register lsp-status for updates
-    require("lsp-status").on_attach(client)
+    -- Load custom keymaps
+    for _, keymap in pairs(self.keymaps) do
+      vim.keymap.set(
+        keymap.mode,
+        keymap.keybinding,
+        keymap.action,
+        { noremap = true, silent = true, desc = keymap.desc, buffer = bufnr }
+      )
+    end
+
+    -- Load custom commands
+    for _, v in pairs(self.commands) do
+      vim.validate {
+        ["command.name"] = { v.name, "s" },
+        ["command.fn"] = { v.command, "f" },
+      }
+
+      vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
+    end
   end
 end
 
