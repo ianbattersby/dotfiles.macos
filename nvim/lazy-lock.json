@@ -22,7 +22,7 @@
   "lsp-inlayhints.nvim": { "branch": "main", "commit": "a28c51a6362e3faa17f67749436cb5c8b55dcc6d" },
   "lsp-status.nvim": { "branch": "master", "commit": "54f48eb5017632d81d0fd40112065f1d062d0629" },
   "lsp_codelens_extensions.nvim": { "branch": "main", "commit": "9766a03b3e0c0848d45a03fd67d0ee99dc495560" },
-  "lsp_lines": { "branch": "main", "commit": "86bb8a76bf7eb501bcbe2f9f58f2c24931190f55" },
+  "lsp_lines.nvim": { "branch": "main", "commit": "86bb8a76bf7eb501bcbe2f9f58f2c24931190f55" },
   "lualine.nvim": { "branch": "master", "commit": "bfa0d99ba6f98d077dd91779841f1c88b7b5c165" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "5bea0e851b8f48479d2cb927cd26733b4058b2b3" },
   "mason.nvim": { "branch": "main", "commit": "28408c857a8f821ff504c9383c96af22b7ca66d9" },
@@ -81,8 +81,6 @@
   "toggleterm.nvim": { "branch": "main", "commit": "2a787c426ef00cb3488c11b14f5dcf892bbd0bda" },
   "trouble.nvim": { "branch": "main", "commit": "897542f90050c3230856bc6e45de58b94c700bbf" },
   "vim-fugitive": { "branch": "master", "commit": "96c1009fcf8ce60161cc938d149dd5a66d570756" },
-  "vim-textobj-entire": { "branch": "master", "commit": "64a856c9dff3425ed8a863b9ec0a21dbaee6fb3a" },
-  "vim-textobj-user": { "branch": "master", "commit": "074ce2575543f790290b189860597a3dcac1f79d" },
   "which-key.nvim": { "branch": "main", "commit": "61553aeb3d5ca8c11eea8be6eadf478062982ac9" },
   "windows.nvim": { "branch": "main", "commit": "a37b5d021afbe9baf741bb40818bd14604dde424" }
 }
