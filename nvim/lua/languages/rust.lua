@@ -6,10 +6,10 @@
 -- https://github.com/neovim/nvim-lspconfig/pull/2092
 
 local function initialize()
-  local packer_load = require "packer.load"
+  -- local packer_load = require "packer.load"
 
-  packer_load({ "rust-tools.nvim" }, {}, _G.packer_plugins)
-  packer_load({ "nvim-dap" }, {}, _G.packer_plugins)
+  -- packer_load({ "rust-tools.nvim" }, {}, _G.packer_plugins)
+  -- packer_load({ "nvim-dap" }, {}, _G.packer_plugins)
 
   require("rust-tools").setup {
     -- debugging stuff
