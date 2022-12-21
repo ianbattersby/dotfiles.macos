@@ -29,6 +29,24 @@ local function setup_lazy()
       missing = true,
       colorscheme = { "catpuccin" },
     },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          "gzip",
+          "matchit",
+          "matchparen",
+          "netrwPlugin",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "zipPlugin",
+        },
+      },
+    },
+    change_detection = {
+      enabled = false,
+      notify = false,
+    },
   })
 end
 
