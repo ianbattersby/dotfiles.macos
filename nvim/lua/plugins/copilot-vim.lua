@@ -1,6 +1,7 @@
 local M = {
   "github/copilot.vim",
   lazy = true,
+  enabled = false,
 }
 
 function M.config()
