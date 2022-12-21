@@ -1,6 +1,6 @@
 local M = {
   "github/copilot.vim",
-  lazy = true,
+  event = "VeryLazy",
   enabled = false,
 }
 

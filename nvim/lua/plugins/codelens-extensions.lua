@@ -6,7 +6,7 @@ local M = {
       "mfussenegger/nvim-dap",
     },
   },
-  event = "BufReadPost",
+  event = "VeryLazy",
 }
 
 function M.config()
