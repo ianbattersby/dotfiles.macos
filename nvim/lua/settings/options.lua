@@ -55,7 +55,7 @@ return {
     opt.mouse = "a"
     opt.mousemodel = "popup"
     opt.guicursor =
-      "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+    "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
     opt.undodir = vim.fn.stdpath "data" .. "/undo"
     opt.undofile = true
     vim.cmd "au TextYankPost * lua vim.highlight.on_yank {on_visual = true, timeout = 500}"
@@ -68,15 +68,15 @@ return {
     vim.g.ruby_host_prog = "/usr/local/bin/ruby"
     -- Formatting (inspiration from teej)
     opt.formatoptions = opt.formatoptions
-      - "a" -- Auto formatting is BAD.
-      - "t" -- Don't auto format my code. I got linters for that.
-      + "c" -- In general, I like it when comments respect textwidth
-      + "q" -- Allow formatting comments w/ gq
-      - "o" -- O and o, don't continue comments
-      + "r" -- But do continue when pressing enter.
-      + "n" -- Indent past the formatlistpat, not underneath it.
-      + "j" -- Auto-remove comments if possible.
-      - "2" -- I'm not in gradeschool anymore
+        - "a" -- Auto formatting is BAD.
+        - "t" -- Don't auto format my code. I got linters for that.
+        + "c" -- In general, I like it when comments respect textwidth
+        + "q" -- Allow formatting comments w/ gq
+        - "o" -- O and o, don't continue comments
+        + "r" -- But do continue when pressing enter.
+        + "n" -- Indent past the formatlistpat, not underneath it.
+        + "j" -- Auto-remove comments if possible.
+        - "2" -- I'm not in gradeschool anymore
     vim.opt.diffopt:append { "algorithm:patience" }
 
     vim.cmd [[

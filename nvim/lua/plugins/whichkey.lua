@@ -6,7 +6,7 @@ function M.config()
   require("which-key").setup {}
 
   require("which-key").register({
-    ["?"] = { "<CMD>Cheatsheet</CR>", "Cheatsheet" },
+    ["?"] = { "<CMD>Cheatsheet<CR>", "Cheatsheet" },
     c = { name = "Code", r = { name = "Refactor" } },
     d = {
       name = "Debug",

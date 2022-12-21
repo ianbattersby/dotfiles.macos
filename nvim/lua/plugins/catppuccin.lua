@@ -4,8 +4,6 @@ local M = {
 }
 
 function M.config()
-  vim.g.catppuccin_flavour = "frappe"
-
   local settings = {}
   local integrations = {}
   local dap_integration = {}
