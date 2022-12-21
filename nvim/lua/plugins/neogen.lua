@@ -1,6 +1,7 @@
 local M = {
   "danymat/neogen",
   dependencies = "nvim-treesitter/nvim-treesitter",
+  event = "BufReadPost",
 }
 
 function M.config()

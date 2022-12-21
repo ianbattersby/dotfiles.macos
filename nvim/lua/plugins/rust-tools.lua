@@ -5,6 +5,7 @@ local M = {
     { "mfussenegger/nvim-dap" },
     { "neovim/nvim-lspconfig" },
   },
+  ft = "rust",
 }
 
 return M

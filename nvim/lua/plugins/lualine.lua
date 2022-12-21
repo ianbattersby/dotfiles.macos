@@ -37,7 +37,7 @@ function M.config()
       lualine_a = { "mode" },
       lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
       lualine_c = {
-        --{ components.progress_or_filename, path = 1, file_status = true },
+        { components.progress_or_filename, path = 1, file_status = true },
         {
           navic.get_location,
           cond = navic.is_available,

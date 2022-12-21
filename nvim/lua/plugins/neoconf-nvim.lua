@@ -1,5 +1,6 @@
 local M = {
   "folke/neoconf.nvim",
+  enabled = false,
 }
 
 function M.config()

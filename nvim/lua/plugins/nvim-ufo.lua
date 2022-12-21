@@ -6,6 +6,7 @@ local M = {
     "kevinhwang91/promise-async",
     "nvim-treesitter/nvim-treesitter",
   },
+  event = "BufReadPost",
 }
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
