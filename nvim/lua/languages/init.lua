@@ -8,6 +8,7 @@ return {
   ["go"] = require "languages.go",
   ["json"] = require "languages.json",
   ["lua"] = require "languages.lua",
+  ["ocaml"] = require "languages.ocaml",
   ["python"] = require "languages.python",
   ["rust"] = require "languages.rust",
   ["terraform"] = require "languages.terraform",
