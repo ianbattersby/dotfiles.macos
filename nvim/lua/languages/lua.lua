@@ -17,6 +17,14 @@ local config = {
           "?/?.lua",
         },
       },
+      format = {
+        enable = true,
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2",
+          call_arg_parentheses = "remove_table_only",
+        },
+      },
       diagnostics = {
         globals = {
           -- Get the language server to recognize the `vim` global
