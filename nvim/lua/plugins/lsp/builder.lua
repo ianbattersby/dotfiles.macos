@@ -18,6 +18,7 @@ end
 
 function M:on_attach()
   return function(client, bufnr)
+    --client.server_capabilities.semanticTokensProvider = nil
     local treesitter_active = require("vim.treesitter.highlighter").active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>

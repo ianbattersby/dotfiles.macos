@@ -68,7 +68,7 @@ local function merge_config()
   local config = vim.tbl_deep_extend("keep", {}, rt_config)
 
   -- Use our attach function
-  config.on_attach = require("lspbuilder").new(rt_keymaps, rt_commands):on_attach()
+  config.on_attach = require("plugins.lsp.builder").new(rt_keymaps, rt_commands):on_attach()
   config.commands = {} -- Newer versions of lspconfig want you to use nvim_create_user_command
 
   return config
