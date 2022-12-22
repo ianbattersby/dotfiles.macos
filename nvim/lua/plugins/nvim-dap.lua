@@ -1,6 +1,6 @@
 local M = {
   "mfussenegger/nvim-dap",
-  keys = { "n", "<leader>d", "Debug" },
+  keys = { "<leader>d", desc = "Debug" },
   -- Remove these when packer.nvim support keymap descriptions again
   dependencies = {
     "rcarriga/nvim-dap-ui",

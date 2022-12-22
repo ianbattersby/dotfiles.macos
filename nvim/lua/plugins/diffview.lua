@@ -9,7 +9,7 @@ local M = {
     "DiffviewRefresh",
     "DiffviewLog",
   },
-  keys = { "n", "<leader>wv", "Diff View" },
+  keys = { "<leader>wv", "<CMD>DiffviewOpen<CR>", desc = "Diff View" },
   dependencies = "nvim-lua/plenary.nvim",
 }
 

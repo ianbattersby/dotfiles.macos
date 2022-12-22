@@ -2,12 +2,12 @@ local M = {
   "phaazon/mind.nvim",
   branch = "v2.2",
   cmd = { "MindOpenMain", "MindOpenClose", "MindOpenProject", "MindOpenSmartProject" },
-  keys = { "<leader>mo", "<leader>mq", "<leader>mp", "<leader>ms" },
-  --     { "n", "<leader>mo", "Open" },
-  --     { "n", "<leader>mq", "Close" },
-  --     { "n", "<leader>mp", "Project" },
-  --     { "n", "<leader>ms", "Smart Project" },
-  --   },
+  keys = {
+    { "<leader>mo", desc = "Open" },
+    { "<leader>mq", desc = "Close" },
+    { "<leader>mp", desc = "Project" },
+    { "<leader>ms", desc = "Smart Project" },
+  },
   dependencies = "nvim-lua/plenary.nvim",
 }
 

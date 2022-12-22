@@ -1,6 +1,6 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  keys = { "n", "\\", "File Explorer" },
+  keys = { "\\", desc = "File Explorer" },
   cmd = "Neotree",
   branch = "v2.x",
   dependencies = {

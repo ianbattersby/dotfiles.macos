@@ -1,7 +1,7 @@
 local M = {
   "sudormrfbin/cheatsheet.nvim",
   cmd = "Cheatsheet",
-  keys = { "n", "<leader>?", "Cheatsheet" },
+  keys = { "<leader>?", desc = "Cheatsheet" },
   dependencies = {
     { "ianbattersby/telescope.nvim" },
     { "nvim-lua/popup.nvim" },

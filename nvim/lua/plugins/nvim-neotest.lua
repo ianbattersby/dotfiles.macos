@@ -1,6 +1,6 @@
 local M = {
   "nvim-neotest/neotest",
-  keys = { "n", "<leader>e", "Testing" },
+  keys = { "<leader>e", desc = "Testing" },
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
