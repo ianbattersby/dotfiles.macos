@@ -29,6 +29,9 @@ local function setup_lazy()
       missing = true,
       colorscheme = { "catpuccin" },
     },
+    ui = {
+      border = "rounded",
+    },
     performance = {
       rtp = {
         disabled_plugins = {
