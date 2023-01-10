@@ -22,6 +22,14 @@ function M.config()
         end
         return s
       end,
+      offsets = {
+        {
+          filetype = "neo-tree",
+          text = "Neo-tree",
+          highlight = "Directory",
+          text_align = "left",
+        },
+      },
     },
   }
 end

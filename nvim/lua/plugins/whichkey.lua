@@ -29,7 +29,8 @@ function M.config()
       p = { name = "Project" },
       s = { name = "Smart Project" },
     },
-    q = { name = "Diagnostics" },
+    n = { name = "Noice" },
+    q = { name = "Session" },
     s = { name = "Split" },
     t = { name = "Terminal" },
     w = {
@@ -37,6 +38,9 @@ function M.config()
       -- Remove this when packer.nvim support keymap descriptions again
       v = { name = "Diff View" },
     },
+    x = {
+      name = "Diagnostics",
+    }
   }, { prefix = "<leader>" })
 end
 

@@ -8,7 +8,7 @@ function M.config()
 
   local top_buttons = {
     startify.button("e", "New file", "<CMD>ene <CR>"),
-    startify.button("/", "Last session", "<CMD>SessionManager load_last_session<CR>"),
+    startify.button("/", "Last session", [[<cmd>lua require("persistence").load({ last = true })<cr>]]),
   }
 
   startify.config.layout[4] = vim.tbl_deep_extend("keep", { val = top_buttons }, startify.config.layout[4])

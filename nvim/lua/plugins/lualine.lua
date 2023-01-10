@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "kyazdani42/nvim-web-devicons",
     "nvim-lua/lsp-status.nvim",
-    "ianbattersby/noice.nvim",
+    "folke/noice.nvim",
     "SmiteshP/nvim-navic",
   },
 }

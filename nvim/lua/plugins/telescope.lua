@@ -149,51 +149,44 @@ function M.config()
 
   vim.keymap.set("n", "<C-x>", "<CMD>Telescope resume<CR>", { noremap = true, silent = true, desc = "Resume" })
   vim.keymap.set("n", "<C-p>", findfiles_fn, { noremap = true, silent = true, desc = "Find Files" })
-  vim.keymap.set("n", "<leader>ff", findfiles_fn, { noremap = true, silent = true, desc = "Files (ascending)" })
+  vim.keymap.set("n", "<leader>ff", findfiles_fn, { noremap = true, silent = true, desc = "Find (ascending)" })
 
   vim.keymap.set(
     "n",
     "<C-s>",
     require("telescope.builtin").live_grep,
-    { noremap = true, silent = true, desc = "Search Files" }
+    { noremap = true, silent = true, desc = "Search" }
   )
 
   vim.keymap.set("n", "<leader>fr", function()
     require("telescope.builtin").find_files { prompt_title = "Recent Files", sort_last_used = true }
-  end, { noremap = true, silent = true, desc = "Files (recent)" })
+  end, { noremap = true, silent = true, desc = "Recent" })
 
   vim.keymap.set("n", "<leader>fx", function()
     require("telescope").extensions.frecency.frecency(
       require("telescope.themes").get_ivy { hidden = false, layout_config = { prompt_padding = 1 } }
     )
-  end, { noremap = true, silent = true, desc = "Files (frecency)" })
+  end, { noremap = true, silent = true, desc = "Frecency" })
 
   vim.keymap.set(
     "n",
     "<leader>fg",
     require("telescope.builtin").git_files,
-    { noremap = true, silent = true, desc = "Files (git)" }
+    { noremap = true, silent = true, desc = "Find (git)" }
   )
 
   vim.keymap.set(
     "n",
     "<leader>fs",
     require("telescope.builtin").live_grep,
-    { noremap = true, silent = true, desc = "Files (content)" }
-  )
-
-  vim.keymap.set(
-    "n",
-    "<leader>b",
-    require("telescope.builtin").buffers,
-    { noremap = true, silent = true, desc = "Buffers" }
+    { noremap = true, silent = true, desc = "Grep" }
   )
 
   vim.keymap.set(
     "n",
     "<leader>cs",
     require("telescope.builtin").treesitter,
-    { noremap = true, silent = true, desc = "Symbols (search)" }
+    { noremap = true, silent = true, desc = "Symbols" }
   )
 end
 

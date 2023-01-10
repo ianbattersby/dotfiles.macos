@@ -1,10 +1,19 @@
 local M = {
-  "ianbattersby/noice.nvim",
-  branch = "extend-notify-events",
+  "folke/noice.nvim",
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
     "ianbattersby/telescope.nvim",
+  },
+  keys = {
+    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+    { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+    { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
+    { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
+    { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true,
+      desc = "Scroll forward" },
+    { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true,
+      desc = "Scroll backward" },
   },
 }
 
@@ -13,26 +22,6 @@ function M.config()
     views = {
       notify = {
         render = "minimal",
-        on_open = function(win, notif)
-          local bufnr = vim.api.nvim_win_get_buf(win)
-
-          if bufnr then
-            vim.keymap.set(
-              "n",
-              "<C-Space>",
-              require("notify").dismiss,
-              { noremap = true, silent = true, desc = "Dismiss", buffer = bufnr }
-            )
-
-            if type(notif) == "table" then
-              vim.keymap.set("n", "<C-t>", function()
-                local opened = require("notify").open(notif)
-                vim.cmd "tab split"
-                vim.api.nvim_win_set_buf(0, opened.buffer)
-              end, { noremap = true, silent = true, desc = "Split Out", buffer = bufnr })
-            end
-          end
-        end,
       },
     },
     messages = {
