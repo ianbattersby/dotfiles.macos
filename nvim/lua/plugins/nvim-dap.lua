@@ -1,7 +1,53 @@
 local M = {
   "mfussenegger/nvim-dap",
-  keys = { "<leader>d", desc = "Debug" },
-  -- Remove these when packer.nvim support keymap descriptions again
+  keys = {
+    { "<F5>", function() require("dap").continue() end, mode = { "n", "i" }, desc = "Run/Continue" },
+    { "<F10>", function() require("dap").step_over() end, mode = { "n", "i" }, desc = "Step Over" },
+    { "<F11>", function() require("dap").step_into() end, mode = { "n", "i" }, desc = "Step Into" },
+    { "<F12>", function() require("dap").step_out() end, mode = { "n", "i" }, desc = "Step Out" },
+    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>dsc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>dsv", function() require("dap").step_over() end, desc = "Step Over" },
+    { "<leader>dsi", function() require("dap").step_into() end, desc = "Step Into" },
+    { "<leader>dso", function() require("dap").step_out() end, desc = "Step Out" },
+    { "<leader>dhh", function() require("dap.ui.widgets").hover() end, desc = "Hover" },
+    { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Hover" },
+    { "<leader>dro", function() require("dap").repl.open() end, desc = "Open" },
+    { "<leader>drl", function() require("dap").run_last() end, desc = "Run Last" },
+    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+
+    { "<leader>dBc", function()
+      vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
+        require("dap").set_breakpoint(input)
+      end)
+    end, desc = "Toggle Breakpoint" },
+
+    { "<leader>dBm", function()
+      vim.ui.input({ prompt = "Log point message: " }, function(input)
+        require("dap").set_breakpoint { nil, nil, input }
+      end)
+    end, desc = "Log Point Message" },
+
+    {
+      "<leader>dBt",
+      require("dap").toggle_breakpoint,
+      desc = "Toggle"
+    },
+
+    { "<leader>dv", function()
+      local widgets = require "dap.ui.widgets"
+      widgets.centered_float(widgets.scopes)
+    end, desc = "Scoped Variables" },
+
+    -- Evaluate expressions
+    { "<leader>de", function() require("dapui").eval() end, mode = "v", desc = "Evaluate visual text" },
+
+    { "<leader>dE", function()
+      vim.ui.input({ prompt = "Expression > " }, function(input)
+        require("dapui").eval(input)
+      end)
+    end, desc = "Evaluate expression" },
+  },
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "theHamsta/nvim-dap-virtual-text",
@@ -78,59 +124,6 @@ function M.config()
   end
 
   -- Key mapping
-  vim.keymap.set("n", "<F5>", require("dap").continue, { noremap = true, silent = true, desc = "Run/Continue" })
-  vim.keymap.set("n", "<F10>", require("dap").step_over, { noremap = true, silent = true, desc = "Step Over" })
-  vim.keymap.set("n", "<F11>", require("dap").step_into, { noremap = true, silent = true, desc = "Step Into" })
-  vim.keymap.set("n", "<F12>", require("dap").step_out, { noremap = true, silent = true, desc = "Step Out" })
-  vim.keymap.set("n", "<leader>dc", require("dap").continue, { noremap = true, silent = true, desc = "Continue" })
-  vim.keymap.set("n", "<leader>dsc", require("dap").continue, { noremap = true, silent = true, desc = "Continue" })
-  vim.keymap.set("n", "<leader>dsv", require("dap").step_over, { noremap = true, silent = true, desc = "Step Over" })
-  vim.keymap.set("n", "<leader>dsi", require("dap").step_into, { noremap = true, silent = true, desc = "Step Into" })
-  vim.keymap.set("n", "<leader>dso", require("dap").step_out, { noremap = true, silent = true, desc = "Step Out" })
-  vim.keymap.set("n", "<leader>dhh", require("dap.ui.widgets").hover, { noremap = true, silent = true, desc = "Hover" })
-  vim.keymap.set("n", "<leader>dh", require("dap.ui.widgets").hover, { noremap = true, silent = true, desc = "Hover" })
-  vim.keymap.set("n", "<leader>dro", require("dap").repl.open, { noremap = true, silent = true, desc = "Open" })
-  vim.keymap.set("n", "<leader>drl", require("dap").run_last, { noremap = true, silent = true, desc = "Run Last" })
-  vim.keymap.set(
-    "n",
-    "<leader>db",
-    require("dap").toggle_breakpoint,
-    { noremap = true, silent = true, desc = "Toggle Breakpoint" }
-  )
-  vim.keymap.set("n", "<leader>dBc", function()
-    vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
-      require("dap").set_breakpoint(input)
-    end)
-  end, { noremap = true, silent = true, desc = "Toggle Breakpoint" })
-  vim.keymap.set("n", "<leader>dBm", function()
-    vim.ui.input({ prompt = "Log point message: " }, function(input)
-      require("dap").set_breakpoint { nil, nil, input }
-    end)
-  end, { noremap = true, silent = true, desc = "Log Point Message" })
-  vim.keymap.set(
-    "n",
-    "<leader>dBt",
-    require("dap").toggle_breakpoint,
-    { noremap = true, silent = true, desc = "Toggle" }
-  )
-  vim.keymap.set("n", "<leader>dv", function()
-    local widgets = require "dap.ui.widgets"
-    widgets.centered_float(widgets.scopes)
-  end, { noremap = true, silent = true, desc = "Scoped Variables" })
-
-  -- Evaluate expressions
-  vim.keymap.set(
-    "v",
-    "<leader>de",
-    require("dapui").eval,
-    { noremap = true, silent = true, desc = "Evaluate visual text" }
-  )
-
-  vim.keymap.set("n", "<leader>dE", function()
-    vim.ui.input({ prompt = "Expression > " }, function(input)
-      require("dapui").eval(input)
-    end)
-  end, { noremap = true, silent = true, desc = "Evaluate expression" })
 
   -- You can set trigger characters OR it will default to '.'
   -- You can also trigger with the omnifunc, <c-x><c-o>

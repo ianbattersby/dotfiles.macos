@@ -1,5 +1,9 @@
 local M = {
   "simrat39/symbols-outline.nvim",
+  keys = {
+    { "<leader>co", "<CMD>SymbolsOutline</CR>", desc = "Symbols (Outline)" },
+  },
+  event = "VeryLazy",
 }
 
 function M.config()
@@ -8,13 +12,6 @@ function M.config()
     preview_bg_highlight = "bg",
     auto_close = true,
   }
-
-  vim.keymap.set(
-    "n",
-    "<leader>co",
-    "<CMD>SymbolsOutline<CR>",
-    { noremap = true, silent = true, desc = "Symbols (outline)" }
-  )
 end
 
 return M

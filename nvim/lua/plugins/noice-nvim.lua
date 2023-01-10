@@ -14,6 +14,14 @@ local M = {
       desc = "Scroll forward" },
     { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true,
       desc = "Scroll backward" },
+    { "<C-]>", function()
+      if vim.api.nvim_buf_get_option(0, "filetype") == "noice" then
+        vim.cmd "q"
+      else
+        require("noice").cmd "last"
+      end
+    end, mode = { "i", "n" }, desc = "Last message" },
+
   },
 }
 
@@ -53,18 +61,6 @@ function M.config()
       bottom_search = true,
     },
   }
-
-  vim.keymap.set({ "n", "i" }, "<C-]>", function()
-    if vim.api.nvim_buf_get_option(0, "filetype") == "noice" then
-      vim.cmd "q"
-    else
-      require("noice").cmd "last"
-    end
-  end, { silent = true, noremap = true, desc = "Last message" })
-
-  vim.keymap.set({ "n" }, "<leader>fm", function()
-    require("noice").cmd "telescope"
-  end, { silent = true, noremap = true, desc = "Message history" })
 
   -- Load Telescope extension
   require("telescope").load_extension "noice"

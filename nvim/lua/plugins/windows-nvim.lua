@@ -1,5 +1,11 @@
 local M = {
   "anuvyklack/windows.nvim",
+  keys = {
+    { "<C-W>z", "<CMD>WindowsMaximize<CR>", mode = { "n", "i" }, desc = "Maximize" },
+    { "<C-W>p", "<CMD>WindowsMaximizeHorizontally<CR>", mode = { "n", "i" }, desc = "Maximize Horizontally" },
+    { "<C-W>o", "<CMD>WindowsMaximizeVertically<CR>", mode = { "n", "i" }, desc = "Maximize Vertically" },
+    { "<C-W>e", "<CMD>WindowsEqualize<CR>", mode = { "n", "i" }, desc = "Equalize" }
+  },
   dependencies = {
     "anuvyklack/middleclass",
     "anuvyklack/animation.nvim",
@@ -37,34 +43,6 @@ function M.config()
       easing = "in_out_sine",
     },
   }
-
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-W>z",
-    "<CMD>WindowsMaximize<CR>",
-    { silent = true, noremap = true, desc = "Maximize" }
-  )
-
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-W>p",
-    "<CMD>WindowsMaximizeHorizontally<CR>",
-    { silent = true, noremap = true, desc = "Maximize Horizontally" }
-  )
-
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-W>o",
-    "<CMD>WindowsMaximizeVertically<CR>",
-    { silent = true, noremap = true, desc = "Maximize Vertically" }
-  )
-
-  vim.keymap.set(
-    { "n", "i" },
-    "<C-W>e",
-    "<CMD>WindowsEqualize<CR>",
-    { silent = true, noremap = true, desc = "Equalize" }
-  )
 end
 
 return M

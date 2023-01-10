@@ -1,6 +1,12 @@
 local M = {
   "akinsho/toggleterm.nvim",
   version = "*",
+  keys = {
+    { "<leader>tt", "<CMD>ToggleTerm<CR>", desc = "Toggle" },
+    { "<leader>tf", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
+    { "<leader>th", "<CMD>ToggleTermToggleAll<CR>", desc = "Hide" },
+    { "<leader>tn", "<CMD>ToggleTermSetName<CR>", desc = "Name" },
+  }
 }
 
 function M.config()
@@ -15,16 +21,6 @@ function M.config()
     direction = "horizontal",
     winbar = { enabled = true },
   }
-
-  vim.keymap.set("n", "<leader>tt", "<CMD>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle" })
-  vim.keymap.set(
-    "n",
-    "<leader>tf",
-    "<CMD>ToggleTerm direction='float'<CR>",
-    { noremap = true, silent = true, desc = "Float" }
-  )
-  vim.keymap.set("n", "<leader>th", "<CMD>ToggleTermToggleAll<CR>", { noremap = true, silent = true, desc = "Hide" })
-  vim.keymap.set("n", "<leader>tn", "<CMD>ToggleTermSetName<CR>", { noremap = true, silent = true, desc = "Name" })
 
   vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "term://*",

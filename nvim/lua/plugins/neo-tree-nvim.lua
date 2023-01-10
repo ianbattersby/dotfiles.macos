@@ -1,6 +1,9 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  keys = { "\\", desc = "File Explorer" },
+  keys = {
+    { "\\", function() require("neo-tree").reveal_current_file("filesystem", true, "<bang>" == "!") end,
+      desc = "File Explorer" },
+  },
   cmd = "Neotree",
   branch = "v2.x",
   dependencies = {
@@ -28,10 +31,6 @@ function M.config()
   require("neo-tree").setup {
     close_if_last_window = true,
   }
-
-  vim.keymap.set("n", "\\", function()
-    require("neo-tree").reveal_current_file("filesystem", true, "<bang>" == "!")
-  end, { noremap = true, silent = true, desc = "File Explorer" })
 end
 
 return M

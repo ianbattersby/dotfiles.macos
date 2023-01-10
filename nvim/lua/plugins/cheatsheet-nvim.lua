@@ -10,9 +10,6 @@ local M = {
 }
 
 function M.config()
-  -- Set this here so that 'cheatsheat.nvim' doesn't set it.
-  --vim.keymap.set("n", "<leader>?", "<CMD>Cheatsheet<CR>", { noremap = true, silent = true, desc = "Cheatsheet" })
-
   require("cheatsheet").setup {
     -- Whether to show bundled cheatsheets
 

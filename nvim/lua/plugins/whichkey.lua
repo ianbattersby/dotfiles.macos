@@ -7,6 +7,7 @@ function M.config()
 
   require("which-key").register({
     ["?"] = { "<CMD>Cheatsheet<CR>", "Cheatsheet" },
+    b = { name = "Buffers" },
     c = { name = "Code", r = { name = "Refactor" } },
     d = {
       name = "Debug",
@@ -23,11 +24,6 @@ function M.config()
     h = { name = "Hunk", t = { name = "Toggle" } },
     m = {
       name = "Mind",
-      -- Remove these when packer.nvim support keymap descriptions again
-      o = { name = "Open" },
-      q = { name = "Close" },
-      p = { name = "Project" },
-      s = { name = "Smart Project" },
     },
     n = { name = "Noice" },
     q = { name = "Session" },
@@ -35,8 +31,6 @@ function M.config()
     t = { name = "Terminal" },
     w = {
       name = "Workspace",
-      -- Remove this when packer.nvim support keymap descriptions again
-      v = { name = "Diff View" },
     },
     x = {
       name = "Diagnostics",
