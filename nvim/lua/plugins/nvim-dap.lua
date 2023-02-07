@@ -1,5 +1,6 @@
 local M = {
   "mfussenegger/nvim-dap",
+  branch = "master",
   keys = {
     { "<F5>",        function() require "dap".continue() end,          mode = { "n", "i" },       desc = "Run/Continue" },
     { "<F10>",       function() require "dap".step_over() end,         mode = { "n", "i" },       desc = "Step Over" },
