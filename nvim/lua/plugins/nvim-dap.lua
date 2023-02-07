@@ -1,36 +1,36 @@
 local M = {
   "mfussenegger/nvim-dap",
   keys = {
-    { "<F5>", function() require("dap").continue() end, mode = { "n", "i" }, desc = "Run/Continue" },
-    { "<F10>", function() require("dap").step_over() end, mode = { "n", "i" }, desc = "Step Over" },
-    { "<F11>", function() require("dap").step_into() end, mode = { "n", "i" }, desc = "Step Into" },
-    { "<F12>", function() require("dap").step_out() end, mode = { "n", "i" }, desc = "Step Out" },
-    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-    { "<leader>dsc", function() require("dap").continue() end, desc = "Continue" },
-    { "<leader>dsv", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>dsi", function() require("dap").step_into() end, desc = "Step Into" },
-    { "<leader>dso", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<leader>dhh", function() require("dap.ui.widgets").hover() end, desc = "Hover" },
-    { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Hover" },
-    { "<leader>dro", function() require("dap").repl.open() end, desc = "Open" },
-    { "<leader>drl", function() require("dap").run_last() end, desc = "Run Last" },
-    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    { "<F5>",        function() require "dap".continue() end,          mode = { "n", "i" },       desc = "Run/Continue" },
+    { "<F10>",       function() require "dap".step_over() end,         mode = { "n", "i" },       desc = "Step Over" },
+    { "<F11>",       function() require "dap".step_into() end,         mode = { "n", "i" },       desc = "Step Into" },
+    { "<F12>",       function() require "dap".step_out() end,          mode = { "n", "i" },       desc = "Step Out" },
+    { "<leader>dc",  function() require "dap".continue() end,          desc = "Continue" },
+    { "<leader>dsc", function() require "dap".continue() end,          desc = "Continue" },
+    { "<leader>dsv", function() require "dap".step_over() end,         desc = "Step Over" },
+    { "<leader>dsi", function() require "dap".step_into() end,         desc = "Step Into" },
+    { "<leader>dso", function() require "dap".step_out() end,          desc = "Step Out" },
+    { "<leader>dhh", function() require "dap.ui.widgets".hover() end,  desc = "Hover" },
+    { "<leader>dh",  function() require "dap.ui.widgets".hover() end,  desc = "Hover" },
+    { "<leader>dro", function() require "dap".repl.open() end,         desc = "Open" },
+    { "<leader>drl", function() require "dap".run_last() end,          desc = "Run Last" },
+    { "<leader>db",  function() require "dap".toggle_breakpoint() end, desc = "Toggle Breakpoint" },
 
     { "<leader>dBc", function()
       vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
-        require("dap").set_breakpoint(input)
+        require "dap".set_breakpoint(input)
       end)
     end, desc = "Toggle Breakpoint" },
 
     { "<leader>dBm", function()
       vim.ui.input({ prompt = "Log point message: " }, function(input)
-        require("dap").set_breakpoint { nil, nil, input }
+        require "dap".set_breakpoint { nil, nil, input }
       end)
     end, desc = "Log Point Message" },
 
     {
       "<leader>dBt",
-      require("dap").toggle_breakpoint,
+      require "dap".toggle_breakpoint,
       desc = "Toggle"
     },
 
@@ -40,11 +40,11 @@ local M = {
     end, desc = "Scoped Variables" },
 
     -- Evaluate expressions
-    { "<leader>de", function() require("dapui").eval() end, mode = "v", desc = "Evaluate visual text" },
+    { "<leader>de", function() require "dapui".eval() end, mode = "v", desc = "Evaluate visual text" },
 
     { "<leader>dE", function()
       vim.ui.input({ prompt = "Expression > " }, function(input)
-        require("dapui").eval(input)
+        require "dapui".eval(input)
       end)
     end, desc = "Evaluate expression" },
   },
@@ -132,7 +132,7 @@ function M.config()
     group = "DanRepl",
     pattern = "dan-repl",
     callback = function()
-      require("dap.ext.autocompl").attach()
+      require "dap.ext.autocompl".attach()
     end,
   })
 
@@ -225,10 +225,10 @@ function M.config()
       request = "launch",
       program = function()
         return vim.fn.input(
-          "Path to executable: ",
-          vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
-          "file"
-        )
+            "Path to executable: ",
+            vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
+            "file"
+          )
       end,
       cwd = "${workspaceFolder}",
       terminal = "integrated",
@@ -254,10 +254,10 @@ function M.config()
   -- see: https://github.com/mfussenegger/nvim-dap/issues/82
 
   -- Enable virtual text
-  require("nvim-dap-virtual-text").setup()
+  require "nvim-dap-virtual-text".setup()
 
   -- Enable Telescope extension
-  require("telescope").load_extension "dap"
+  require "telescope".load_extension "dap"
 end
 
 return M

@@ -5,7 +5,7 @@ local M = {
     { "nvim-lua/plenary.nvim" },
     { "natecraddock/telescope-zf-native.nvim" },
     -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
+    { "nvim-telescope/telescope-frecency.nvim",    dependencies = { "tami5/sqlite.lua" } },
     { "nvim-telescope/telescope-file-browser.nvim" },
     -- { "nvim-telescope/telescope-packer.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
@@ -71,10 +71,10 @@ function M.config()
       scroll_strategy = "cycle",
       color_devicons = true,
 
-      file_sorter = require("telescope.sorters").get_fzy_sorter,
-      file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-      grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+      file_sorter = require "telescope.sorters" .get_fzy_sorter,
+      file_previewer = require "telescope.previewers" .vim_buffer_cat.new,
+      grep_previewer = require "telescope.previewers" .vim_buffer_vimgrep.new,
+      qflist_previewer = require "telescope.previewers" .vim_buffer_qflist.new,
 
       file_ignore_patterns = { "node%_modules/.*" },
 
@@ -97,9 +97,9 @@ function M.config()
           ["<C-a>"] = actions.cycle_previewers_prev,
           ["<C-t>"] = trouble.open_with_trouble,
           ["cd"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
+            local selection = require "telescope.actions.state" .get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require("telescope.actions").close(prompt_bufnr)
+            require "telescope.actions" .close(prompt_bufnr)
             vim.cmd(string.format("silent lcd %s", dir))
           end,
         },
@@ -130,7 +130,7 @@ function M.config()
         },
       },
       ["ui-select"] = {
-        require("telescope.themes").get_dropdown {},
+        require "telescope.themes" .get_dropdown {},
       },
     },
   }
@@ -145,7 +145,7 @@ function M.config()
   telescope.load_extension "ui-select"
 
   -- Let's use the get_ivy theme in places
-  local findfiles_fn = require("telescope.builtin").find_files
+  local findfiles_fn = require "telescope.builtin" .find_files
 
   vim.keymap.set("n", "<C-x>", "<CMD>Telescope resume<CR>", { noremap = true, silent = true, desc = "Resume" })
   vim.keymap.set("n", "<C-p>", findfiles_fn, { noremap = true, silent = true, desc = "Find Files" })
@@ -154,38 +154,38 @@ function M.config()
   vim.keymap.set(
     "n",
     "<C-s>",
-    require("telescope.builtin").live_grep,
+    require "telescope.builtin" .live_grep,
     { noremap = true, silent = true, desc = "Search" }
   )
 
   vim.keymap.set("n", "<leader>fr", function()
-    require("telescope.builtin").find_files { prompt_title = "Recent Files", sort_last_used = true }
+    require "telescope.builtin" .find_files { prompt_title = "Recent Files", sort_last_used = true }
   end, { noremap = true, silent = true, desc = "Recent" })
 
   vim.keymap.set("n", "<leader>fx", function()
-    require("telescope").extensions.frecency.frecency(
-      require("telescope.themes").get_ivy { hidden = false, layout_config = { prompt_padding = 1 } }
+    require "telescope" .extensions.frecency.frecency(
+      require "telescope.themes" .get_ivy { hidden = false, layout_config = { prompt_padding = 1 } }
     )
   end, { noremap = true, silent = true, desc = "Frecency" })
 
   vim.keymap.set(
     "n",
     "<leader>fg",
-    require("telescope.builtin").git_files,
+    require "telescope.builtin" .git_files,
     { noremap = true, silent = true, desc = "Find (git)" }
   )
 
   vim.keymap.set(
     "n",
     "<leader>fs",
-    require("telescope.builtin").live_grep,
+    require "telescope.builtin" .live_grep,
     { noremap = true, silent = true, desc = "Grep" }
   )
 
   vim.keymap.set(
     "n",
     "<leader>cs",
-    require("telescope.builtin").treesitter,
+    require "telescope.builtin" .treesitter,
     { noremap = true, silent = true, desc = "Symbols" }
   )
 end

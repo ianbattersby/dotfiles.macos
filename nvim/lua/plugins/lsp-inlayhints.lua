@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-  require("lsp-inlayhints").setup {
+  require "lsp-inlayhints" .setup {
     inlay_hints = {
       parameter_hints = {
         show = true,
@@ -34,7 +34,7 @@ function M.config()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_inlayhints", { clear = true }),
     callback = function(args)
-      require("lsp-inlayhints").on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+      require "lsp-inlayhints" .on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
     end,
   })
 end

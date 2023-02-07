@@ -2,15 +2,15 @@ local M = {
   "akinsho/toggleterm.nvim",
   version = "*",
   keys = {
-    { "<leader>tt", "<CMD>ToggleTerm<CR>", desc = "Toggle" },
+    { "<leader>tt", "<CMD>ToggleTerm<CR>",                   desc = "Toggle" },
     { "<leader>tf", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
-    { "<leader>th", "<CMD>ToggleTermToggleAll<CR>", desc = "Hide" },
-    { "<leader>tn", "<CMD>ToggleTermSetName<CR>", desc = "Name" },
+    { "<leader>th", "<CMD>ToggleTermToggleAll<CR>",          desc = "Hide" },
+    { "<leader>tn", "<CMD>ToggleTermSetName<CR>",            desc = "Name" },
   }
 }
 
 function M.config()
-  require("toggleterm").setup {
+  require "toggleterm" .setup {
     size = function(term)
       if term.direction == "horizontal" then
         return 10

@@ -1,10 +1,10 @@
 local M = {
   "folke/trouble.nvim",
-  dependencies = "kyazdani42/nvim-web-devicons",
+  dependencies = "nvim-tree/nvim-web-devicons",
 }
 
 function M.config()
-  require("trouble").setup {
+  require "trouble".setup {
     position = "bottom",
     height = 10,
     auto_open = false,

@@ -37,7 +37,7 @@ function M.config()
   settings.term_colors = true
   settings.transparent_background = false
 
-  require("catppuccin").setup(settings)
+  require "catppuccin" .setup(settings)
 
   vim.cmd [[colorscheme catppuccin]]
 end

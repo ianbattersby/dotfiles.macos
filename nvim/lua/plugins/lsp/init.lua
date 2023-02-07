@@ -12,10 +12,10 @@ local M = {
 }
 
 function M.config()
-  require("mason").setup { ui = { border = "rounded" } }
-  require("mason-lspconfig").setup { automatic_installation = true }
-  require("plugins.lsp.servers").setup()
-  require("plugins.lsp.diagnostics").setup()
+  require "mason" .setup { ui = { border = "rounded" } }
+  require "mason-lspconfig" .setup { automatic_installation = true }
+  require "plugins.lsp.servers" .setup()
+  require "plugins.lsp.diagnostics" .setup()
 end
 
 return M

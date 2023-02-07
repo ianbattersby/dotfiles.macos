@@ -7,7 +7,7 @@ local M = {
 }
 
 function M.config()
-  require("symbols-outline").setup {
+  require "symbols-outline" .setup {
     with = 85,
     preview_bg_highlight = "bg",
     auto_close = true,

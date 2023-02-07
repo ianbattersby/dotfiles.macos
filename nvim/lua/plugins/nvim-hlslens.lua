@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.config()
-  require("hlslens").setup {
+  require "hlslens" .setup {
     calm_down = true,
   }
 

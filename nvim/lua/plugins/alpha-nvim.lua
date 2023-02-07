@@ -17,7 +17,7 @@ function M.config()
 
   startify.config.layout[4] = vim.tbl_deep_extend("keep", { val = top_buttons }, startify.config.layout[4])
 
-  require("alpha").setup(startify.config)
+  require "alpha" .setup(startify.config)
 end
 
 return M

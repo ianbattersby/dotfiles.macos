@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.config()
-  require("help-vsplit").setup()
+  require "help-vsplit" .setup()
 end
 
 return M

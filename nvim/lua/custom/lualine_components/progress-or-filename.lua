@@ -1,6 +1,6 @@
 local lsp_status = require "lsp-status"
 
-local M = require("lualine.components.filename"):extend()
+local M = require "lualine.components.filename" :extend()
 
 local function is_not_nill(obj)
   return obj ~= nil

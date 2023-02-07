@@ -27,7 +27,7 @@ function M.setup()
   end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, M.diagnostic_config)
+    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, M.diagnostic_config)
 end
 
 return M

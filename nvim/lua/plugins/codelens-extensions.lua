@@ -10,7 +10,7 @@ local M = {
 }
 
 function M.config()
-  require("codelens_extensions").setup {
+  require "codelens_extensions" .setup {
     vertical_split = false,
     rust_debug_adapter = "rt_lldb",
     init_rust_commands = true,

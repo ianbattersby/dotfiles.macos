@@ -40,7 +40,7 @@ function M.config()
   }
 
   -- Disable matching of single quotes in Rust.
-  npairs.get_rule("'")[1]:with_pair(function()
+  npairs.get_rule "'" [1]:with_pair(function()
     if vim.bo.filetype == "rust" then
       return false
     end

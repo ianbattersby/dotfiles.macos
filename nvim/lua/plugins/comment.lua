@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-  require("Comment").setup {
+  require "Comment" .setup {
     ignore = "^$",
     mappings = {
       basic = true,

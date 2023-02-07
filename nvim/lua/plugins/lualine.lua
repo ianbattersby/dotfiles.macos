@@ -1,7 +1,7 @@
 local M = {
   "hoob3rt/lualine.nvim",
   dependencies = {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     "nvim-lua/lsp-status.nvim",
     "folke/noice.nvim",
     "SmiteshP/nvim-navic",
@@ -12,7 +12,7 @@ function M.config()
   local navic = require "nvim-navic"
   local components = require "custom.lualine_components"
 
-  require("lualine").setup {
+  require "lualine".setup {
     options = {
       icons_enabled = true,
       theme = "catppuccin",
@@ -43,18 +43,18 @@ function M.config()
           cond = navic.is_available,
         },
         {
-          require("noice").api.statusline.command.get,
-          cond = require("noice").api.statusline.command.has,
+          require "noice".api.statusline.command.get,
+          cond = require "noice".api.statusline.command.has,
           color = { fg = "#ff9e64" },
         },
         {
-          require("noice").api.statusline.mode.get,
-          cond = require("noice").api.statusline.mode.has,
+          require "noice".api.statusline.mode.get,
+          cond = require "noice".api.statusline.mode.has,
           color = { fg = "#ff9e64" },
         },
         {
-          require("noice").api.statusline.search.get,
-          cond = require("noice").api.statusline.search.has,
+          require "noice".api.statusline.search.get,
+          cond = require "noice".api.statusline.search.has,
           color = { fg = "#ff9e64" },
         },
       },
@@ -67,18 +67,18 @@ function M.config()
         --   cond = require("noice").api.status.message.has,
         -- },
         {
-          require("noice").api.statusline.command.get,
-          cond = require("noice").api.statusline.command.has,
+          require "noice".api.statusline.command.get,
+          cond = require "noice".api.statusline.command.has,
           color = { fg = "#ff9e64" },
         },
         {
-          require("noice").api.statusline.mode.get,
-          cond = require("noice").api.statusline.mode.has,
+          require "noice".api.statusline.mode.get,
+          cond = require "noice".api.statusline.mode.has,
           color = { fg = "#ff9e64" },
         },
         {
-          require("noice").api.statusline.search.get,
-          cond = require("noice").api.statusline.search.has,
+          require "noice".api.statusline.search.get,
+          cond = require "noice".api.statusline.search.has,
           color = { fg = "#ff9e64" },
         },
       },

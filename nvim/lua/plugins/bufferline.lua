@@ -1,15 +1,15 @@
 local M = {
   "akinsho/nvim-bufferline.lua",
   branch = "main",
-  dependencies = "kyazdani42/nvim-web-devicons",
+  dependencies = "nvim-tree/nvim-web-devicons",
 }
 
 function M.config()
-  require("nvim-web-devicons").setup {
+  require "nvim-web-devicons".setup {
     default = true,
   }
-  require("bufferline").setup {
-    highlights = require("catppuccin.groups.integrations.bufferline").get(),
+  require "bufferline".setup {
+    highlights = require "catppuccin.groups.integrations.bufferline".get(),
     options = {
       separator_style = "thin",
       numbers = "buffer_id",

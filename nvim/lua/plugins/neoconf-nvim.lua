@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-  require("neoconf").setup()
+  require "neoconf" .setup()
 end
 
 return M

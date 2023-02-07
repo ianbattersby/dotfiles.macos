@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.config()
-  require("glance").setup {
+  require "glance" .setup {
     border = {
       enable = true,
     },

@@ -1,6 +1,6 @@
 local highlight = require "lualine.highlight"
 
-local M = require("lualine.components.diagnostics"):extend()
+local M = require "lualine.components.diagnostics" :extend()
 
 M.init = function(self, options)
   M.super.init(self, options)

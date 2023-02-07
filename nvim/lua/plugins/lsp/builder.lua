@@ -19,7 +19,7 @@ end
 function M:on_attach()
   return function(client, bufnr)
     --client.server_capabilities.semanticTokensProvider = nil
-    local treesitter_active = require("vim.treesitter.highlighter").active[bufnr]
+    local treesitter_active = require "vim.treesitter.highlighter" .active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -144,15 +144,15 @@ function M:on_attach()
 
     vim.keymap.set("n", "gS", function()
       if treesitter_active then
-        require("telescope.builtin").treesitter(require("telescope.themes").get_ivy {})
+        require "telescope.builtin" .treesitter(require "telescope.themes" .get_ivy {})
       else
-        require("telescope.builtin").lsp_document_symbols()
+        require "telescope.builtin" .lsp_document_symbols()
       end
     end, { noremap = true, silent = true, desc = "Symbols", buffer = bufnr })
 
     vim.keymap.set("n", "K", function()
       if treesitter_active then
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        local winid = require "ufo" .peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
         end
@@ -162,36 +162,36 @@ function M:on_attach()
     end, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
 
     vim.keymap.set("n", "]d", function()
-      require("trouble").next { skip_groups = true, jump = true }
+      require "trouble" .next { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
 
     vim.keymap.set("n", "[d", function()
-      require("trouble").previous { skip_groups = true, jump = true }
+      require "trouble" .previous { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
 
     if treesitter_active then -- we use treesitter to power the folds
       vim.keymap.set(
         "n",
         "zR",
-        require("ufo").openAllFolds,
+        require "ufo" .openAllFolds,
         { desc = "Open all folds", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zM",
-        require("ufo").closeAllFolds,
+        require "ufo" .closeAllFolds,
         { desc = "Close all folds", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zr",
-        require("ufo").openFoldsExceptKinds,
+        require "ufo" .openFoldsExceptKinds,
         { desc = "Open folds (except Kinds)", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zm",
-        require("ufo").closeFoldsWith,
+        require "ufo" .closeFoldsWith,
         { desc = "Close folds with", noremap = true, silent = true, buffer = bufnr }
       )
     end
@@ -262,7 +262,7 @@ function M:on_attach()
         group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
-          require("vim.lsp.codelens").refresh()
+          require "vim.lsp.codelens" .refresh()
         end,
         once = true,
       })
@@ -271,7 +271,7 @@ function M:on_attach()
         group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
-          require("vim.lsp.codelens").refresh()
+          require "vim.lsp.codelens" .refresh()
         end,
       })
     end

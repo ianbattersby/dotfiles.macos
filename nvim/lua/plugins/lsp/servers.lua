@@ -8,10 +8,10 @@ function M.setup()
     local language = languages[language_impl]
 
     local cmp_enhanced_config = vim.tbl_deep_extend(
-      "force",
-      lspconfig[language.server] or {},
-      { capabilities = require("cmp_nvim_lsp").default_capabilities() }
-    )
+        "force",
+        lspconfig[language.server] or {},
+        { capabilities = require "cmp_nvim_lsp".default_capabilities() }
+      )
 
     if language ~= nil then
       if language.initialize ~= nil then
@@ -21,7 +21,7 @@ function M.setup()
       local combined_config = vim.tbl_deep_extend("force", cmp_enhanced_config, language_config)
 
       if combined_config.on_attach == nil then
-        local lconfig = require("plugins.lsp.builder").new()
+        local lconfig = require "plugins.lsp.builder".new()
         combined_config.on_attach = lconfig:on_attach()
       end
 

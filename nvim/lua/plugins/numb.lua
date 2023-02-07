@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.config()
-  require("numb").setup()
+  require "numb" .setup()
 end
 
 return M

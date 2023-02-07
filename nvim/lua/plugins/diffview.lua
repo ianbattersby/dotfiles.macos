@@ -31,7 +31,7 @@ local M = {
 }
 
 function M.config()
-  require("diffview").setup {
+  require "diffview" .setup {
     icons = { -- Only applies when use_icons is true.
       folder_closed = "",
       folder_open = "",

@@ -1,10 +1,10 @@
 local M = {
   "anuvyklack/windows.nvim",
   keys = {
-    { "<C-W>z", "<CMD>WindowsMaximize<CR>", mode = { "n", "i" }, desc = "Maximize" },
+    { "<C-W>z", "<CMD>WindowsMaximize<CR>",             mode = { "n", "i" }, desc = "Maximize" },
     { "<C-W>p", "<CMD>WindowsMaximizeHorizontally<CR>", mode = { "n", "i" }, desc = "Maximize Horizontally" },
-    { "<C-W>o", "<CMD>WindowsMaximizeVertically<CR>", mode = { "n", "i" }, desc = "Maximize Vertically" },
-    { "<C-W>e", "<CMD>WindowsEqualize<CR>", mode = { "n", "i" }, desc = "Equalize" }
+    { "<C-W>o", "<CMD>WindowsMaximizeVertically<CR>",   mode = { "n", "i" }, desc = "Maximize Vertically" },
+    { "<C-W>e", "<CMD>WindowsEqualize<CR>",             mode = { "n", "i" }, desc = "Equalize" }
   },
   dependencies = {
     "anuvyklack/middleclass",
@@ -17,7 +17,7 @@ function M.config()
   vim.o.winminwidth = 10
   vim.o.equalalways = false
 
-  require("windows").setup {
+  require "windows" .setup {
     ignore = {
       buftype = {
         "nofile",

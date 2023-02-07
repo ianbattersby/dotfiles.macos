@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-  require("neogit").setup {}
+  require "neogit" .setup {}
 end
 
 return M

@@ -3,7 +3,7 @@ local M = {
 }
 
 function M.config()
-  require("satellite").setup {
+  require "satellite" .setup {
     handlers = {
       search = {
         enable = true,

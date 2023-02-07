@@ -3,9 +3,9 @@ local M = {
 }
 
 function M.config()
-  require("which-key").setup {}
+  require "which-key" .setup {}
 
-  require("which-key").register({
+  require "which-key" .register({
     ["?"] = { "<CMD>Cheatsheet<CR>", "Cheatsheet" },
     b = { name = "Buffers" },
     c = { name = "Code", r = { name = "Refactor" } },

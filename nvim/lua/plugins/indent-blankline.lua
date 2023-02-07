@@ -9,7 +9,7 @@ function M.config()
   vim.opt.listchars:append "tab:⋅→"
   vim.opt.listchars:append "eol:↴"
 
-  require("indent_blankline").setup {
+  require "indent_blankline" .setup {
     buftype_exclude = { "terminal", "telescope", "nofile", "packer", "lazy" },
     filetype_exclude = {
       "help",

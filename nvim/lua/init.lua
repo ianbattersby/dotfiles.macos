@@ -16,7 +16,7 @@ end
 local function setup_lazy()
   vim.g.catppuccin_flavour = "frappe"
 
-  require("lazy").setup("plugins", {
+  require "lazy" .setup("plugins", {
     defaults = {
       lazy = false,
       version = "*",
@@ -53,7 +53,7 @@ local function setup_lazy()
   })
 end
 
-require("settings").setup()
+require "settings" .setup()
 
 ensure_lazy()
 setup_lazy()
