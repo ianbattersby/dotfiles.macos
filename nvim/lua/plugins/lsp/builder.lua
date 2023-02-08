@@ -19,7 +19,7 @@ end
 function M:on_attach()
   return function(client, bufnr)
     --client.server_capabilities.semanticTokensProvider = nil
-    local treesitter_active = require "vim.treesitter.highlighter" .active[bufnr]
+    local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -61,9 +61,10 @@ function M:on_attach()
       { noremap = true, silent = true, desc = "Diagnostics", buffer = bufnr }
     )
 
-    vim.keymap.set("n", "<leader>ca", function()
-      vim.lsp.buf.code_action()
-    end, { noremap = true, silent = true, desc = "Actions", buffer = bufnr })
+    vim.keymap.set({ "n", "v" },
+      "<leader>ca",
+      "<CMD>Lspsaga code_action<CR>",
+      { noremap = true, silent = true, desc = "Actions", buffer = bufnr })
 
     vim.keymap.set(
       "n",
@@ -76,29 +77,34 @@ function M:on_attach()
       vim.lsp.codelens.run()
     end, { noremap = true, silent = true, desc = "Lens", buffer = bufnr })
 
-    vim.keymap.set("n", "<leader>crr", function()
-      vim.lsp.buf.rename()
-    end, { noremap = true, silent = true, desc = "Rename", buffer = bufnr })
+    vim.keymap.set("n", "<leader>crr", "<cmd>Lspsaga rename<CR>",
+      { noremap = true, silent = true, desc = "Rename", buffer = bufnr })
 
-    vim.keymap.set(
-      "n",
-      "gd",
-      "<CMD>Glance definitions<CR>",
-      -- "<CMD>TroubleToggle lsp_definitions<CR>",
-      { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
-    )
+    vim.keymap.set("n", "<leader>crR", "<cmd>Lspsaga rename ++project<CR>",
+      { noremap = true, silent = true, desc = "Rename (Project)", buffer = bufnr })
+
+    vim.keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<CR>",
+      { noremap = true, silent = true, desc = "Symbols outline", buffer = bufnr })
+
+    -- vim.keymap.set(
+    --   "n",
+    --   "gd",
+    --   "<CMD>Glance definitions<CR>",
+    --   -- "<CMD>TroubleToggle lsp_definitions<CR>",
+    --   { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
+    -- )
 
     vim.keymap.set("n", "gD", function()
       vim.lsp.buf.declaration()
     end, { noremap = true, silent = true, desc = "Definition", buffer = bufnr })
 
-    vim.keymap.set(
-      "n",
-      "gI",
-      "<CMD>Glance implementations<CR>",
-      -- "<CMD>TroubleToggle lsp_implementations<CR>",
-      { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
-    )
+    -- vim.keymap.set(
+    --   "n",
+    --   "gI",
+    --   "<CMD>Glance implementations<CR>",
+    --   -- "<CMD>TroubleToggle lsp_implementations<CR>",
+    --   { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
+    -- )
 
     vim.keymap.set("n", "gl", function()
       local config = {
@@ -119,21 +125,45 @@ function M:on_attach()
       vim.diagnostic.open_float(0, config)
     end, { noremap = true, silent = true, desc = "Show Line Diagnostics", buffer = bufnr })
 
+    vim.keymap.set("n", "<leader>gl", "<cmd>Lspsaga show_line_diagnostics<CR>",
+      { noremap = true, silent = true, desc = "Show Line Diagnostics", buffer = bufnr })
+
     vim.keymap.set(
       "n",
       "gr",
-      "<CMD>Glance references<CR>",
-      -- require("telescope.builtin").lsp_references,
+      "<CMD>Lspsaga lsp_finder<CR>",
       { noremap = true, silent = true, desc = "References", buffer = bufnr }
     )
 
     vim.keymap.set(
       "n",
-      "gY",
-      "<CMD>Glance type_definitions<CR>",
-      -- require("telescope.builtin").lsp_references,
+      "gd",
+      "<CMD>Lspsaga peek_definition<CR>",
       { noremap = true, silent = true, desc = "References", buffer = bufnr }
     )
+
+    vim.keymap.set(
+      "n",
+      "gD",
+      "<CMD>Lspsaga goto_definition<CR>",
+      { noremap = true, silent = true, desc = "References", buffer = bufnr }
+    )
+
+    -- vim.keymap.set(
+    --   "n",
+    --   "gr",
+    --   "<CMD>Glance references<CR>",
+    --   -- require("telescope.builtin").lsp_references,
+    --   { noremap = true, silent = true, desc = "References", buffer = bufnr }
+    -- )
+
+    -- vim.keymap.set(
+    --   "n",
+    --   "gY",
+    --   "<CMD>Glance type_definitions<CR>",
+    --   -- require("telescope.builtin").lsp_references,
+    --   { noremap = true, silent = true, desc = "References", buffer = bufnr }
+    -- )
 
     vim.keymap.set(
       "n",
@@ -144,15 +174,15 @@ function M:on_attach()
 
     vim.keymap.set("n", "gS", function()
       if treesitter_active then
-        require "telescope.builtin" .treesitter(require "telescope.themes" .get_ivy {})
+        require "telescope.builtin".treesitter(require "telescope.themes".get_ivy {})
       else
-        require "telescope.builtin" .lsp_document_symbols()
+        require "telescope.builtin".lsp_document_symbols()
       end
     end, { noremap = true, silent = true, desc = "Symbols", buffer = bufnr })
 
     vim.keymap.set("n", "K", function()
       if treesitter_active then
-        local winid = require "ufo" .peekFoldedLinesUnderCursor()
+        local winid = require "ufo".peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
         end
@@ -161,37 +191,51 @@ function M:on_attach()
       end
     end, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
 
+    vim.keymap.set("n", "[d", function()
+      require "trouble".previous { skip_groups = true, jump = true }
+    end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
+
     vim.keymap.set("n", "]d", function()
-      require "trouble" .next { skip_groups = true, jump = true }
+      require "trouble".next { skip_groups = true, jump = true }
     end, { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
 
-    vim.keymap.set("n", "[d", function()
-      require "trouble" .previous { skip_groups = true, jump = true }
-    end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
+    vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>",
+      { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
+
+    vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>",
+      { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
+
+    vim.keymap.set("n", "[E", function()
+      require "lspsaga.diagnostic":goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end, { noremap = true, silent = true, desc = "Previous Error", buffer = bufnr })
+
+    vim.keymap.set("n", "]E", function()
+      require "lspsaga.diagnostic":goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end, { noremap = true, silent = true, desc = "Next Error", buffer = bufnr })
 
     if treesitter_active then -- we use treesitter to power the folds
       vim.keymap.set(
         "n",
         "zR",
-        require "ufo" .openAllFolds,
+        require "ufo".openAllFolds,
         { desc = "Open all folds", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zM",
-        require "ufo" .closeAllFolds,
+        require "ufo".closeAllFolds,
         { desc = "Close all folds", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zr",
-        require "ufo" .openFoldsExceptKinds,
+        require "ufo".openFoldsExceptKinds,
         { desc = "Open folds (except Kinds)", noremap = true, silent = true, buffer = bufnr }
       )
       vim.keymap.set(
         "n",
         "zm",
-        require "ufo" .closeFoldsWith,
+        require "ufo".closeFoldsWith,
         { desc = "Close folds with", noremap = true, silent = true, buffer = bufnr }
       )
     end
@@ -262,7 +306,7 @@ function M:on_attach()
         group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
-          require "vim.lsp.codelens" .refresh()
+          require "vim.lsp.codelens".refresh()
         end,
         once = true,
       })
@@ -271,7 +315,7 @@ function M:on_attach()
         group = "lsp_document_codelens",
         buffer = bufnr,
         callback = function()
-          require "vim.lsp.codelens" .refresh()
+          require "vim.lsp.codelens".refresh()
         end,
       })
     end

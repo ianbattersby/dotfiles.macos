@@ -1,4 +1,4 @@
-local lconfig = require "plugins.lsp.builder" .new {
+local lconfig = require "plugins.lsp.builder".new {
     -- {
     --   mode = "n",
     --   keybinding = "<leader>ctp",
