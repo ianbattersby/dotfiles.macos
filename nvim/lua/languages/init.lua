@@ -1,7 +1,7 @@
 return {
   ["ansible"] = require "languages.ansible",
   ["bash"] = require "languages.bash",
-  ["c#"] = require "languages.csharp",
+  -- ["c#"] = require "languages.csharp",
   ["css"] = require "languages.css",
   ["dockerfile"] = require "languages.dockerfile",
   ["eslint"] = require "languages.eslint",
