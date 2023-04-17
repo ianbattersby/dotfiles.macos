@@ -8,7 +8,7 @@ local M = {
 }
 
 function M.config()
-  local parser_configs = require "nvim-treesitter.parsers" .get_parser_configs()
+  local parser_configs = require "nvim-treesitter.parsers".get_parser_configs()
 
   parser_configs.hcl = {
     install_info = {
@@ -68,10 +68,8 @@ function M.config()
     textobjects = {
       select = {
         enable = true,
-
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
-
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
           ["af"] = { query = "@function.outer", desc = "outer function" },
@@ -88,7 +86,7 @@ function M.config()
         -- mapping query_strings to modes.
         selection_modes = {
           ["@parameter.outer"] = "v", -- charwise
-          ["@function.outer"] = "V", -- linewise
+          ["@function.outer"] = "V",  -- linewise
           ["@function.inner"] = "<c-v>",
           ["@class.outer"] = "<c-v>", -- blockwise
         },

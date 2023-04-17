@@ -4,7 +4,7 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "williamboman/mason.nvim",
+    { "williamboman/mason.nvim", cmd = "Mason" },
     "williamboman/mason-lspconfig.nvim",
     "nvim-lua/lsp-status.nvim",
     "simrat39/rust-tools.nvim",
@@ -12,10 +12,10 @@ local M = {
 }
 
 function M.config()
-  require "mason" .setup { ui = { border = "rounded" } }
-  require "mason-lspconfig" .setup { automatic_installation = true }
-  require "plugins.lsp.servers" .setup()
-  require "plugins.lsp.diagnostics" .setup()
+  require "mason".setup { ui = { border = "rounded" } }
+  require "mason-lspconfig".setup { automatic_installation = true }
+  require "plugins.lsp.servers".setup()
+  require "plugins.lsp.diagnostics".setup()
 end
 
 return M
