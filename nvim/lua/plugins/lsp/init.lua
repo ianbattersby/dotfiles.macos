@@ -4,7 +4,7 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    { "williamboman/mason.nvim", cmd = "Mason" },
+    { "williamboman/mason.nvim", cmd = "Mason", lazy = false },
     "williamboman/mason-lspconfig.nvim",
     "nvim-lua/lsp-status.nvim",
     "simrat39/rust-tools.nvim",

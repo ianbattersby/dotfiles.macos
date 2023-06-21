@@ -10,6 +10,7 @@ return {
   ["lua"] = require "languages.lua",
   ["ocaml"] = require "languages.ocaml",
   ["python"] = require "languages.python",
+  ["python-lint"] = require "languages.python-lint",
   ["rust"] = require "languages.rust",
   ["terraform"] = require "languages.terraform",
   ["typescript"] = require "languages.typescript",

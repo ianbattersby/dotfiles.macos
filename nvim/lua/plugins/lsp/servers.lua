@@ -8,10 +8,10 @@ function M.setup()
     local language = languages[language_impl]
 
     local cmp_enhanced_config = vim.tbl_deep_extend(
-        "force",
-        lspconfig[language.server] or {},
-        { capabilities = require "cmp_nvim_lsp".default_capabilities() }
-      )
+      "force",
+      lspconfig[language.server] or {},
+      { capabilities = require "cmp_nvim_lsp".default_capabilities() }
+    )
 
     if language ~= nil then
       if language.initialize ~= nil then
