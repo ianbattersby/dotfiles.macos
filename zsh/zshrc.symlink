@@ -128,8 +128,5 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git tmux kubectl golang rust
+  git vi-mode tmux kubectl golang rust
 )
-
-# Better vi-mode alternative
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
