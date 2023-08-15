@@ -17,15 +17,19 @@ function M.setup()
       if language.initialize ~= nil then
         language.initialize()
       end
+
       local language_config = type(language.config) == "function" and language.config() or language.config or {}
-      local combined_config = vim.tbl_deep_extend("force", cmp_enhanced_config, language_config)
 
-      if combined_config.on_attach == nil then
-        local lconfig = require "plugins.lsp.builder".new()
-        combined_config.on_attach = lconfig:on_attach()
+      if language_config ~= nil then
+        local combined_config = vim.tbl_deep_extend("force", cmp_enhanced_config, language_config)
+
+        if combined_config.on_attach == nil then
+          local lconfig = require "plugins.lsp.builder".new()
+          combined_config.on_attach = lconfig:on_attach()
+        end
+
+        lspconfig[language.server].setup(combined_config)
       end
-
-      lspconfig[language.server].setup(combined_config)
 
       if language.finalize ~= nil then
         language.finalize()
