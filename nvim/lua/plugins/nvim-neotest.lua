@@ -1,14 +1,14 @@
 local M = {
   "nvim-neotest/neotest",
-  -- stylua: ignore
   keys = {
-    { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
-    { "<leader>tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
-    { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
-    { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
-    { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
-    { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
-    { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
+    ---@format disable
+    { "<leader>tt", function() require "neotest".run.run(vim.fn.expand "%") end, desc = "Run File" },
+    { "<leader>tT", function() require "neotest".run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
+    { "<leader>tr", function() require "neotest".run.run() end, desc = "Run Nearest" },
+    { "<leader>ts", function() require "neotest".summary.toggle() end, desc = "Toggle Summary" },
+    { "<leader>to", function() require "neotest".output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
+    { "<leader>tO", function() require "neotest".output_panel.toggle() end, desc = "Toggle Output Panel" },
+    { "<leader>tS", function() require "neotest".run.stop() end, desc = "Stop" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -22,26 +22,21 @@ local M = {
 }
 
 function M.config()
-  require "neotest" .setup {
+  require "neotest".setup {
     adapters = {
-      require "neotest-python" {
-        dap = { justMyCode = false },
-      },
+      require "neotest-python" { dap = { justMyCode = false }, },
       require "neotest-plenary",
-      require "neotest-rust" {
-        args = { "--no-capture" },
-      },
+      require "neotest-rust" { args = { "--no-capture" }, },
       require "neotest-go",
     },
   }
 
-
   vim.keymap.set("n", "]n", function()
-    require "neotest" .jump.prev { status = "failed" }
+    require "neotest".jump.prev { status = "failed" }
   end, { noremap = true, silent = true, desc = "Failed Prev" })
 
   vim.keymap.set("n", "[n", function()
-    require "neotest" .jump.next { status = "failed" }
+    require "neotest".jump.next { status = "failed" }
   end, { noremap = true, silent = true, desc = "Failed Next" })
 end
 

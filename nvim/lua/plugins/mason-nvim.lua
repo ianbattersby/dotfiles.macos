@@ -20,7 +20,6 @@ local M = {
       "rust-analyzer",
       "shellcheck",
       "shfmt",
-      "stylua",
       "terraform-ls",
       "typescript-language-server",
       "vim-language-server",

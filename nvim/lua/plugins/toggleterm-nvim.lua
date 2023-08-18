@@ -1,6 +1,7 @@
 local M = {
   "akinsho/toggleterm.nvim",
   version = "*",
+  event = "VeryLazy",
   keys = {
     { "<leader>ft", "<CMD>ToggleTerm<CR>",                   desc = "Toggle Terminal" },
     { "<leader>fT", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },

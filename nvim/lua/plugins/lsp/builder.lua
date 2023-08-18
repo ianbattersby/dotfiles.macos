@@ -24,7 +24,7 @@ function M.supports_format(client)
   then
     return false
   end
-  return client.supports_method("textDocument/formatting") or client.supports_method("textDocument/rangeFormatting")
+  return client.supports_method "textDocument/formatting" or client.supports_method "textDocument/rangeFormatting"
 end
 
 function M.diagnostic_goto(next, severity)
@@ -45,7 +45,7 @@ function M:on_attach()
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- stylua: ignore
+    ---@format disable
     local keymaps = {
       {
         mode = "n",
@@ -114,7 +114,7 @@ function M:on_attach()
       client.supports_method("textDocument/codeAction") and { keybinding = "<leader>ca", action = vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } } or {},
       client.supports_method("textDocument/codeAction") and {
         keybinding = "<leader>cA",
-        function()
+        action = function()
           vim.lsp.buf.code_action({
             context = {
               only = {
@@ -133,7 +133,7 @@ function M:on_attach()
       { keybinding = "<leader>wr", action = function() vim.lsp.buf.remove_workspace_folder() end, desc = "Remove Folder" },
 
       treesitter_active and { keybinding = "zR", action = require "ufo".openAllFolds, desc = "Open Folds" } or {},
-      treesitter_active and { keybinding = "zM", action = require "ufo".closeAlLFolds, desc = "Close Folds" } or {},
+      treesitter_active and { keybinding = "zM", action = require "ufo".closeAllFolds, desc = "Close Folds" } or {},
       treesitter_active and { keybinding = "zr", action = require "ufo".openFoldsExceptKinds, desc = "Open Folds (Except Kinds)" } or {},
       treesitter_active and { keybinding = "zm", action = require "ufo".closeFoldsWith, desc = "Close Folds (Except Kinds)" } or {},
     }
@@ -158,8 +158,20 @@ function M:on_attach()
       )
     end
 
+    -- Set some keybinds conditional on server capabilities
+    if M.supports_format(client) then
+      local format_opts = { timeout_ms = 2000 }
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format(format_opts)
+        end,
+      })
+    end
+
     -- Load custom commands
-    for _, v in pairs(self.cusotm_commands) do
+    for _, v in pairs(self.custom_commands) do
       vim.validate {
         ["command.name"] = { v.name, "s" },
         ["command.fn"] = { v.command, "f" },
@@ -167,18 +179,6 @@ function M:on_attach()
 
       vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
     end
-    
-    -- Set some keybinds conditional on server capabilities
-    -- if M.supports_format(client) then
-    --   local format_opts = { timeout_ms = 2000 }
-    --
-    --   vim.api.nvim_create_autocmd("BufWritePre", {
-    --     buffer = bufnr,
-    --     callback = function()
-    --       vim.lsp.buf.format(format_opts)
-    --     end,
-    --   })
-    -- end
 
     --if client.server_capabilities.documentDiagnosticProvider then
     vim.api.nvim_create_autocmd("CursorHold", {
@@ -195,7 +195,6 @@ function M:on_attach()
         vim.diagnostic.open_float(nil, opts)
       end,
     })
-    --end
 
     if client.supports_method "textDocument/documentHighlight" then
       vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
