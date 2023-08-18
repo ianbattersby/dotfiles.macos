@@ -1,5 +1,6 @@
 local M = {
   "hoob3rt/lualine.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "nvim-lua/lsp-status.nvim",
@@ -29,7 +30,6 @@ function M.config()
         "dapui_stacks",
         "dapui_watches",
         "DiffviewFiles",
-        "mind",
       },
       globalstatus = true,
     },

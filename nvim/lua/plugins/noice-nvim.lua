@@ -2,31 +2,42 @@ local M = {
   "folke/noice.nvim",
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    {
+      "rcarriga/nvim-notify",
+      keys = {
+        {
+          "<leader>un",
+          function()
+            require "notify".dismiss({ silent = true, pending = true })
+          end,
+          desc = "Dismiss all Notifications",
+        },
+      },
+      opts = {
+        timeout = 3000,
+        max_height = function()
+          return math.floor(vim.o.lines * 0.75)
+        end,
+        max_width = function()
+          return math.floor(vim.o.columns * 0.75)
+        end,
+      },
+    },
     "ianbattersby/telescope.nvim",
   },
   keys = {
-    { "<S-Enter>",  function() require "noice" .redirect(vim.fn.getcmdline()) end, mode = "c",                 desc = "Redirect Cmdline" },
-    { "<leader>nl", function() require "noice" .cmd "last"  end,                   desc = "Noice Last Message" },
-    { "<leader>nh", function() require "noice" .cmd "history"  end,                desc = "Noice History" },
-    { "<leader>na", function() require "noice" .cmd "all"  end,                    desc = "Noice All" },
-    { "<c-f>", function() if not require "noice.lsp" .scroll(4) then return "<c-f>" end end, silent = true, expr = true,
-      desc = "Scroll forward" },
-    { "<c-b>", function() if not require "noice.lsp" .scroll( -4) then return "<c-b>" end end, silent = true, expr = true,
-      desc = "Scroll backward" },
-    { "<C-]>", function()
-      if vim.api.nvim_buf_get_option(0, "filetype") == "noice" then
-        vim.cmd "q"
-      else
-        require "noice" .cmd "last"
-      end
-    end, mode = { "i", "n" }, desc = "Last message" },
-
+    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+    { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+    { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
+    { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
+    { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+    { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
+    { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
   },
 }
 
 function M.config()
-  require "noice" .setup {
+  require "noice".setup {
     views = {
       notify = {
         render = "minimal",
@@ -63,7 +74,7 @@ function M.config()
   }
 
   -- Load Telescope extension
-  require "telescope" .load_extension "noice"
+  require "telescope".load_extension "noice"
 end
 
 return M

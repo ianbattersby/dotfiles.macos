@@ -2,6 +2,7 @@ local M = {
   "catppuccin/nvim",
   name = "catppuccin",
   priority = 1000,
+  version = false,
 }
 
 function M.config()
@@ -10,15 +11,31 @@ function M.config()
   local dap_integration = {}
   local navic_integration = {}
 
+  integrations.alpha = true
+  integrations.cmp = true
+  integrations.flash = true
   integrations.gitsigns = true
+  integrations.indent_blankline = { enabled = true }
   integrations.lsp_trouble = true
   integrations.mason = true
   integrations.mini = true
   integrations.neotest = true
   integrations.neotree = true
+  integrations.native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        }
+  integrations.navic = { enabled = true, custom_bg = "lualine" }
+  integrations.neotest = true
+  integrations.neotree = true
   integrations.noice = true
   integrations.notify = true
-  integrations.symbols_outline = true
+  integrations.semantic_tokens = true
   integrations.telescope = true
   integrations.treesitter = true
   integrations.treesitter_context = true
@@ -37,7 +54,7 @@ function M.config()
   settings.term_colors = true
   settings.transparent_background = false
 
-  require "catppuccin" .setup(settings)
+  require "catppuccin".setup(settings)
 
   vim.cmd [[colorscheme catppuccin]]
 end

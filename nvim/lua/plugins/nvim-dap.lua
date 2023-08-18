@@ -1,56 +1,51 @@
 local M = {
   "mfussenegger/nvim-dap",
   branch = "master",
+
+  -- stylua: ignore
   keys = {
-    { "<F5>",        function() require "dap".continue() end,          mode = { "n", "i" },       desc = "Run/Continue" },
-    { "<F10>",       function() require "dap".step_over() end,         mode = { "n", "i" },       desc = "Step Over" },
-    { "<F11>",       function() require "dap".step_into() end,         mode = { "n", "i" },       desc = "Step Into" },
-    { "<F12>",       function() require "dap".step_out() end,          mode = { "n", "i" },       desc = "Step Out" },
-    { "<leader>dc",  function() require "dap".continue() end,          desc = "Continue" },
-    { "<leader>dsc", function() require "dap".continue() end,          desc = "Continue" },
-    { "<leader>dsv", function() require "dap".step_over() end,         desc = "Step Over" },
-    { "<leader>dsi", function() require "dap".step_into() end,         desc = "Step Into" },
-    { "<leader>dso", function() require "dap".step_out() end,          desc = "Step Out" },
-    { "<leader>dhh", function() require "dap.ui.widgets".hover() end,  desc = "Hover" },
-    { "<leader>dh",  function() require "dap.ui.widgets".hover() end,  desc = "Hover" },
-    { "<leader>dro", function() require "dap".repl.open() end,         desc = "Open" },
-    { "<leader>drl", function() require "dap".run_last() end,          desc = "Run Last" },
-    { "<leader>db",  function() require "dap".toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-
-    { "<leader>dBc", function()
-      vim.ui.input({ prompt = "Breakpoint condition: " }, function(input)
-        require "dap".set_breakpoint(input)
-      end)
-    end, desc = "Toggle Breakpoint" },
-
-    { "<leader>dBm", function()
-      vim.ui.input({ prompt = "Log point message: " }, function(input)
-        require "dap".set_breakpoint { nil, nil, input }
-      end)
-    end, desc = "Log Point Message" },
-
-    {
-      "<leader>dBt",
-      require "dap".toggle_breakpoint,
-      desc = "Toggle"
-    },
-
-    { "<leader>dv", function()
-      local widgets = require "dap.ui.widgets"
-      widgets.centered_float(widgets.scopes)
-    end, desc = "Scoped Variables" },
-
-    -- Evaluate expressions
-    { "<leader>de", function() require "dapui".eval() end, mode = "v", desc = "Evaluate visual text" },
-
-    { "<leader>dE", function()
-      vim.ui.input({ prompt = "Expression > " }, function(input)
-        require "dapui".eval(input)
-      end)
-    end, desc = "Evaluate expression" },
+    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+    { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
+    { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+    { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+    { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+    { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
+    { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
+    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+    { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+    { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
   },
+
   dependencies = {
-    "rcarriga/nvim-dap-ui",
+    {
+      "rcarriga/nvim-dap-ui",
+      -- stylua: ignore
+      keys = {
+        { "<leader>du", function() require "dapui".toggle({}) end, desc = "Dap UI" },
+        { "<leader>de", function() require "dapui".eval() end,     desc = "Eval",  mode = { "n", "v" } },
+      },
+      opts = {},
+      config = function(_, opts)
+        local dap = require "dap"
+        local dapui = require "dapui"
+        dapui.setup(opts)
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+          dapui.open({})
+        end
+        dap.listeners.before.event_terminated["dapui_config"] = function()
+          dapui.close({})
+        end
+        dap.listeners.before.event_exited["dapui_config"] = function()
+          dapui.close({})
+        end
+      end,
+    },
     "theHamsta/nvim-dap-virtual-text",
     "leoluz/nvim-dap-go",
     "mfussenegger/nvim-dap-python",
@@ -105,7 +100,7 @@ function M.config()
     },
     floating = {
       max_height = nil, -- These can be integers or a float between 0 and 1.
-      max_width = nil, -- Floats will be treated as percentage of your screen.
+      max_width = nil,  -- Floats will be treated as percentage of your screen.
       mappings = {
         close = { "q", "<Esc>" },
       },
@@ -226,10 +221,10 @@ function M.config()
       request = "launch",
       program = function()
         return vim.fn.input(
-            "Path to executable: ",
-            vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
-            "file"
-          )
+          "Path to executable: ",
+          vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
+          "file"
+        )
       end,
       cwd = "${workspaceFolder}",
       terminal = "integrated",

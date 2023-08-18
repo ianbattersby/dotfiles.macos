@@ -11,7 +11,7 @@ local function initialize()
   -- packer_load({ "rust-tools.nvim" }, {}, _G.packer_plugins)
   -- packer_load({ "nvim-dap" }, {}, _G.packer_plugins)
 
-  require "rust-tools" .setup {
+  require "rust-tools".setup {
     -- debugging stuff
     tools = {
       runnables = { use_telescope = true },
@@ -19,7 +19,7 @@ local function initialize()
       hover_actions = { auto_focus = true },
     },
     dap = {
-      adapter = require "rust-tools.dap" .get_codelldb_adapter(
+      adapter = require "rust-tools.dap".get_codelldb_adapter(
         table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
         table.concat(
           { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "lib", "liblldb.dylib" },
@@ -29,19 +29,31 @@ local function initialize()
     },
   }
 
-  require "rust-tools.dap" .setup_adapter()
+  require "rust-tools.dap".setup_adapter()
 end
 
 local function merge_config()
-  local rt_config = require "rust-tools" .config.options.server
+  local rt_config = require "rust-tools".config.options.server
 
   local rt_keymaps = {
     {
       mode = "n",
-      keybinding = "<leader>cc",
-      action = ':lua require("rust-tools.hover_actions").hover_actions()<CR>',
-      desc = "Actions (Hover)",
+      keybinding = "K",
+      action = "<cmd>RustHoverActions<cr>",
+      desc = "Hover Actions (Rust)",
     },
+    {
+      mode = "n",
+      keybinding = "<leader>cR",
+      action = "<cmd>RustCodeAction<cr>",
+      desc = "Code Action (Rust)",
+    },
+    {
+      mode = "n",
+      keybinding = "<leader>dr",
+      action = "<cmd>RustDebuggables<cr>",
+      desc = "Run Debuggables (Rust)",
+    }
   }
 
   local rt_commands = {}
@@ -68,7 +80,7 @@ local function merge_config()
   local config = vim.tbl_deep_extend("keep", {}, rt_config)
 
   -- Use our attach function
-  config.on_attach = require "plugins.lsp.builder" .new(rt_keymaps, rt_commands):on_attach()
+  config.on_attach = require "plugins.lsp.builder".new(rt_keymaps, rt_commands):on_attach()
   config.commands = {} -- Newer versions of lspconfig want you to use nvim_create_user_command
 
   return config

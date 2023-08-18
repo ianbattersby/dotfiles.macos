@@ -1,7 +1,7 @@
 local M = {
   "sudormrfbin/cheatsheet.nvim",
   cmd = "Cheatsheet",
-  keys = { "<leader>?", desc = "Cheatsheet" },
+  event = "VeryLazy",
   dependencies = {
     { "ianbattersby/telescope.nvim" },
     { "nvim-lua/popup.nvim" },
@@ -10,6 +10,7 @@ local M = {
 }
 
 function M.config()
+  vim.keymap.set({ "n", "v"}, "<leader>?", "<cmd>Cheatsheet<cr>", { noremap = true, silent = true, desc = "Cheatsheet" })
   require "cheatsheet" .setup {
     -- Whether to show bundled cheatsheets
 

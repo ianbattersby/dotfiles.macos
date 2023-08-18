@@ -2,10 +2,10 @@ local M = {
   "akinsho/toggleterm.nvim",
   version = "*",
   keys = {
-    { "<leader>tt", "<CMD>ToggleTerm<CR>",                   desc = "Toggle" },
-    { "<leader>tf", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
-    { "<leader>th", "<CMD>ToggleTermToggleAll<CR>",          desc = "Hide" },
-    { "<leader>tn", "<CMD>ToggleTermSetName<CR>",            desc = "Name" },
+    { "<leader>ft", "<CMD>ToggleTerm<CR>",                   desc = "Toggle Terminal" },
+    { "<leader>fT", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
+    -- { "<leader>th", "<CMD>ToggleTermToggleAll<CR>",          desc = "Hide" },
+    -- { "<leader>tn", "<CMD>ToggleTermSetName<CR>",            desc = "Name" },
   }
 }
 

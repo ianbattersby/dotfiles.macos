@@ -4,8 +4,8 @@ function M:init(config, keymaps, commands)
   config = config or {}
   setmetatable(config, self)
   self.__index = self
-  self.keymaps = keymaps or {}
-  self.commands = commands or {}
+  self.lang_keymaps = keymaps or {}
+  self.lang_commands = commands or {}
   return config
 end
 
@@ -16,9 +16,27 @@ function M.new(keymaps, commands)
   return inst
 end
 
+function M.supports_format(client)
+  if
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
+  then
+    return false
+  end
+  return client.supports_method("textDocument/formatting") or client.supports_method("textDocument/rangeFormatting")
+end
+
+function M.diagnostic_goto(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+
 function M:on_attach()
   return function(client, bufnr)
-    --client.server_capabilities.semanticTokensProvider = nil
     local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
 
     -- Enable completion triggered by <c-x><c-o>
@@ -27,242 +45,140 @@ function M:on_attach()
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.keymap.set(
-      "n",
-      "<leader>qq",
-      "<CMD>TroubleToggle document_diagnostics<CR>",
-      { noremap = true, silent = true, desc = "Document", buffer = bufnr }
-    )
-
-    vim.keymap.set(
-      "n",
-      "<leader>qw",
-      "<CMD>TroubleToggle workspace_diagnostics<CR>",
-      { noremap = true, silent = true, desc = "Workspace", buffer = bufnr }
-    )
-
-    vim.keymap.set("n", "<leader>wl", function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, { noremap = true, silent = true, desc = "List Folders", buffer = bufnr })
-
-    vim.keymap.set("n", "<leader>wa", function()
-      vim.lsp.buf.add_workspace_folder()
-    end, { noremap = true, silent = true, desc = "Add Folder", buffer = bufnr })
-
-    vim.keymap.set("n", "<leader>wr", function()
-      vim.lsp.buf.remove_workspace_folder()
-    end, { noremap = true, silent = true, desc = "Remove Folder", buffer = bufnr })
-
-    vim.keymap.set(
-      "n",
-      "<leader>wd",
-      "<CMD>TroubleToggle workspace_diagnostics<CR>",
-      { noremap = true, silent = true, desc = "Diagnostics", buffer = bufnr }
-    )
-
-    vim.keymap.set({ "n", "v" },
-      "<leader>ca",
-      "<CMD>Lspsaga code_action<CR>",
-      { noremap = true, silent = true, desc = "Actions", buffer = bufnr })
-
-    vim.keymap.set(
-      "n",
-      "<leader>cd",
-      "<CMD>Telescope lsp_range_code_actions<CR>",
-      { noremap = true, silent = true, desc = "Actions (Range)", buffer = bufnr }
-    )
-
-    vim.keymap.set("n", "<leader>cl", function()
-      vim.lsp.codelens.run()
-    end, { noremap = true, silent = true, desc = "Lens", buffer = bufnr })
-
-    vim.keymap.set("n", "<leader>crr", "<cmd>Lspsaga rename<CR>",
-      { noremap = true, silent = true, desc = "Rename", buffer = bufnr })
-
-    vim.keymap.set("n", "<leader>crR", "<cmd>Lspsaga rename ++project<CR>",
-      { noremap = true, silent = true, desc = "Rename (Project)", buffer = bufnr })
-
-    vim.keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<CR>",
-      { noremap = true, silent = true, desc = "Symbols outline", buffer = bufnr })
-
-    -- vim.keymap.set(
-    --   "n",
-    --   "gd",
-    --   "<CMD>Glance definitions<CR>",
-    --   -- "<CMD>TroubleToggle lsp_definitions<CR>",
-    --   { noremap = true, silent = true, desc = "Declaration", buffer = bufnr }
-    -- )
-
-    vim.keymap.set("n", "gD", function()
-      vim.lsp.buf.declaration()
-    end, { noremap = true, silent = true, desc = "Definition", buffer = bufnr })
-
-    -- vim.keymap.set(
-    --   "n",
-    --   "gI",
-    --   "<CMD>Glance implementations<CR>",
-    --   -- "<CMD>TroubleToggle lsp_implementations<CR>",
-    --   { noremap = true, silent = true, desc = "Implementation", buffer = bufnr }
-    -- )
-
-    vim.keymap.set("n", "gl", function()
-      local config = {
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        prefix = " ",
-        scope = "line",
-        format = function(d)
-          local code = d.code or (d.user_data and d.user_data.lsp.code)
-          if code then
-            return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+    -- stylua: ignore
+    local keymaps = {
+      {
+        mode = "n",
+        keybinding = "<leader>cd",
+        action = function()
+          local config = {
+            focusable = false,
+            style = "minimal",
+            border = "rounded",
+            source = "always",
+            prefix = " ",
+            scope = "line",
+            format = function(d)
+              local code = d.code or (d.user_data and d.user_data.lsp.code)
+              if code then
+                return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+              end
+              return d.message
+            end,
+          }
+          vim.diagnostic.open_float(0, config)
+        end,
+        desc = "Line Diagnostics"
+      },
+      { keybinding = "<leader>cl", action = "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      { keybinding = "gd", action = function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
+      { keybinding = "gr", action = "<cmd>Telescope lsp_references<cr>", desc = "References" },
+      { keybinding = "gD", action = vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      { keybinding = "gI", action = function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+      { keybinding = "gy", action = function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
+      { keybinding = "K", action = function()
+          if treesitter_active then
+            local winid = require "ufo".peekFoldedLinesUnderCursor()
+            if not winid then
+              vim.lsp.buf.hover()
+            end
+          else
+            vim.lsp.buf.hover()
           end
-          return d.message
+        end,desc = "Hover" },
+
+      client.supports_method("textDocument/signatureHelp") and { keybinding = "gK", action = vim.lsp.buf.signature_help, desc = "Signature Help" } or {},
+      client.supports_method("textDocument/signatureHelp") and { keybinding = "<c-k>", mode = "i", action = vim.lsp.buf.signature_help, desc = "Signature Help" } or {},
+
+      { keybinding = "]d", action = M.diagnostic_goto(true), desc = "Next Diagnostic" },
+      { keybinding = "[d", action = M.diagnostic_goto(false), desc = "Prev Diagnostic" },
+      { keybinding = "]e", action = M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+      { keybinding = "[e", action = M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+      { keybinding = "]w", action = M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
+      { keybinding = "[w", action = M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
+
+      M.supports_format(client) and {
+        keybinding = "<leader>cf",
+        action = function()
+          if vim.b.autoformat == false then
+            return false
+          end
+
+          vim.lsp.buf.format({ timeout_ms = 2000 })
         end,
+        desc = "Format"
+      } or {},
+
+      M.supports_format(client) and client.supports_method("textDocument/rangeFormatting") and { keybinding = "<leader>cf", mode = "v", action = "", desc = "Format Range" } or {},
+
+      client.supports_method("textDocument/codeAction") and { keybinding = "<leader>ca", action = vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } } or {},
+      client.supports_method("textDocument/codeAction") and {
+        keybinding = "<leader>cA",
+        function()
+          vim.lsp.buf.code_action({
+            context = {
+              only = {
+                "source",
+              },
+              diagnostics = {},
+            },
+          })
+        end,
+        desc = "Source Action",
+        has = "codeAction",
+      } or {},
+
+      { keybinding = "<leader>wl", action = function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "List Folders" },
+      { keybinding = "<leader>wa", action = function() vim.lsp.buf.add_workspace_folder() end, desc = "Add Folder" },
+      { keybinding = "<leader>wr", action = function() vim.lsp.buf.remove_workspace_folder() end, desc = "Remove Folder" },
+
+      treesitter_active and { keybinding = "zR", action = require "ufo".openAllFolds, desc = "Open Folds" } or {},
+      treesitter_active and { keybinding = "zM", action = require "ufo".closeAlLFolds, desc = "Close Folds" } or {},
+      treesitter_active and { keybinding = "zr", action = require "ufo".openFoldsExceptKinds, desc = "Open Folds (Except Kinds)" } or {},
+      treesitter_active and { keybinding = "zm", action = require "ufo".closeFoldsWith, desc = "Close Folds (Except Kinds)" } or {},
+    }
+
+    -- Enable inlay hints if supported
+    local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
+    if inlay_hint and client.supports_method "textDocument/inlayHint" then
+      inlay_hint(bufnr, true)
+    end
+
+    -- Merge language-specific mappings with defaults
+    local keymaps_merged = vim.tbl_deep_extend("force", keymaps or {}, self.custom_keymaps or {})
+
+    -- Load custom keymaps
+    for _, keymap in pairs(keymaps_merged) do
+      vim.keymap.set(
+        keymap.mode or "n",
+        keymap.keybinding,
+        keymap.action,
+        { noremap = true, silent = true, desc = keymap.desc or "", buffer = bufnr }
+      )
+    end
+
+    -- Load custom commands
+    for _, v in pairs(self.cusotm_commands) do
+      vim.validate {
+        ["command.name"] = { v.name, "s" },
+        ["command.fn"] = { v.command, "f" },
       }
-      vim.diagnostic.open_float(0, config)
-    end, { noremap = true, silent = true, desc = "Show Line Diagnostics", buffer = bufnr })
 
-    vim.keymap.set("n", "<leader>gl", "<cmd>Lspsaga show_line_diagnostics<CR>",
-      { noremap = true, silent = true, desc = "Show Line Diagnostics", buffer = bufnr })
-
-    vim.keymap.set(
-      "n",
-      "gr",
-      "<CMD>Lspsaga lsp_finder<CR>",
-      { noremap = true, silent = true, desc = "References", buffer = bufnr }
-    )
-
-    vim.keymap.set(
-      "n",
-      "gd",
-      "<CMD>Lspsaga peek_definition<CR>",
-      { noremap = true, silent = true, desc = "References", buffer = bufnr }
-    )
-
-    vim.keymap.set(
-      "n",
-      "gD",
-      "<CMD>Lspsaga goto_definition<CR>",
-      { noremap = true, silent = true, desc = "References", buffer = bufnr }
-    )
-
-    -- vim.keymap.set(
-    --   "n",
-    --   "gr",
-    --   "<CMD>Glance references<CR>",
-    --   -- require("telescope.builtin").lsp_references,
-    --   { noremap = true, silent = true, desc = "References", buffer = bufnr }
-    -- )
-
-    -- vim.keymap.set(
-    --   "n",
-    --   "gY",
-    --   "<CMD>Glance type_definitions<CR>",
-    --   -- require("telescope.builtin").lsp_references,
-    --   { noremap = true, silent = true, desc = "References", buffer = bufnr }
-    -- )
-
-    vim.keymap.set(
-      "n",
-      "gs",
-      vim.lsp.buf.signature_help,
-      { noremap = true, silent = true, desc = "Signature", buffer = bufnr }
-    )
-
-    vim.keymap.set("n", "gS", function()
-      if treesitter_active then
-        require "telescope.builtin".treesitter(require "telescope.themes".get_ivy {})
-      else
-        require "telescope.builtin".lsp_document_symbols()
-      end
-    end, { noremap = true, silent = true, desc = "Symbols", buffer = bufnr })
-
-    vim.keymap.set("n", "K", function()
-      if treesitter_active then
-        local winid = require "ufo".peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      else
-        vim.lsp.buf.hover()
-      end
-    end, { noremap = true, silent = true, desc = "Hover", buffer = bufnr })
-
-    vim.keymap.set("n", "[d", function()
-      require "trouble".previous { skip_groups = true, jump = true }
-    end, { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
-
-    vim.keymap.set("n", "]d", function()
-      require "trouble".next { skip_groups = true, jump = true }
-    end, { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
-
-    vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>",
-      { noremap = true, silent = true, desc = "Diagnostic Prev", buffer = bufnr })
-
-    vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>",
-      { noremap = true, silent = true, desc = "Diagnostic Next", buffer = bufnr })
-
-    vim.keymap.set("n", "[E", function()
-      require "lspsaga.diagnostic":goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, { noremap = true, silent = true, desc = "Previous Error", buffer = bufnr })
-
-    vim.keymap.set("n", "]E", function()
-      require "lspsaga.diagnostic":goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, { noremap = true, silent = true, desc = "Next Error", buffer = bufnr })
-
-    if treesitter_active then -- we use treesitter to power the folds
-      vim.keymap.set(
-        "n",
-        "zR",
-        require "ufo".openAllFolds,
-        { desc = "Open all folds", noremap = true, silent = true, buffer = bufnr }
-      )
-      vim.keymap.set(
-        "n",
-        "zM",
-        require "ufo".closeAllFolds,
-        { desc = "Close all folds", noremap = true, silent = true, buffer = bufnr }
-      )
-      vim.keymap.set(
-        "n",
-        "zr",
-        require "ufo".openFoldsExceptKinds,
-        { desc = "Open folds (except Kinds)", noremap = true, silent = true, buffer = bufnr }
-      )
-      vim.keymap.set(
-        "n",
-        "zm",
-        require "ufo".closeFoldsWith,
-        { desc = "Close folds with", noremap = true, silent = true, buffer = bufnr }
-      )
+      vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
     end
-
+    
     -- Set some keybinds conditional on server capabilities
-    if client.server_capabilities.documentFormattingProvider then
-      local format_opts = { timeout_ms = 2000 }
-
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format(format_opts)
-        end,
-      })
-
-      vim.keymap.set("n", "<leader>cf", function()
-        vim.lsp.buf.format(format_opts)
-      end, { noremap = true, silent = true, desc = "Format Document", buffer = bufnr })
-
-      vim.keymap.set("v", "<C-k><C-k>", function()
-        vim.lsp.buf.format(
-          vim.tbl_deep_extend("keep", format_opts, client.server_capabilities.documentRangeFormattingProvider and {
-            range = {}, -- Defaults to block in VISUAL mode
-          } or {})
-        )
-      end, { noremap = true, silent = true, desc = "Format Document", buffer = bufnr })
-    end
+    -- if M.supports_format(client) then
+    --   local format_opts = { timeout_ms = 2000 }
+    --
+    --   vim.api.nvim_create_autocmd("BufWritePre", {
+    --     buffer = bufnr,
+    --     callback = function()
+    --       vim.lsp.buf.format(format_opts)
+    --     end,
+    --   })
+    -- end
 
     --if client.server_capabilities.documentDiagnosticProvider then
     vim.api.nvim_create_autocmd("CursorHold", {
@@ -281,7 +197,7 @@ function M:on_attach()
     })
     --end
 
-    if client.server_capabilities.documentHighlightProvider then
+    if client.supports_method "textDocument/documentHighlight" then
       vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
       vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
 
@@ -298,7 +214,7 @@ function M:on_attach()
       })
     end
 
-    if client.server_capabilities.codeLensProvider then
+    if client.supports_method "textDocument/codeLens" then
       vim.api.nvim_create_augroup("lsp_document_codelens", { clear = false })
       vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_codelens" }
 
@@ -320,25 +236,6 @@ function M:on_attach()
       })
     end
 
-    -- Load custom keymaps
-    for _, keymap in pairs(self.keymaps) do
-      vim.keymap.set(
-        keymap.mode,
-        keymap.keybinding,
-        keymap.action,
-        { noremap = true, silent = true, desc = keymap.desc, buffer = bufnr }
-      )
-    end
-
-    -- Load custom commands
-    for _, v in pairs(self.commands) do
-      vim.validate {
-        ["command.name"] = { v.name, "s" },
-        ["command.fn"] = { v.command, "f" },
-      }
-
-      vim.api.nvim_buf_create_user_command(bufnr, v.name, v.command, v.opts)
-    end
   end
 end
 

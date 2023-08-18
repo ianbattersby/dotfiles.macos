@@ -1,12 +1,3 @@
-local lconfig = require "plugins.lsp.builder".new {
-    -- {
-    --   mode = "n",
-    --   keybinding = "<leader>ctp",
-    --   action = "<Plug>PlenaryTestFile",
-    --   desc = "Run Tests",
-    -- },
-  }
-
 local config = {
   settings = {
     Lua = {
@@ -33,6 +24,7 @@ local config = {
         },
       },
       workspace = {
+        checkThirdParty = false,
         -- Make the server aware of Neovim runtime files
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
@@ -45,9 +37,8 @@ local config = {
       completion = {
         callSnippet = "Replace",
       },
-    },
-  },
-  on_attach = lconfig:on_attach(),
+    }
+  }
 }
 
-return { server = "sumneko_lua", config = config }
+return { server = "lua_ls", config = config }

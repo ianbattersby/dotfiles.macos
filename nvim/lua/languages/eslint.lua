@@ -10,10 +10,16 @@ local config = {
   lintTask = {
     enable = true,
   },
+  workingDirectory = { mode = "auto" },
 }
 
 local function finalize()
-  --vim.cmd [[autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll]]
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function(event)
+      -- exit early if autoformat is not enabled
+      return
+    end
+  })
 end
 
 return { server = "eslint", config = config, finalize = finalize }

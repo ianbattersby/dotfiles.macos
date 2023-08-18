@@ -1,5 +1,6 @@
 local M = {
   "windwp/nvim-autopairs",
+  event = "VeryLazy",
 }
 
 function M.config()
@@ -20,7 +21,6 @@ function M.config()
       "Trouble",
       "dap-repl",
       "Outline",
-      "mind",
       "neotest-summary",
     },
     check_ts = true,

@@ -4,22 +4,177 @@ local M = {
   dependencies = {
     { "nvim-lua/plenary.nvim" },
     { "natecraddock/telescope-zf-native.nvim" },
-    -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    { "nvim-telescope/telescope-frecency.nvim",    dependencies = { "tami5/sqlite.lua" } },
     { "nvim-telescope/telescope-file-browser.nvim" },
-    -- { "nvim-telescope/telescope-packer.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
   },
-}
-
-function M.config()
-  local telescope = require "telescope"
-  local actions = require "telescope.actions"
-  local trouble = require "trouble.providers.telescope"
-  local dbpath = vim.fn.stdpath "data" .. "/databases/"
-
-  telescope.setup {
+  keys = {
+    -- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
+    -- { "<leader>/", require "telescope.builtin".live_grep,              desc = "Grep (root dir)" },
+    { "<leader>:",  "<cmd>Telescope command_history<CR>", desc = "Command History" },
+    { "<leader>/",  "<cmd>Telescope live_grep<CR>", desc = "Grep (root dir)" },
+    {
+      "<leader><space>",
+      require "telescope.builtin".find_files,
+      desc =
+      "Find Files (root dir)"
+    },
+    -- find
+    { "<leader>fb", "<cmd>Telescope buffers<CR>",         desc = "Buffers" },
+    {
+      "<leader>ff",
+      require "telescope.builtin".find_files,
+      desc =
+      "Find Files (root dir)"
+    },
+    {
+      "<leader>fF",
+      function()
+        require "telescope.builtin".find_files { cwd = false }
+      end,
+      desc = "Find Files (cwd)"
+    },
+    { "<leader>fr", "<cmd>Telescope oldfiles<CR>",                  desc = "Recent" },
+    {
+      "<leader>fR",
+      function()
+        require "telescope.builtin".oldfiles { cwd = vim.loop.cwd() }
+      end,
+      desc = "Recent (cwd)"
+    },
+    -- git
+    { "<leader>gc", "<cmd>Telescope git_commits<CR>",               desc = "commits" },
+    { "<leader>gs", "<cmd>Telescope git_status<CR>",                desc = "status" },
+    -- search
+    { '<leader>s"', "<cmd>Telescope registers<CR>",                 desc = "Registers" },
+    { "<leader>sa", "<cmd>Telescope autocommands<CR>",              desc = "Auto Commands" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Buffer" },
+    { "<leader>sc", "<cmd>Telescope command_history<CR>",           desc = "Command History" },
+    { "<leader>sC", "<cmd>Telescope commands<CR>",                  desc = "Commands" },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>",       desc = "Document diagnostics" },
+    {
+      "<leader>sD",
+      "<cmd>Telescope diagnostics<CR>",
+      desc =
+      "Workspace diagnostics"
+    },
+    {
+      "<leader>sg",
+      require "telescope.builtin".live_grep,
+      desc = "Grep (root dir)"
+    },
+    {
+      "<leader>sG",
+      function() require "telescope.builtin".live_grep { cwd = false } end,
+      desc = "Grep (cwd)"
+    },
+    { "<leader>sh", "<cmd>Telescope help_tags<CR>",   desc = "Help Pages" },
+    {
+      "<leader>sH",
+      "<cmd>Telescope highlights<CR>",
+      desc = "Search Highlight Groups"
+    },
+    { "<leader>sk", "<cmd>Telescope keymaps<CR>",     desc = "Key Maps" },
+    { "<leader>sM", "<cmd>Telescope man_pages<CR>",   desc = "Man Pages" },
+    { "<leader>sm", "<cmd>Telescope marks<CR>",       desc = "Jump to Mark" },
+    { "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
+    { "<leader>sR", "<cmd>Telescope resume<CR>",      desc = "Resume" },
+    {
+      "<leader>sw",
+      function()
+        require "telescope.builtin".grep_string { word_match = "-w" }
+      end,
+      desc = "Word (root dir)"
+    },
+    {
+      "<leader>sW",
+      function()
+        require "telescope.builtin"["grep_string"]({ cwd = false, word_match = "-w" })
+      end,
+      desc = "Word (cwd)"
+    },
+    {
+      "<leader>sw",
+      require "telescope.builtin".grep_string,
+      mode = "v",
+      desc = "Selection (root dir)"
+    },
+    {
+      "<leader>sW",
+      function()
+        require "telescope.builtin".grep_string { cwd = false }
+      end,
+      mode = "v",
+      desc = "Selection (cwd)"
+    },
+    {
+      "<leader>uC",
+      function()
+        require "telescope.builtin".colorscheme { enable_preview = true }
+      end,
+      desc = "Colorscheme with preview"
+    },
+    {
+      "<leader>ss",
+      function()
+        require "telescope.builtin".lsp_document_symbols {
+          symbols = {
+            "Class",
+            "Function",
+            "Method",
+            "Constructor",
+            "Interface",
+            "Module",
+            "Struct",
+            "Trait",
+            "Field",
+            "Property",
+          }
+        }
+      end,
+      desc = "Goto Symbol",
+    },
+    {
+      "<leader>sS",
+      function()
+        require "telescope.builtin".lsp_dynamic_workspace_symbols {
+          symbols = {
+            "Class",
+            "Function",
+            "Method",
+            "Constructor",
+            "Interface",
+            "Module",
+            "Struct",
+            "Trait",
+            "Field",
+            "Property",
+          }
+        }
+      end,
+      desc = "Goto Symbol (Workspace)",
+    },
+    {
+      "<C-x>",
+      "<cmd>Telescope resume<CR>",
+      desc = "Resume"
+    },
+    {
+      "<C-p>",
+      function() require "telescope.builtin".find_files { theme = "ivy" } end,
+      noremap = true,
+      silent = true,
+      desc = "Find Files"
+    },
+    {
+      "<C-s>",
+      require "telescope.builtin".live_grep,
+      desc = "Grep"
+    },
+  },
+  opts = {
     defaults = {
+      prompt_prefix = " ",
+      selection_caret = " ",
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -30,19 +185,12 @@ function M.config()
         "--smart-case",
         "--trim",
       },
-
-      prompt_prefix = " ",
-      selection_caret = " ",
-
       winblend = 8,
-
       layout_strategy = "horizontal",
       layout_config = {
         width = 0.95,
         height = 0.85,
-        -- preview_cutoff = 120,
         prompt_position = "top",
-
         horizontal = {
           preview_width = function(_, cols, _)
             if cols > 200 then
@@ -52,142 +200,97 @@ function M.config()
             end
           end,
         },
-
         vertical = {
           width = 0.9,
           height = 0.95,
           preview_height = 0.5,
         },
-
         flex = {
           horizontal = {
             preview_width = 0.9,
           },
         },
       },
-
       selection_strategy = "reset",
       sorting_strategy = "ascending",
       scroll_strategy = "cycle",
       color_devicons = true,
-
-      file_sorter = require "telescope.sorters" .get_fzy_sorter,
-      file_previewer = require "telescope.previewers" .vim_buffer_cat.new,
-      grep_previewer = require "telescope.previewers" .vim_buffer_vimgrep.new,
-      qflist_previewer = require "telescope.previewers" .vim_buffer_qflist.new,
-
+      file_sorter = require "telescope.sorters".get_fzy_sorter,
+      file_previewer = require "telescope.previewers".vim_buffer_cat.new,
+      grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
+      qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
       file_ignore_patterns = { "node%_modules/.*" },
-
       mappings = {
         i = {
-          ["<esc>"] = actions.close,
-          --["<C-x>"] = false,
-          ["<C-j>"] = actions.move_selection_next,
-          ["<C-k>"] = actions.move_selection_previous,
-          ["<C-b>"] = actions.results_scrolling_up,
-          ["<C-f>"] = actions.results_scrolling_down,
-          ["<C-q>"] = actions.send_to_qflist,
-          ["<C-s>"] = actions.cycle_previewers_next,
-          ["<C-a>"] = actions.cycle_previewers_prev,
-          ["<C-t>"] = trouble.open_with_trouble,
-          ["<C-h>"] = "which_key",
+          ["<esc>"] = function(...)
+            return require "telescope.actions".close(...)
+          end,
+          ["<c-t>"] = function(...)
+            return require "trouble.providers.telescope".open_with_trouble(...)
+          end,
+          ["<a-t>"] = function(...)
+            return require "trouble.providers.telescope".open_selected_with_trouble(...)
+          end,
+          ["<a-i>"] = function()
+            local action_state = require "telescope.actions.state"
+            local line = action_state.get_current_line()
+            require "telescope.builtin".find_files { no_ignore = true, default_text = line }
+          end,
+          ["<a-h>"] = function()
+            local action_state = require "telescope.actions.state"
+            local line = action_state.get_current_line()
+            require "telescope.builtin".find_files { hidden = true, default_text = line }
+          end,
+          ["<C-Down>"] = function(...)
+            return require "telescope.actions".cycle_history_next(...)
+          end,
+          ["<C-Up>"] = function(...)
+            return require "telescope.actions".cycle_history_prev(...)
+          end,
+          ["<C-f>"] = function(...)
+            return require "telescope.actions".results_scrolling_down(...)
+          end,
+          ["<C-b>"] = function(...)
+            return require "telescope.actions".results_scrolling_up(...)
+          end,
         },
         n = {
-          ["<C-s>"] = actions.cycle_previewers_next,
-          ["<C-a>"] = actions.cycle_previewers_prev,
-          ["<C-t>"] = trouble.open_with_trouble,
-          ["cd"] = function(prompt_bufnr)
-            local selection = require "telescope.actions.state" .get_selected_entry()
-            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require "telescope.actions" .close(prompt_bufnr)
-            vim.cmd(string.format("silent lcd %s", dir))
+          ["q"] = function(...)
+            return require "telescope.actions".close(...)
           end,
         },
       },
     },
-
     pickers = {
       find_files = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
       git_files = { theme = "ivy", hidden = false, sort_last_used = true, layout_config = { prompt_padding = 1 } },
       live_grep = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
       buffers = { theme = "ivy", hidden = false, sort_last_used = true, layout_config = { prompt_padding = 1 } },
-      frecency = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } }, -- This doesn't work, but why?
       symbols = { theme = "ivy", hidden = false, layout_config = { prompt_padding = 1 } },
     },
-
     extensions = {
-      -- fzf = {
-      --   override_generic_sorter = false,
-      --   override_file_sorter = true,
-      --   case_mode = "smart_case",
-      -- },
-      frecency = {
-        db_root = dbpath,
-        workspaces = {
-          ["dot"] = "/home/ian/.dotfiles",
-          ["conf"] = "/home/ian/.dotfiles/nvim",
-          ["code"] = "/home/ian/code",
-        },
-      },
       ["ui-select"] = {
-        require "telescope.themes" .get_dropdown {},
+        require "telescope.themes".get_dropdown {},
       },
     },
-  }
+  },
+}
+
+function M.config(_, opts)
+  local telescope = require "telescope"
 
   -- Load extensions
   telescope.load_extension "zf-native"
-  -- telescope.load_extension "fzf"
-  -- telescope.load_extension "packer"
   telescope.load_extension "file_browser"
-  telescope.load_extension "frecency"
   telescope.load_extension "notify"
   telescope.load_extension "ui-select"
 
-  -- Let's use the get_ivy theme in places
-  local findfiles_fn = require "telescope.builtin" .find_files
+  -- Keymap overrides
+  vim.keymap.set("n", "<C-p>", require "telescope.builtin".find_files,
+    { noremap = true, silent = true, desc = "Find Files" })
 
-  vim.keymap.set("n", "<C-x>", "<CMD>Telescope resume<CR>", { noremap = true, silent = true, desc = "Resume" })
-  vim.keymap.set("n", "<C-p>", findfiles_fn, { noremap = true, silent = true, desc = "Find Files" })
-  vim.keymap.set("n", "<leader>ff", findfiles_fn, { noremap = true, silent = true, desc = "Find (ascending)" })
-
-  vim.keymap.set(
-    "n",
-    "<C-s>",
-    require "telescope.builtin" .live_grep,
-    { noremap = true, silent = true, desc = "Search" }
-  )
-
-  vim.keymap.set("n", "<leader>fr", function()
-    require "telescope.builtin" .find_files { prompt_title = "Recent Files", sort_last_used = true }
-  end, { noremap = true, silent = true, desc = "Recent" })
-
-  vim.keymap.set("n", "<leader>fx", function()
-    require "telescope" .extensions.frecency.frecency(
-      require "telescope.themes" .get_ivy { hidden = false, layout_config = { prompt_padding = 1 } }
-    )
-  end, { noremap = true, silent = true, desc = "Frecency" })
-
-  vim.keymap.set(
-    "n",
-    "<leader>fg",
-    require "telescope.builtin" .git_files,
-    { noremap = true, silent = true, desc = "Find (git)" }
-  )
-
-  vim.keymap.set(
-    "n",
-    "<leader>fs",
-    require "telescope.builtin" .live_grep,
-    { noremap = true, silent = true, desc = "Grep" }
-  )
-
-  vim.keymap.set(
-    "n",
-    "<leader>cs",
-    require "telescope.builtin" .treesitter,
-    { noremap = true, silent = true, desc = "Symbols" }
-  )
+  -- Initialise
+  telescope.setup(opts)
 end
 
 return M

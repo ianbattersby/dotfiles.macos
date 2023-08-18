@@ -1,10 +1,12 @@
 local M = {
   "neovim/nvim-lspconfig",
-  name = "lsp",
+  -- name = "lsp",
   event = "BufReadPre",
+  version = false,
   dependencies = {
+    { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
     "hrsh7th/cmp-nvim-lsp",
-    { "williamboman/mason.nvim", cmd = "Mason", lazy = false },
+    "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "nvim-lua/lsp-status.nvim",
     "simrat39/rust-tools.nvim",

@@ -1,18 +1,14 @@
 local M = {
   "nvim-neotest/neotest",
+  -- stylua: ignore
   keys = {
-    { "<leader>es",  function() require "neotest" .summary.toggle() end,                                desc = "Summary" },
-    { "<leader>em",  function() require "neotest" .summary.run_marked() end,                            desc = "Run (marked)" },
-    { "<leader>ef",  function() require "neotest" .run.run(vim.fn.expand "%") end,                      desc = "Run (file)" },
-    { "<leader>en",  function() require "neotest" .run.run() end,                                       desc = "Run (nearest)" },
-    { "<leader>el",  function() require "neotest" .run.run_last() end,                                  desc = "Run (last)" },
-    { "<leader>edn", function() require "neotest" .run.run { strategy = "dap" } end,                    desc = "Nearest" },
-    { "<leader>edl", function() require "neotest" .run.run_last { strategy = "dap" } end,               desc = "Last" },
-    { "<leader>eda", function() require "neotest" .run.run_last { strategy = "dap" } end,               desc = "Attach" },
-    { "<leader>edf", function() require "neotest" .run.run { vim.fn.expand "%", strategy = "dap" } end, desc = "File" },
-    { "<leader>ec",  function() require "neotest" .summary.clear_marked() end,                          desc = "Clear (marked)" },
-    { "<leader>eo",  function() require "neotest" .output.open { enter = true } end,                    desc = "Output" },
-    { "<leader>ex",  function() require "neotest" .output.stop() end,                                   desc = "Stop" },
+    { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+    { "<leader>tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
+    { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+    { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+    { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
+    { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+    { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",

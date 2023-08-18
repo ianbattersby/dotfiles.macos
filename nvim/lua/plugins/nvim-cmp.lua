@@ -5,9 +5,15 @@ local M = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
-    "rafamadriz/friendly-snippets",
+    {
+      "L3MON4D3/LuaSnip",
+      dependencies = { "rafamadriz/friendly-snippets" },
+      opts = {
+        history = true,
+        delete_check_events = "TextChanged",
+      },
+    },
     --{ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", config = tabnine_config },
     "windwp/nvim-autopairs",
   },
@@ -59,7 +65,7 @@ function M.config()
     TypeParameter = "",
   }
 
-  require "luasnip/loaders/from_vscode" .lazy_load {
+  require "luasnip/loaders/from_vscode".lazy_load {
     paths = { "~/.local/share/nvim/lazy/friendly-snippets" },
     include = { "python", "rust" },
   }
@@ -71,15 +77,15 @@ function M.config()
         vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
         -- Source
         vim_item.menu = ({
-            buffer = "[Buffer]",
-            nvim_lsp = "[LSP]",
-            luasnip = "[LuaSnip]",
-            nvim_lua = "[Lua]",
-            latex_symbols = "[LaTeX]",
-            neorg = "[Neorg]",
-            path = "[Path]",
-            --cmp_tabnine = "[TN]",
-          })[entry.source.name]
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[LaTeX]",
+          neorg = "[Neorg]",
+          path = "[Path]",
+          --cmp_tabnine = "[TN]",
+        })[entry.source.name]
         return vim_item
       end,
     },
@@ -95,11 +101,11 @@ function M.config()
     -- },
     snippet = {
       expand = function(args)
-        require "luasnip" .lsp_expand(args.body)
+        require "luasnip".lsp_expand(args.body)
       end,
     },
     mapping = cmp.mapping.preset.insert {
-      ["<C-d>"] = cmp.mapping.scroll_docs( -4),
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-y>"] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
@@ -115,8 +121,8 @@ function M.config()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif require "luasnip" .expand_or_jumpable() then
-          require "luasnip" .expand_or_jump()
+        elseif require "luasnip".expand_or_jumpable() then
+          require "luasnip".expand_or_jump()
         else
           local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 
@@ -132,8 +138,8 @@ function M.config()
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        elseif require "luasnip" .jumpable( -1) then
-          require "luasnip" .jump( -1)
+        elseif require "luasnip".jumpable(-1) then
+          require "luasnip".jump(-1)
         else
           fallback()
         end

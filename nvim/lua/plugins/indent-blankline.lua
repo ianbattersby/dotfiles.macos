@@ -20,7 +20,6 @@ function M.config()
       "Trouble",
       "TelescopePrompt",
       "Outline",
-      "mind",
       "neotest-summary",
     },
     show_current_context = true,
