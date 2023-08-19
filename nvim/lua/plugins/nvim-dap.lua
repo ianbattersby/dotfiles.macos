@@ -4,22 +4,26 @@ local M = {
 
   ---@format disable
   keys = {
-    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-    { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
-    { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-    { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-    { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-    { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-    { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-    { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    {
+      "<leader>dB",
+      function() require "dap".set_breakpoint(vim.fn.input "Breakpoint condition: ") end,
+      desc = "Breakpoint Condition"
+    },
+    { "<leader>db", function() require "dap".toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    { "<leader>dc", function() require "dap".continue() end, desc = "Continue" },
+    { "<leader>dC", function() require "dap".run_to_cursor() end, desc = "Run to Cursor" },
+    { "<leader>dg", function() require "dap".goto_() end, desc = "Go to line (no execute)" },
+    { "<leader>di", function() require "dap".step_into() end, desc = "Step Into" },
+    { "<leader>dj", function() require "dap".down() end, desc = "Down" },
+    { "<leader>dk", function() require "dap".up() end, desc = "Up" },
+    { "<leader>dl", function() require "dap".run_last() end, desc = "Run Last" },
+    { "<leader>do", function() require "dap".step_out() end, desc = "Step Out" },
+    { "<leader>dO", function() require "dap".step_over() end, desc = "Step Over" },
+    { "<leader>dp", function() require "dap".pause() end, desc = "Pause" },
+    { "<leader>dr", function() require "dap".repl.toggle() end, desc = "Toggle REPL" },
+    { "<leader>ds", function() require "dap".session() end, desc = "Session" },
+    { "<leader>dt", function() require "dap".terminate() end, desc = "Terminate" },
+    { "<leader>dw", function() require "dap.ui.widgets".hover() end, desc = "Widgets" },
   },
 
   dependencies = {
@@ -28,7 +32,7 @@ local M = {
       ---@format disable
       keys = {
         { "<leader>du", function() require "dapui".toggle({}) end, desc = "Dap UI" },
-        { "<leader>de", function() require "dapui".eval() end,     desc = "Eval",  mode = { "n", "v" } },
+        { "<leader>de", function() require "dapui".eval() end, desc = "Eval", mode = { "n", "v" } },
       },
       opts = {},
       config = function(_, opts)
@@ -133,15 +137,25 @@ function M.config()
   })
 
   -- Configure different adapters
+  local mason_registry = require "mason-registry"
+
+  -- Lua
   dap.adapters.nlua = function(callback, dapconfig)
     callback { type = "server", host = dapconfig.host or "127.0.0.1", port = dapconfig.port or 8088 }
   end
 
-  -- Downloaded from https://github.com/vadimcn/vscode-lldb/releases
+  -- LLDB (Rust/etc)
   dap.adapters.lldb = {
     type = "executable",
-    command = "/Users/ian/.local/codelldb-aarch64-darwin/extension/adapter/codelldb",
+    command = mason_registry.get_package "codelldb":get_install_path() .. "/extension/adapter/codelldb",
     name = "lldb",
+  }
+
+  -- C# debugging
+  dap.adapters.coreclr = {
+    type = "executable",
+    command = mason_registry.get_package "netcoredbg":get_install_path() .. "/netcoredbg",
+    args = { "--interpreter=vscode" }
   }
 
   -- Requires: while sleep 1; do codelldb --port 13000; done
@@ -214,21 +228,32 @@ function M.config()
   -- dap.configurations.rust = dap.configurations.cpp
 
   -- Use this numpty-process version until we can figure out a better way
-  dap.configurations.rust = {
+  -- dap.configurations.rust = {
+  --   {
+  --     name = "Rust debug",
+  --     type = "rt_lldb",
+  --     request = "launch",
+  --     program = function()
+  --       return vim.fn.input(
+  --         "Path to executable: ",
+  --         vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
+  --         "file"
+  --       )
+  --     end,
+  --     cwd = "${workspaceFolder}",
+  --     terminal = "integrated",
+  --     sourceLanguages = { "rust" },
+  --   },
+  -- }
+
+  dap.configurations.cs = {
     {
-      name = "Rust debug",
-      type = "rt_lldb",
+      type = "coreclr",
+      name = "launch - netcoredbg",
       request = "launch",
       program = function()
-        return vim.fn.input(
-          "Path to executable: ",
-          vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
-          "file"
-        )
+        return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
       end,
-      cwd = "${workspaceFolder}",
-      terminal = "integrated",
-      sourceLanguages = { "rust" },
     },
   }
 

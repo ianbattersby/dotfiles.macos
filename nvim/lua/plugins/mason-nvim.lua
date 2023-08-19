@@ -15,6 +15,7 @@ local M = {
       "json-lsp",
       "lua-language-server",
       "markdownlint",
+      "netcoredbg",
       "omnisharp",
       "pyright",
       "ruff-lsp ruff_lsp",

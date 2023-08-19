@@ -6,13 +6,10 @@
 -- https://github.com/neovim/nvim-lspconfig/pull/2092
 
 local function initialize()
-  -- local packer_load = require "packer.load"
-
-  -- packer_load({ "rust-tools.nvim" }, {}, _G.packer_plugins)
-  -- packer_load({ "nvim-dap" }, {}, _G.packer_plugins)
+  local mason_registry = require "mason-registry"
+  local mason_codelldb = mason_registry.get_package "codelldb":get_install_path()
 
   require "rust-tools".setup {
-    -- debugging stuff
     tools = {
       runnables = { use_telescope = true },
       inlay_hints = { auto = false }, --{ show_parameter_hints = true },
@@ -20,11 +17,8 @@ local function initialize()
     },
     dap = {
       adapter = require "rust-tools.dap".get_codelldb_adapter(
-        table.concat({ vim.fn.stdpath "data", "mason", "packages", "codelldb", "codelldb" }, "/"),
-        table.concat(
-          { vim.fn.stdpath "data", "mason", "packages", "codelldb", "extension", "lldb", "lib", "liblldb.dylib" },
-          "/"
-        )
+        mason_codelldb .. "/codelldb",
+        mason_codelldb .. "/extension/lldb/lib/liblldb.dylib"
       ),
     },
   }
