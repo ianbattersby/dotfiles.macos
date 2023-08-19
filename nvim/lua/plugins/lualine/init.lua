@@ -11,7 +11,7 @@ local M = {
 
 function M.config()
   local navic = require "nvim-navic"
-  local components = require "custom.lualine_components"
+  local components = require "plugins.lualine.components"
 
   require "lualine".setup {
     options = {

@@ -1,3 +1,5 @@
+require "settings"
+
 local function ensure_lazy()
   local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
@@ -16,7 +18,7 @@ end
 local function setup_lazy()
   vim.g.catppuccin_flavour = "frappe"
 
-  require "lazy" .setup("plugins", {
+  require "lazy".setup("plugins", {
     defaults = {
       lazy = false,
       version = "*",
@@ -53,7 +55,8 @@ local function setup_lazy()
   })
 end
 
-require "settings" .setup()
-
 ensure_lazy()
 setup_lazy()
+
+require "keymaps".init()
+require "autocmds".init()
