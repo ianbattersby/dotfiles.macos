@@ -7,6 +7,7 @@ local M = {
     ensure_installed = {
       "bash-language-server",
       "codelldb",
+      "csharp-language-server",
       "css-lsp cssls",
       "dockerfile-language-server",
       "eslint-lsp eslint",
