@@ -26,7 +26,7 @@ local M = {
     {
       "\\",
       function()
-        require "neo-tree.command".execute({ source = filesystem, toggle = true })
+        require "neo-tree.command".execute({ toggle = true })
       end,
       desc = "File Explorer"
     },
