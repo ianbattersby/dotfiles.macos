@@ -10,16 +10,16 @@ M.diagnostic_config = {
 }
 
 M.diagnostic_signs = {
-  [vim.diagnostic.severity.ERROR] = { "Error", " " },
-  [vim.diagnostic.severity.WARN] = { "Warn", " " },
-  [vim.diagnostic.severity.INFO] = { "Info", " " },
-  [vim.diagnostic.severity.HINT] = { "Hint", " " },
+  [vim.diagnostic.severity.ERROR] = { "Error", " " },
+  [vim.diagnostic.severity.WARN] = { "Warn", " " },
+  [vim.diagnostic.severity.INFO] = { "Info", " " },
+  [vim.diagnostic.severity.HINT] = { "Hint", " " },
 }
 
 function M.setup()
   vim.diagnostic.config(M.diagnostic_config)
 
-  vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticWarn" })
+  vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticWarn" })
 
   for _, properties in pairs(M.diagnostic_signs) do
     local hl = "DiagnosticSign" .. properties[1]

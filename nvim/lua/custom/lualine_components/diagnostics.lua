@@ -1,6 +1,6 @@
 local highlight = require "lualine.highlight"
 
-local M = require "lualine.components.diagnostics" :extend()
+local M = require "lualine.components.diagnostics":extend()
 
 M.init = function(self, options)
   M.super.init(self, options)
@@ -29,6 +29,13 @@ M.init = function(self, options)
       ),
     }
   end
+
+  self.symbols = {
+    error = (vim.fn.sign_getdefined "DiagnosticSignError")[1].icon,
+    warn = (vim.fn.sign_getdefined "DiagnosticSignWarn")[1].icon,
+    info = (vim.fn.sign_getdefined "DiagnosticSignInfo")[1].icon,
+    hint = (vim.fn.sign_getdefined "DiagnosticSignHint")[1].icon
+  }
 end
 
 M.update_status = function(self)
