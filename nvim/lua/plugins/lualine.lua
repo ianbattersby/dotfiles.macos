@@ -19,7 +19,7 @@ function M.config()
       theme = "catppuccin",
       componentseparators = { "", "" },
       section_separators = { "", "" },
-      --extensions = { "fzf" },
+      extensions = { "lazy", "neo-tree", "nvim-dap-ui", "toggleterm", "trouble" },
       disabled_filetypes = {
         "alpha",
         "packer",
