@@ -23,7 +23,7 @@ function M.setup()
 
   for _, properties in pairs(M.diagnostic_signs) do
     local hl = "DiagnosticSign" .. properties[1]
-    vim.fn.sign_define(hl, { text = properties[2], texthl = hl, numhl = "" })
+    vim.fn.sign_define(hl, { text = properties[2], texthl = hl, numhl = "", icon = properties[2] })
   end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] =
