@@ -150,12 +150,14 @@ function M:on_attach()
 
     -- Load custom keymaps
     for _, keymap in pairs(keymaps_merged) do
-      vim.keymap.set(
-        keymap.mode or "n",
-        keymap.keybinding,
-        keymap.action,
-        { noremap = true, silent = true, desc = keymap.desc or "", buffer = bufnr }
-      )
+      if keymap.keybinding ~= nil then
+        vim.keymap.set(
+          keymap.mode or "n",
+          keymap.keybinding,
+          keymap.action,
+          { noremap = true, silent = true, desc = keymap.desc or "", buffer = bufnr }
+        )
+      end
     end
 
     -- Set some keybinds conditional on server capabilities
@@ -171,7 +173,7 @@ function M:on_attach()
     end
 
     -- Load custom commands
-    for _, v in pairs(self.custom_commands) do
+    for _, v in pairs(self.lang_commands) do
       vim.validate {
         ["command.name"] = { v.name, "s" },
         ["command.fn"] = { v.command, "f" },
