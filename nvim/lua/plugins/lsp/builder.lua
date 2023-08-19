@@ -6,6 +6,7 @@ function M:init(config, keymaps, commands)
   self.__index = self
   self.lang_keymaps = keymaps or {}
   self.lang_commands = commands or {}
+  self.lang_formatting = nil
   return config
 end
 
@@ -27,6 +28,21 @@ function M.supports_format(client)
   return client.supports_method "textDocument/formatting" or client.supports_method "textDocument/rangeFormatting"
 end
 
+function M.toggle_format(toggle_state)
+  if vim.b.autoformat == false then
+    vim.b.autoformat = nil
+    toggle_state.formatting = false
+  else
+    toggle_state.formatting = not toggle_state.formatting
+  end
+
+  if toggle_state.formatting then
+    require "lazy.core.util".info("Enabled format on save", { title = "Format" })
+  else
+    require "lazy.core.util".warn("Disabled format on save", { title = "Format" })
+  end
+end
+
 function M.diagnostic_goto(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
@@ -38,6 +54,10 @@ end
 function M:on_attach()
   return function(client, bufnr)
     local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
+
+    local toggle_state = {
+      formatting = M.supports_format(client)
+    }
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -136,6 +156,8 @@ function M:on_attach()
       treesitter_active and { keybinding = "zM", action = require "ufo".closeAllFolds, desc = "Close Folds" } or {},
       treesitter_active and { keybinding = "zr", action = require "ufo".openFoldsExceptKinds, desc = "Open Folds (Except Kinds)" } or {},
       treesitter_active and { keybinding = "zm", action = require "ufo".closeFoldsWith, desc = "Close Folds (Except Kinds)" } or {},
+
+      M.supports_format(client) and { keybinding = "<leader>uf", action = function() M.toggle_format(toggle_state) end, desc = "Toggle format on Save" } or {},
     }
 
     -- Enable inlay hints if supported
@@ -167,7 +189,9 @@ function M:on_attach()
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format(format_opts)
+          if toggle_state.formatting then
+            vim.lsp.buf.format(format_opts)
+          end
         end,
       })
     end
