@@ -228,23 +228,23 @@ function M.config()
   -- dap.configurations.rust = dap.configurations.cpp
 
   -- Use this numpty-process version until we can figure out a better way
-  -- dap.configurations.rust = {
-  --   {
-  --     name = "Rust debug",
-  --     type = "rt_lldb",
-  --     request = "launch",
-  --     program = function()
-  --       return vim.fn.input(
-  --         "Path to executable: ",
-  --         vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
-  --         "file"
-  --       )
-  --     end,
-  --     cwd = "${workspaceFolder}",
-  --     terminal = "integrated",
-  --     sourceLanguages = { "rust" },
-  --   },
-  -- }
+  dap.configurations.rust = {
+    {
+      name = "Rust debug",
+      type = "rt_lldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input(
+          "Path to executable: ",
+          vim.fn.getcwd() .. "/target/debug/" .. string.match(vim.fn.getcwd(), "/([%w_-]+)$"),
+          "file"
+        )
+      end,
+      cwd = "${workspaceFolder}",
+      terminal = "integrated",
+      sourceLanguages = { "rust" },
+    },
+  }
 
   dap.configurations.cs = {
     {
