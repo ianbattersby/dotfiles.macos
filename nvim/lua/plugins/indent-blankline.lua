@@ -1,5 +1,6 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = "nvim-treesitter/nvim-treesitter",
 }
 
@@ -9,16 +10,18 @@ function M.config()
   vim.opt.listchars:append "tab:⋅→"
   vim.opt.listchars:append "eol:↴"
 
-  require "indent_blankline" .setup {
+  require "indent_blankline".setup {
     buftype_exclude = { "terminal", "telescope", "nofile", "packer", "lazy" },
     filetype_exclude = {
       "help",
       "alpha",
-      "packer",
-      "lazy",
       "neo-tree",
       "Trouble",
+      "lazy",
+      "mason",
+      "notify",
       "TelescopePrompt",
+      "toggleterm",
       "Outline",
       "neotest-summary",
     },

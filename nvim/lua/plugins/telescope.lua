@@ -10,8 +10,8 @@ local M = {
   keys = {
     -- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
     -- { "<leader>/", require "telescope.builtin".live_grep,              desc = "Grep (root dir)" },
-    { "<leader>:",  "<cmd>Telescope command_history<CR>", desc = "Command History" },
-    { "<leader>/",  "<cmd>Telescope live_grep<CR>", desc = "Grep (root dir)" },
+    { "<leader>:", "<cmd>Telescope command_history<CR>", desc = "Command History" },
+    { "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "Grep (root dir)" },
     {
       "<leader><space>",
       require "telescope.builtin".find_files,
@@ -19,7 +19,7 @@ local M = {
       "Find Files (root dir)"
     },
     -- find
-    { "<leader>fb", "<cmd>Telescope buffers<CR>",         desc = "Buffers" },
+    { "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
     {
       "<leader>ff",
       require "telescope.builtin".find_files,
@@ -33,7 +33,7 @@ local M = {
       end,
       desc = "Find Files (cwd)"
     },
-    { "<leader>fr", "<cmd>Telescope oldfiles<CR>",                  desc = "Recent" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "Recent" },
     {
       "<leader>fR",
       function()
@@ -42,15 +42,15 @@ local M = {
       desc = "Recent (cwd)"
     },
     -- git
-    { "<leader>gc", "<cmd>Telescope git_commits<CR>",               desc = "commits" },
-    { "<leader>gs", "<cmd>Telescope git_status<CR>",                desc = "status" },
+    { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
+    { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
     -- search
-    { '<leader>s"', "<cmd>Telescope registers<CR>",                 desc = "Registers" },
-    { "<leader>sa", "<cmd>Telescope autocommands<CR>",              desc = "Auto Commands" },
+    { '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Registers" },
+    { "<leader>sa", "<cmd>Telescope autocommands<CR>", desc = "Auto Commands" },
     { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Buffer" },
-    { "<leader>sc", "<cmd>Telescope command_history<CR>",           desc = "Command History" },
-    { "<leader>sC", "<cmd>Telescope commands<CR>",                  desc = "Commands" },
-    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>",       desc = "Document diagnostics" },
+    { "<leader>sc", "<cmd>Telescope command_history<CR>", desc = "Command History" },
+    { "<leader>sC", "<cmd>Telescope commands<CR>", desc = "Commands" },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", desc = "Document diagnostics" },
     {
       "<leader>sD",
       "<cmd>Telescope diagnostics<CR>",
@@ -67,17 +67,17 @@ local M = {
       function() require "telescope.builtin".live_grep { cwd = false } end,
       desc = "Grep (cwd)"
     },
-    { "<leader>sh", "<cmd>Telescope help_tags<CR>",   desc = "Help Pages" },
+    { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Pages" },
     {
       "<leader>sH",
       "<cmd>Telescope highlights<CR>",
       desc = "Search Highlight Groups"
     },
-    { "<leader>sk", "<cmd>Telescope keymaps<CR>",     desc = "Key Maps" },
-    { "<leader>sM", "<cmd>Telescope man_pages<CR>",   desc = "Man Pages" },
-    { "<leader>sm", "<cmd>Telescope marks<CR>",       desc = "Jump to Mark" },
+    { "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Key Maps" },
+    { "<leader>sM", "<cmd>Telescope man_pages<CR>", desc = "Man Pages" },
+    { "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
     { "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
-    { "<leader>sR", "<cmd>Telescope resume<CR>",      desc = "Resume" },
+    { "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
     {
       "<leader>sw",
       function()
@@ -284,10 +284,6 @@ function M.config(_, opts)
   telescope.load_extension "file_browser"
   telescope.load_extension "notify"
   telescope.load_extension "ui-select"
-
-  -- Keymap overrides
-  vim.keymap.set("n", "<C-p>", require "telescope.builtin".find_files,
-    { noremap = true, silent = true, desc = "Find Files" })
 
   -- Initialise
   telescope.setup(opts)
