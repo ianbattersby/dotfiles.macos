@@ -3,15 +3,19 @@ local M = {
   version = "*",
   event = "VeryLazy",
   keys = {
-    { "<leader>ft", "<CMD>ToggleTerm<CR>",                   desc = "Toggle Terminal" },
-    { "<leader>fT", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
-    -- { "<leader>th", "<CMD>ToggleTermToggleAll<CR>",          desc = "Hide" },
-    -- { "<leader>tn", "<CMD>ToggleTermSetName<CR>",            desc = "Name" },
+    { "<leader>\\", "<CMD>ToggleTerm<CR>", desc = "Toggle Terminal" },
+    { "<leader>ftt", "<CMD>ToggleTerm<CR>", desc = "Toggle Terminal" },
+    { "<leader>ftT", "<CMD>ToggleTerm direction='float'<CR>", desc = "Float" },
+    { "<leader>fth", "<CMD>ToggleTermToggleAll<CR>", desc = "Hide" },
+    { "<leader>ftn", "<CMD>ToggleTermSetName<CR>", desc = "Name" },
+    { "<leader>ftl", "<CMD>ToggleTermSendCurrentLine<CR>", desc = "Send (Current Line)" },
+    { "<leader>ftv", "<CMD>ToggleTermSendVisualLines<CR>", desc = "Send (Visual Line)" },
+    { "<leader>fts", "<CMD>ToggleTermSendVisualSelection<CR>", desc = "Send (Visual Selection)" },
   }
 }
 
 function M.config()
-  require "toggleterm" .setup {
+  require "toggleterm".setup {
     size = function(term)
       if term.direction == "horizontal" then
         return 10
@@ -21,6 +25,7 @@ function M.config()
     end,
     direction = "horizontal",
     winbar = { enabled = true },
+    shading_factor = "15",
   }
 
   vim.api.nvim_create_autocmd("TermOpen", {
