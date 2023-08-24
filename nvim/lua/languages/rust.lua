@@ -14,6 +14,15 @@ local function initialize()
       runnables = { use_telescope = true },
       inlay_hints = { auto = false }, --{ show_parameter_hints = true },
       hover_actions = { auto_focus = true },
+      -- on_initialized = function()
+      --   vim.cmd [[
+      --     augroup RustLSP
+      --       autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
+      --       autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
+      --       " autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
+      --     augroup END
+      --   ]]
+      -- end,
     },
     dap = {
       adapter = require "rust-tools.dap".get_codelldb_adapter(

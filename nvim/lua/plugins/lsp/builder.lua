@@ -241,23 +241,10 @@ function M:on_attach()
     end
 
     if client.supports_method "textDocument/codeLens" then
-      vim.api.nvim_create_augroup("lsp_document_codelens", { clear = false })
-      vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_codelens" }
-
-      vim.api.nvim_create_autocmd("BufEnter", {
-        group = "lsp_document_codelens",
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
         buffer = bufnr,
         callback = function()
-          require "vim.lsp.codelens".refresh()
-        end,
-        once = true,
-      })
-
-      vim.api.nvim_create_autocmd({ "BufEnter, CursorHold" }, {
-        group = "lsp_document_codelens",
-        buffer = bufnr,
-        callback = function()
-          require "vim.lsp.codelens".refresh()
+          vim.lsp.codelens.refresh()
         end,
       })
     end
