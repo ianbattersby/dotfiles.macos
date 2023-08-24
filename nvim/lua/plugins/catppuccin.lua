@@ -22,14 +22,14 @@ function M.config()
   integrations.neotest = true
   integrations.neotree = true
   integrations.native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        }
+    enabled = true,
+    underlines = {
+      errors = { "undercurl" },
+      hints = { "undercurl" },
+      warnings = { "undercurl" },
+      information = { "undercurl" },
+    },
+  }
   integrations.navic = { enabled = true, custom_bg = "lualine" }
   integrations.neotest = true
   integrations.neotree = true

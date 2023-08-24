@@ -91,11 +91,12 @@ function M:on_attach()
         desc = "Line Diagnostics"
       },
       { keybinding = "<leader>cl", action = "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      { keybinding = "gd", action = function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
-      { keybinding = "gr", action = "<cmd>Telescope lsp_references<cr>", desc = "References" },
+      client.supports_method "textDocument/codeLens" and { keybinding = "cr", action = function() vim.lsp.codelens.run() end, desc = "Run" } or {},
+      client.supports_method "textDocument/definition" and { keybinding = "gd", action = "<cmd>Glance definitions<cr>", desc = "Goto Definition" } or {},
+      { keybinding = "gr", action = "<cmd>Glance references<cr>", desc = "References" },
       { keybinding = "gD", action = vim.lsp.buf.declaration, desc = "Goto Declaration" },
-      { keybinding = "gI", action = function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
-      { keybinding = "gy", action = function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
+      { keybinding = "gI", action = "<cmd>Glance implementations<cr>", desc = "Goto Implementation" },
+      { keybinding = "gy", action = "<cmd>Glance type_definitions<cr>", desc = "Goto T[y]pe Definition" },
       { keybinding = "K", action = function()
           if treesitter_active then
             local winid = require "ufo".peekFoldedLinesUnderCursor()
