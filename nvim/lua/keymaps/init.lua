@@ -65,8 +65,6 @@ M.init = function()
     { desc = "Redraw / Clear hlsearch / Diff Update" }
   )
 
-  vim.keymap.set({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
-
   -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
   vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
   vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
@@ -81,7 +79,7 @@ M.init = function()
   vim.keymap.set("i", ";", ";<c-g>u")
 
   -- save file
-  vim.keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+  vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
   --keywordprg
   vim.keymap.set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })

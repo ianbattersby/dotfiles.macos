@@ -18,7 +18,7 @@ local M = {
       -- "netcoredbg",
       "omnisharp",
       "pyright",
-      "ruff-lsp ruff_lsp",
+      "ruff-lsp",
       "rust-analyzer",
       "shellcheck",
       "shfmt",
