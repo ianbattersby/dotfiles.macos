@@ -40,31 +40,31 @@ function M.config()
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 
   local kind_icons = {
-    Text = "󰦨",
+    Text = "",
     Method = "",
-    Function = "󰊕",
-    Constructor = "",
+    Function = "",
+    Constructor = "",
     Field = "",
-    Variable = "󰫧",
+    Variable = "",
     Class = "",
     Interface = "",
-    Module = "󰕳",
+    Module = "",
     Property = "",
-    Unit = "󰚯",
-    Value = "",
+    Unit = "",
+    Value = "",
     Enum = "",
     Keyword = "",
-    Snippet = "",
+    Snippet = "",
     Color = "",
     File = "",
-    Reference = "",
+    Reference = "",
     Folder = "",
-    EnumMember = "",
+    EnumMember = "",
     Constant = "",
     Struct = "",
     Event = "",
     Operator = "",
-    TypeParameter = "",
+    TypeParameter = "",
   }
 
   require "luasnip/loaders/from_vscode".lazy_load {
@@ -90,6 +90,20 @@ function M.config()
         })[entry.source.name]
         return vim_item
       end,
+    },
+    sorting = {
+      priority_weight = 2,
+      comparators = {
+        cmp.config.compare.offset,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.locality,
+        cmp.config.compare.kind,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+      },
     },
     completion = {
       completeopt = "menu,menuone,noinsert",
@@ -158,8 +172,61 @@ function M.config()
       end),
     },
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
+      {
+        name = "luasnip",
+        group_index = 1,
+        option = { use_show_condition = true },
+        entry_filter = function()
+          local context = require "cmp.config.context"
+          return not context.in_treesitter_capture "string" and not context.in_syntax_group "String"
+        end,
+      },
+      {
+        name = "nvim_lsp",
+        group_index = 2
+      },
+      {
+        name = "nvim_lua",
+        group_index = 2,
+      },
+      {
+        name = "crates",
+        group_index = 2,
+      },
+      {
+        name = "treesitter",
+        keyword_length = 3,
+        group_index = 3,
+      },
+      {
+        name = "path",
+        keyword_length = 3,
+        group_index = 3,
+      },
+      {
+        name = "buffer",
+        keyword_length = 3,
+        group_index = 4,
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              bufs[vim.api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end,
+        },
+      },
+      {
+        name = "emoji",
+        keyword_length = 2,
+        group_index = 5,
+      },
+      {
+        name = "nerdfont",
+        keyword_length = 2,
+        group_index = 5,
+      },
       --{ name = "cmp_tabnine" },
     }, {
       { name = "buffer" },
@@ -168,6 +235,10 @@ function M.config()
       disallow_fuzzy_matching = true,
       disallow_partial_matching = false,
       disallow_prefix_unmatching = false,
+    },
+    experimental = {
+      native_menu = false,
+      ghost_text = false,
     },
   }
 
