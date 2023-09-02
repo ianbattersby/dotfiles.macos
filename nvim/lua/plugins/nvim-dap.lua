@@ -152,11 +152,11 @@ function M.config()
   }
 
   -- C# debugging
-  dap.adapters.coreclr = {
-    type = "executable",
-    command = mason_registry.get_package "netcoredbg":get_install_path() .. "/netcoredbg",
-    args = { "--interpreter=vscode" }
-  }
+  -- dap.adapters.coreclr = {
+  --   type = "executable",
+  --   command = mason_registry.get_package "netcoredbg":get_install_path() .. "/netcoredbg",
+  --   args = { "--interpreter=vscode" }
+  -- }
 
   -- Requires: while sleep 1; do codelldb --port 13000; done
   -- dap.adapters.codelldb = {
@@ -246,16 +246,17 @@ function M.config()
     },
   }
 
-  dap.configurations.cs = {
-    {
-      type = "coreclr",
-      name = "launch - netcoredbg",
-      request = "launch",
-      program = function()
-        return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
-      end,
-    },
-  }
+  -- C# debugging
+  -- dap.configurations.cs = {
+  --   {
+  --     type = "coreclr",
+  --     name = "launch - netcoredbg",
+  --     request = "launch",
+  --     program = function()
+  --       return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+  --     end,
+  --   },
+  -- }
 
   -- Go configuration using 'dap-go' extension
   dapgo.setup()

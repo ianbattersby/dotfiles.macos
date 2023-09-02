@@ -38,7 +38,7 @@ return {
       ensure_installed = {
         "bash",
         "c",
-        "c_sharp",
+        -- "c_sharp",
         "dockerfile",
         "go",
         "gomod",
