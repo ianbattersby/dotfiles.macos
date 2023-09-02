@@ -111,7 +111,7 @@ local M = {
       function()
         require "telescope.builtin".colorscheme { enable_preview = true }
       end,
-      desc = "Colorscheme with preview"
+      desc = "Colorscheme"
     },
     {
       "<leader>ss",

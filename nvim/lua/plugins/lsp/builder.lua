@@ -43,6 +43,46 @@ function M.toggle_format(toggle_state)
   end
 end
 
+function M.toggle_diagnostic_virtual_text(bufnr, toggle_state)
+  toggle_state.diagnostic_virtual_text = not toggle_state.diagnostic_virtual_text
+
+  toggle_state.diagnostic_virtual_lines =
+    toggle_state.diagnostic_virtual_lines and false
+
+  M.update_diagnostic_config(bufnr, toggle_state)
+
+  require "lazy.core.util".info(
+    toggle_state.diagnostic_virtual_text and "Enabled virtual text"
+    or "Disabled virtual text", { title = "Diagnostics" }
+  )
+end
+
+function M.toggle_diagnostic_virtual_lines(bufnr, toggle_state)
+  toggle_state.diagnostic_virtual_lines = not toggle_state.diagnostic_virtual_lines
+
+  toggle_state.diagnostic_virtual_text =
+    toggle_state.diagnostic_virtual_text and false
+
+  M.update_diagnostic_config(bufnr, toggle_state)
+
+  require "lazy.core.util".info(
+    toggle_state.diagnostic_virtual_lines and "Enabled virtual lines"
+    or "Disabled virtual lines", { title = "Diagnostics" }
+  )
+end
+
+function M.update_diagnostic_config(bufnr, toggle_state)
+  vim.diagnostic.show(
+    nil,
+    bufnr,
+    nil,
+    {
+      virtual_text = toggle_state.diagnostic_virtual_text and require "plugins.lsp.diagnostics".virtual_text or false,
+      virtual_lines = toggle_state.diagnostic_virtual_lines and require "plugins.lsp.diagnostics".virtual_lines or false,
+    }
+  )
+end
+
 function M.diagnostic_goto(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
@@ -56,7 +96,9 @@ function M:on_attach()
     local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
 
     local toggle_state = {
-      formatting = M.supports_format(client)
+      formatting = M.supports_format(client),
+      diagnostic_virtual_text = false,
+      diagnostic_virtual_lines = false,
     }
 
     -- Enable completion triggered by <c-x><c-o>
@@ -159,6 +201,22 @@ function M:on_attach()
       treesitter_active and { keybinding = "zm", action = require "ufo".closeFoldsWith, desc = "Close Folds (Except Kinds)" } or {},
 
       M.supports_format(client) and { keybinding = "<leader>uf", action = function() M.toggle_format(toggle_state) end, desc = "Toggle format on Save" } or {},
+
+      {
+        keybinding = "<leader>uv",
+        action = function()
+          M.toggle_diagnostic_virtual_text(bufnr, toggle_state)
+        end,
+        desc = "Toggle Diagnostics (Virtual Text)"
+      },
+
+      {
+        keybinding = "<leader>uV",
+        action = function()
+          M.toggle_diagnostic_virtual_lines(bufnr, toggle_state)
+        end,
+        desc = "Toggle Diagnostics (Virtual Lines)"
+      },
     }
 
     -- Enable inlay hints if supported

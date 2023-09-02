@@ -10,6 +10,12 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     "nvim-lua/lsp-status.nvim",
     "simrat39/rust-tools.nvim",
+    {
+      name = "lsp_lines",
+      url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      version = false,
+      event = "BufReadPre",
+    }
   },
 }
 
@@ -18,6 +24,7 @@ function M.config()
   require "mason-lspconfig".setup { automatic_installation = true }
   require "plugins.lsp.servers".setup()
   require "plugins.lsp.diagnostics".setup()
+  require "lsp_lines".setup()
 end
 
 return M

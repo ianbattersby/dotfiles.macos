@@ -2,6 +2,7 @@
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
 
 local Util = require "lazy.core.util"
+local Diagnostics = require "plugins.lsp.diagnostics"
 
 local M = {}
 

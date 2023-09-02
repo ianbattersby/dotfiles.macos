@@ -62,7 +62,7 @@ M.init = function()
     "n",
     "<leader>ur",
     "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-    { desc = "Redraw / clear hlsearch / diff update" }
+    { desc = "Redraw / Clear hlsearch / Diff Update" }
   )
 
   vim.keymap.set({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
