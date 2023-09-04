@@ -3,7 +3,6 @@ local M = {
   event = "VeryLazy",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
-    "nvim-lua/lsp-status.nvim",
     "folke/noice.nvim",
     "SmiteshP/nvim-navic",
   },
@@ -37,7 +36,8 @@ function M.config()
       lualine_a = { "mode" },
       lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
       lualine_c = {
-        { components.progress_or_filename, path = 1, file_status = true },
+        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
         {
           navic.get_location,
           cond = navic.is_available,

@@ -3,7 +3,6 @@ local M = {
   branch = "v3",
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    "nvim-treesitter/nvim-treesitter",
     {
       "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
       config = function()

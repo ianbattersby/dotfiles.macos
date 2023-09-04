@@ -8,7 +8,6 @@ local M = {
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "nvim-lua/lsp-status.nvim",
     "simrat39/rust-tools.nvim",
     {
       name = "lsp_lines",
