@@ -7,7 +7,7 @@ local M = {
     "catppuccin/nvim"
   },
   keys = {
-    { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
+    { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
   },
   priority = 1000,
@@ -20,7 +20,7 @@ local M = {
       local s = " "
       for e, n in pairs(diag) do
         local sym = e == "error" and " " or (e == "warning" and " " or "")
-        s = s .. n .. sym
+        s = s .. n .. " " .. sym
       end
       return s
     end,

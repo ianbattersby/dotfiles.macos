@@ -128,7 +128,7 @@ function M:on_attach()
               return d.message
             end,
           }
-          vim.diagnostic.open_float(0, config)
+          vim.diagnostic.open_float(config)
         end,
         desc = "Line Diagnostics"
       },
