@@ -35,6 +35,7 @@ function M.config()
   integrations.neotree = true
   integrations.noice = true
   integrations.notify = true
+  integrations.rainbow_delimiters = true
   integrations.semantic_tokens = true
   integrations.telescope = true
   integrations.treesitter = true
