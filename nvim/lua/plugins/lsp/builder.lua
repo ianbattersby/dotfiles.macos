@@ -1,30 +1,71 @@
 local M = {}
 
-function M:init(config, keymaps, commands)
+local lsp_diagnostics = require "plugins.lsp.diagnostics"
+local lsp_formatting = require "plugins.lsp.formatting"
+
+M.default_options = {
+  disable_formatting = false,
+  disable_diagnostics = false
+}
+
+function M:init(config, keymaps, commands, options)
   config = config or {}
   setmetatable(config, self)
   self.__index = self
   self.lang_keymaps = keymaps or {}
   self.lang_commands = commands or {}
-  self.lang_formatting = nil
+  self.lang_options = options or {}
   return config
 end
 
-function M.new(keymaps, commands)
+function M.new(config)
   local inst = {}
   setmetatable(inst, { __index = M })
-  inst:init(nil, keymaps, commands)
+  inst:init(
+    nil,
+    config and config.keymaps or {},
+    config and config.commands or {},
+    config and config.options or M.default_options)
   return inst
 end
 
-function M.supports_format(client)
+function M.supports_diagnostics(lang_options, filetypes)
+  local excluded_filetypes = vim.tbl_deep_extend(
+    "force",
+    lsp_diagnostics.excluded_filetypes or {},
+    lang_options or {}
+  )
+
+  for _, ft in pairs(filetypes) do
+    if excluded_filetypes[ft] and (type(excluded_filetypes[ft]) == "boolean" or excluded_filetypes[ft].disable_diagnostics) then
+      return false
+    end
+  end
+
+  return true
+end
+
+function M.supports_format(client, lang_options, filetypes)
   if
-    client.config
-    and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
+    (client.config
+      and client.config.capabilities
+      and client.config.capabilities.documentFormattingProvider == false)
   then
     return false
   end
+
+  local excluded_filetypes = vim.tbl_deep_extend(
+    "force",
+    lsp_formatting.excluded_filetypes or {},
+    lang_options or {}
+  )
+
+  for _, ft in pairs(filetypes) do
+    if excluded_filetypes[ft] and (type(excluded_filetypes[ft]) == "boolean" or excluded_filetypes[ft].disable_formatting) then
+      return false
+    end
+  end
+
   return client.supports_method "textDocument/formatting" or client.supports_method "textDocument/rangeFormatting"
 end
 
@@ -40,6 +81,22 @@ function M.toggle_format(toggle_state)
     require "lazy.core.util".info("Enabled format on save", { title = "Format" })
   else
     require "lazy.core.util".warn("Disabled format on save", { title = "Format" })
+  end
+end
+
+function M.toggle_diagnostics(toggle_state, bufnr, quiet)
+  toggle_state.diagnostic_enabled = not toggle_state.diagnostic_enabled
+
+  if toggle_state.diagnostic_enabled then
+    vim.diagnostic.enable(bufnr)
+    if not quiet then
+      require "lazy.core.util".info("Enabled diagnostics", { title = "Diagnostics" })
+    end
+  else
+    vim.diagnostic.disable(bufnr)
+    if not quiet then
+      require "lazy.core.util".warn("Disabled diagnostics", { title = "Diagnostics" })
+    end
   end
 end
 
@@ -93,13 +150,25 @@ end
 
 function M:on_attach()
   return function(client, bufnr)
+    local filetypes = vim.split(
+      vim.api.nvim_get_option_value("filetype", { buf = bufnr }),
+      ".",
+      { plain = true, trimempty = true })
+
     local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
+    local enable_diagnostics = M.supports_diagnostics(self.lang_options, filetypes)
+    local enable_formatting = M.supports_format(client, self.lang_options, filetypes)
 
     local toggle_state = {
-      formatting = M.supports_format(client),
+      formatting = enable_formatting,
+      diagnostic_enabled = true,
       diagnostic_virtual_text = false,
       diagnostic_virtual_lines = false,
     }
+
+    if not enable_diagnostics then
+      M.toggle_diagnostics(toggle_state, bufnr, true)
+    end
 
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -109,7 +178,7 @@ function M:on_attach()
 
     ---@format disable
     local keymaps = {
-      {
+      enable_diagnostics and {
         mode = "n",
         keybinding = "<leader>cd",
         action = function()
@@ -131,8 +200,10 @@ function M:on_attach()
           vim.diagnostic.open_float(config)
         end,
         desc = "Line Diagnostics"
-      },
+      } or {},
+
       { keybinding = "<leader>cl", action = "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+
       client.supports_method "textDocument/codeLens" and { keybinding = "cr", action = function() vim.lsp.codelens.run() end, desc = "Run" } or {},
       client.supports_method "textDocument/definition" and { keybinding = "gd", action = "<cmd>Glance definitions<cr>", desc = "Goto Definition" } or {},
       { keybinding = "gr", action = "<cmd>Glance references<cr>", desc = "References" },
@@ -153,14 +224,14 @@ function M:on_attach()
       client.supports_method("textDocument/signatureHelp") and { keybinding = "gK", action = vim.lsp.buf.signature_help, desc = "Signature Help" } or {},
       client.supports_method("textDocument/signatureHelp") and { keybinding = "<c-k>", mode = "i", action = vim.lsp.buf.signature_help, desc = "Signature Help" } or {},
 
-      { keybinding = "]d", action = M.diagnostic_goto(true), desc = "Next Diagnostic" },
-      { keybinding = "[d", action = M.diagnostic_goto(false), desc = "Prev Diagnostic" },
-      { keybinding = "]e", action = M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
-      { keybinding = "[e", action = M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-      { keybinding = "]w", action = M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
-      { keybinding = "[w", action = M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
+      enable_diagnostics and { keybinding = "]d", action = M.diagnostic_goto(true), desc = "Next Diagnostic" } or {},
+      enable_diagnostics and { keybinding = "[d", action = M.diagnostic_goto(false), desc = "Prev Diagnostic" } or {},
+      enable_diagnostics and { keybinding = "]e", action = M.diagnostic_goto(true, "ERROR"), desc = "Next Error" } or {},
+      enable_diagnostics and { keybinding = "[e", action = M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" } or {},
+      enable_diagnostics and { keybinding = "]w", action = M.diagnostic_goto(true, "WARN"), desc = "Next Warning" } or {},
+      enable_diagnostics and { keybinding = "[w", action = M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" } or {},
 
-      M.supports_format(client) and {
+      enable_formatting and {
         keybinding = "<leader>cf",
         action = function()
           if vim.b.autoformat == false then
@@ -172,7 +243,7 @@ function M:on_attach()
         desc = "Format"
       } or {},
 
-      M.supports_format(client) and client.supports_method("textDocument/rangeFormatting") and { keybinding = "<leader>cf", mode = "v", action = "", desc = "Format Range" } or {},
+      enable_formatting and client.supports_method("textDocument/rangeFormatting") and { keybinding = "<leader>cf", mode = "v", action = "", desc = "Format Range" } or {},
 
       client.supports_method("textDocument/codeAction") and { keybinding = "<leader>ca", action = vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } } or {},
       client.supports_method("textDocument/codeAction") and {
@@ -200,23 +271,25 @@ function M:on_attach()
       treesitter_active and { keybinding = "zr", action = require "ufo".openFoldsExceptKinds, desc = "Open Folds (Except Kinds)" } or {},
       treesitter_active and { keybinding = "zm", action = require "ufo".closeFoldsWith, desc = "Close Folds (Except Kinds)" } or {},
 
-      M.supports_format(client) and { keybinding = "<leader>uf", action = function() M.toggle_format(toggle_state) end, desc = "Toggle format on Save" } or {},
+      enable_formatting and { keybinding = "<leader>uf", action = function() M.toggle_format(toggle_state) end, desc = "Toggle format on Save" } or {},
 
-      {
+      enable_diagnostics and { keybinding = "<leader>ud", action = function() M.toggle_diagnostics(toggle_state, bufnr) end, desc = "Toggle Diagnostics" } or {},
+
+      enable_diagnostics and {
         keybinding = "<leader>uv",
         action = function()
           M.toggle_diagnostic_virtual_text(bufnr, toggle_state)
         end,
         desc = "Toggle Diagnostics (Virtual Text)"
-      },
+      } or {},
 
-      {
+      enable_diagnostics and {
         keybinding = "<leader>uV",
         action = function()
           M.toggle_diagnostic_virtual_lines(bufnr, toggle_state)
         end,
         desc = "Toggle Diagnostics (Virtual Lines)"
-      },
+      } or {},
     }
 
     -- Enable inlay hints if supported
@@ -242,7 +315,7 @@ function M:on_attach()
     end
 
     -- Set some keybinds conditional on server capabilities
-    if M.supports_format(client) then
+    if enable_formatting then
       local format_opts = { timeout_ms = 2000 }
 
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -266,20 +339,22 @@ function M:on_attach()
     end
 
     --if client.server_capabilities.documentDiagnosticProvider then
-    vim.api.nvim_create_autocmd("CursorHold", {
-      buffer = bufnr,
-      callback = function()
-        local opts = {
-          focusable = false,
-          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          border = "rounded",
-          source = "always",
-          prefix = " ",
-          scope = "cursor",
-        }
-        vim.diagnostic.open_float(nil, opts)
-      end,
-    })
+    if enable_diagnostics then
+      vim.api.nvim_create_autocmd("CursorHold", {
+        buffer = bufnr,
+        callback = function()
+          local opts = {
+            focusable = false,
+            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+            border = "rounded",
+            source = "always",
+            prefix = " ",
+            scope = "cursor",
+          }
+          vim.diagnostic.open_float(nil, opts)
+        end,
+      })
+    end
 
     if client.supports_method "textDocument/documentHighlight" then
       vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })

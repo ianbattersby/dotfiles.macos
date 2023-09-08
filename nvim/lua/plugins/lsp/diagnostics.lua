@@ -1,5 +1,9 @@
 local M = {}
 
+M.excluded_filetypes = {
+  ["helm"] = true
+}
+
 M.diagnostic_signs = {
   [vim.diagnostic.severity.ERROR] = { "Error", " " },
   [vim.diagnostic.severity.WARN] = { "Warn", " " },

@@ -7,6 +7,7 @@ return {
   ["eslint"] = require "languages.eslint",
   ["go"] = require "languages.go",
   ["json"] = require "languages.json",
+  ["helm"] = require "languages.helm",
   ["lua"] = require "languages.lua",
   ["ocaml"] = require "languages.ocaml",
   ["python"] = require "languages.python",
