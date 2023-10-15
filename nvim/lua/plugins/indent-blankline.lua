@@ -1,6 +1,6 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
-  branch = "v3",
+  main = "ibl",
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     {
@@ -39,25 +39,25 @@ function M.config()
   vim.opt.listchars:append "eol:↴"
 
   require "ibl".setup {
-    buftype_exclude = { "terminal", "telescope", "nofile", "packer", "lazy" },
-    filetype_exclude = {
-      "help",
-      "alpha",
-      "neo-tree",
-      "Trouble",
-      "lazy",
-      "mason",
-      "notify",
-      "TelescopePrompt",
-      "toggleterm",
-      "Outline",
-      "neotest-summary",
+    exclude = {
+      buftypes = { "terminal", "telescope", "nofile", "packer", "lazy" },
+      filetypes = {
+        "help",
+        "alpha",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "TelescopePrompt",
+        "toggleterm",
+        "Outline",
+        "neotest-summary",
+      }
     },
-    show_current_context = true,
-    show_current_context_start = false,
-    use_treesitter = true,
-    colored_indent_levels = true,
-    char_highlight_list = { "VertSplit" },
+    -- use_treesitter = true,
+    -- colored_indent_levels = true,
+    -- char_highlight_list = { "VertSplit" },
     scope = {
       enabled = true,
       show_start = false,

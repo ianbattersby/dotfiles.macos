@@ -36,7 +36,6 @@ function M.config()
       lualine_a = { "mode" },
       lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
       lualine_c = {
-        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
         { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
         {
           navic.get_location,
