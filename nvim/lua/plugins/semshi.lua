@@ -17,11 +17,11 @@ return {
         -- Only add style, inherit or link to the LSP's colors
         vim.cmd [[
             highlight! semshiGlobal gui=italic
-            highlight! semshiImported gui=bold
+            highlight! link semshiImported @none
             highlight! link semshiParameter @lsp.type.parameter
             highlight! link semshiParameterUnused DiagnosticUnnecessary
             highlight! link semshiBuiltin @function.builtin
-            highlight! link semshiAttribute @attribute
+            highlight! link semshiAttribute @field
             highlight! link semshiSelf @lsp.type.selfKeyword
             highlight! link semshiUnresolved @lsp.type.unresolvedReference
             ]]

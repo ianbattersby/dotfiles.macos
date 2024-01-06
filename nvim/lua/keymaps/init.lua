@@ -19,7 +19,9 @@ M.init = function()
 
   -- better up/down
   vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+  vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
   vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
   -- Move to window using the <ctrl> hjkl keys
   vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
@@ -42,12 +44,11 @@ M.init = function()
   vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
   -- Buffers
+  vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+  vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+  vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+  vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
   vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-  vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-  vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-  vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-  vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-  vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
   -- Tab to switch buffers in Normal mode
   vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { noremap = true, desc = "Next buffer" })
@@ -111,6 +112,9 @@ M.init = function()
   if vim.lsp.inlay_hint then
     vim.keymap.set("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
   end
+  vim.keymap.set("n", "<leader>uT",
+    function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end,
+    { desc = "Toggle Treesitter Highlight" })
 
   -- lazygit
   vim.keymap.set("n", "<leader>gg",

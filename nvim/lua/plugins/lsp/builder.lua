@@ -293,7 +293,7 @@ function M:on_attach()
     }
 
     -- Enable inlay hints if supported
-    local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+    local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint.enable
 
     if inlay_hint and client.supports_method "textDocument/inlayHint" then
       inlay_hint(bufnr, true)

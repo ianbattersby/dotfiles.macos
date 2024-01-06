@@ -46,6 +46,7 @@ function M.config()
         "alpha",
         "neo-tree",
         "Trouble",
+        "trouble",
         "lazy",
         "mason",
         "notify",

@@ -23,6 +23,7 @@ function M.config()
         "alpha",
         "packer",
         "Trouble",
+        "trouble",
         "Outline",
         "dapui_scopes",
         "dapui_breakpoints",

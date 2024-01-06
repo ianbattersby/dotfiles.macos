@@ -11,12 +11,16 @@ function M.config()
   local dap_integration = {}
   local navic_integration = {}
 
+  integrations.aerial = true
   integrations.alpha = true
   integrations.cmp = true
   integrations.flash = true
   integrations.gitsigns = true
+  integrations.headlines = true
   integrations.indent_blankline = { enabled = true }
+  integrations.leap = true
   integrations.lsp_trouble = true
+  integrations.markdown = true
   integrations.mason = true
   integrations.mini = true
   integrations.neotest = true

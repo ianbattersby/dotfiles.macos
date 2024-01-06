@@ -39,33 +39,7 @@ function M.config()
   local cmp = require "cmp"
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 
-  local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "",
-    Variable = "",
-    Class = "",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-  }
+  local icons = vim.deepcopy(require "config".icons.kinds)
 
   require "luasnip/loaders/from_vscode".lazy_load {
     paths = { "~/.local/share/nvim/lazy/friendly-snippets" },
@@ -76,7 +50,7 @@ function M.config()
     formatting = {
       format = function(entry, vim_item)
         -- Kind icons
-        vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+        vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
         -- Source
         vim_item.menu = ({
           buffer = "[Buffer]",

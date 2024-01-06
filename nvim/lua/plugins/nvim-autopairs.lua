@@ -19,6 +19,7 @@ function M.config()
       "help",
       "neo-tree",
       "Trouble",
+      "trouble",
       "dap-repl",
       "Outline",
       "mind",

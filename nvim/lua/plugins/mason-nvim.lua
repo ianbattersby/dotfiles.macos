@@ -14,6 +14,7 @@ local M = {
       "gopls",
       "json-lsp",
       "lua-language-server",
+      "marksman",
       "markdownlint",
       -- "netcoredbg",
       "omnisharp",
