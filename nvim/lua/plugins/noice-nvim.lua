@@ -58,7 +58,7 @@ function M.config()
       },
     },
     messages = {
-      enabled = true,
+      enabled = false,
       -- view = "popup",
       -- view_error = "split",
       -- view_warn = "mini",
@@ -74,6 +74,7 @@ function M.config()
       errors = { view = "split" },
     },
     lsp = {
+      progress = { enabled = false },
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
