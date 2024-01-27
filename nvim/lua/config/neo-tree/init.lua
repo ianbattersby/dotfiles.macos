@@ -52,7 +52,7 @@ local config = {
     diagnostics = { symbols = Icons.diagnostics },
   },
   window = {
-    width = 40,
+    width = 36,
     mappings = {
       ["<1-LeftMouse>"] = "open",
       ["l"] = "open",
