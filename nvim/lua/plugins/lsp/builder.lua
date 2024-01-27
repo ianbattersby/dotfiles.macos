@@ -5,7 +5,7 @@ local lsp_formatting = require "plugins.lsp.formatting"
 
 M.default_options = {
   disable_formatting = false,
-  disable_diagnostics = false
+  disable_diagnostics = false,
 }
 
 function M:init(config, keymaps, commands, options)
@@ -316,13 +316,11 @@ function M:on_attach()
 
     -- Set some keybinds conditional on server capabilities
     if enable_formatting then
-      local format_opts = { timeout_ms = 2000 }
-
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
           if toggle_state.formatting then
-            vim.lsp.buf.format(format_opts)
+            require("conform").format({ bufnr = bufnr, timeout_ms = 2000, lsp_fallback = true })
           end
         end,
       })
