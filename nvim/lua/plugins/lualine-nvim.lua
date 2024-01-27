@@ -1,7 +1,9 @@
 return {
   "nvim-lualine/lualine.nvim",
-  -- event = "VeryLazy",
-  event = { "BufReadPost", "BufNewFile" },
+  dependencies = {
+    "folke/noice.nvim",
+  },
+  event = "VeryLazy",
   opts = function()
     local catppuccin_opts = require "util".opts "catppuccin"
     return {
