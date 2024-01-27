@@ -4,7 +4,7 @@ return {
     "stevearc/aerial.nvim",
     event = "VeryLazy",
     opts = function()
-      local config = require "config"
+      local config = require "config.options"
       local icons = vim.deepcopy(config.icons.kinds)
 
       -- HACK: fix lua's weird choice for `Package` for control
