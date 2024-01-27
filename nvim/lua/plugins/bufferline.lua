@@ -1,4 +1,4 @@
-local M = {
+return {
   "akinsho/nvim-bufferline.lua",
   event = "VeryLazy",
   branch = "main",
@@ -18,34 +18,38 @@ local M = {
     { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
   },
   priority = 1000,
-  opts = {
-    close_command = function(n) require "mini.bufremove".delete(n, false) end,
-    right_mouse_command = function(n) require "mini.bufremove".delete(n, false) end,
-    diagnostics = "nvim_lsp",
-    always_show_bufferline = false,
-    diagnostics_indicator = function(_, _, diag)
-      local s = " "
-      for e, n in pairs(diag) do
-        local sym = e == "error" and " " or (e == "warning" and " " or "")
-        s = s .. n .. " " .. sym
-      end
-      return s
-    end,
-    offsets = {
-      {
-        filetype = "neo-tree",
-        text = "Neo-tree",
-        highlight = "Directory",
-        text_align = "left",
-      },
-    },
-  },
-  config = function(_, opts)
-    require "bufferline".setup {
-      highlights = require "catppuccin.groups.integrations.bufferline".get(),
-      options = opts
-    }
-  end,
-}
+  opts = function()
+    local theme = require "util".opts "catppuccin"
 
-return M
+    return {
+      options = {
+        diagnostics = "nvim_lsp",
+        separator_style = { "", "" },
+        indicator = { style = "underline", },
+        close_command = function(n) require "mini.bufremove".delete(n, false) end,
+        right_mouse_command = function(n) require "mini.bufremove".delete(n, false) end,
+        diagnostics_indicator = function(_, _, diag)
+          local s = " "
+          for e, n in pairs(diag) do
+            local sym = e == "error" and " " or (e == "warning" and " " or "")
+            s = s .. n .. " " .. sym
+          end
+          return s
+        end,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "EXPLORER",
+            text_align = "center",
+            separator = vim.tbl_contains(theme.background_clear or {}, "neo-tree"), -- set to `true` if clear background of neo-tree
+          },
+        },
+        hover = {
+          enabled = true,
+          delay = 0,
+          reveal = { "close" },
+        }
+      }
+    }
+  end
+}
