@@ -39,7 +39,7 @@ function M.config()
   local cmp = require "cmp"
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 
-  local icons = vim.deepcopy(require "config".icons.kinds)
+  local icons = vim.deepcopy(require "config.options".icons.kinds)
 
   require "luasnip/loaders/from_vscode".lazy_load {
     paths = { "~/.local/share/nvim/lazy/friendly-snippets" },

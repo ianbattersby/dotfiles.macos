@@ -66,6 +66,62 @@ local defaults = {
       Value = " ",
       Variable = "󰀫 ",
     },
+    borders = {
+      --- @class BorderIcons
+      single = {
+        top = "─",
+        right = "│",
+        bottom = "─",
+        left = "│",
+        top_left = "╭",
+        top_right = "╮",
+        bottom_right = "╯",
+        bottom_left = "╰",
+      },
+      double = {
+        top = "═",
+        right = "║",
+        bottom = "═",
+        left = "║",
+        top_left = "╔",
+        top_right = "╗",
+        bottom_right = "╝",
+        bottom_left = "╚",
+      },
+      --- @class BorderIcons
+      thin = {
+        top = "▔",
+        right = "▕",
+        bottom = "▁",
+        left = "▏",
+        top_left = "🭽",
+        top_right = "🭾",
+        bottom_right = "🭿",
+        bottom_left = "🭼",
+      },
+      ---@type BorderIcons
+      empty = {
+        top = " ",
+        right = " ",
+        bottom = " ",
+        left = " ",
+        top_left = " ",
+        top_right = " ",
+        bottom_right = " ",
+        bottom_left = " ",
+      },
+      ---@type BorderIcons
+      thick = {
+        top = "▄",
+        right = "█",
+        bottom = "▀",
+        left = "█",
+        top_left = "▄",
+        top_right = "▄",
+        bottom_right = "▀",
+        bottom_left = "▀",
+      },
+    },
   },
   ---@type table<string, string[]|boolean>?
   kind_filter = {
