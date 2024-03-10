@@ -1,1 +1,1 @@
-setlocal sw=2 sts=2 ts=2 expandtab
+set tabstop=2 shiftwifth=2 softtabstop=2

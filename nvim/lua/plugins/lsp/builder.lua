@@ -45,7 +45,11 @@ function M.supports_diagnostics(lang_options, filetypes)
   return true
 end
 
-function M.supports_format(client, lang_options, filetypes)
+function M.supports_format(client, bufnr, lang_options, filetypes)
+  if not vim.tbl_isempty(require "comform".list_formatters(bufnr)) then
+    return true
+  end
+
   if
     (client.config
       and client.config.capabilities
@@ -157,7 +161,7 @@ function M:on_attach()
 
     local treesitter_active = require "vim.treesitter.highlighter".active[bufnr]
     local enable_diagnostics = M.supports_diagnostics(self.lang_options, filetypes)
-    local enable_formatting = M.supports_format(client, self.lang_options, filetypes)
+    local enable_formatting = M.supports_format(client, bufnr, self.lang_options, filetypes)
 
     local toggle_state = {
       formatting = enable_formatting,
