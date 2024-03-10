@@ -3,6 +3,7 @@ local Icons = require "config.options".icons
 
 local config = {
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+  enable_git_status = true,
   popup_border_style = Util.generate_borderchars("thick", "tl-t-tr-r-bl-b-br-l"),
   sources = {
     "filesystem",
@@ -51,12 +52,30 @@ local config = {
     git_status = { symbols = Icons.git },
     diagnostics = { symbols = Icons.diagnostics },
   },
+  git_status = {
+    symbols = {
+      -- Change type
+      added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+      modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+      deleted = "✖    ", -- this can only be used in the git_status source
+      renamed = "󰁕    ", -- this can only be used in the git_status source
+      -- Status type
+      untracked = "    ",
+      ignored = "    ",
+      unstaged = "󰄱    ",
+      staged = "    ",
+      conflict = "    ",
+    }
+  },
   window = {
     width = 36,
     mappings = {
       ["<1-LeftMouse>"] = "open",
       ["l"] = "open",
     },
+    mapping_options = {
+      noremap = true,
+    }
   },
   filesystem = {
     window = {
