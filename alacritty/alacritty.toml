@@ -1,4 +1,4 @@
-import = ["/Users/ian/.dotfiles/alacritty/catppuccin.submodule/catppuccin-frappe.toml"]
+import = ["~/.dotfiles/alacritty/catppuccin.submodule/catppuccin-frappe.toml"]
 live_config_reload = true
 
 [bell]
