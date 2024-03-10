@@ -28,7 +28,7 @@ local M = {
       "typescript-language-server",
       "vim-language-server",
       "xmlformatter",
-      "yamlfix",
+      "yamlfmt",
       "yaml-language-server"
     },
   },

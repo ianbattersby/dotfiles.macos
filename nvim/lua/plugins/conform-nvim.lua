@@ -1,6 +1,5 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufWritePre" },
   cmd = { "ConformInfo" },
   keys = {
     {
@@ -18,17 +17,12 @@ return {
       formatters_by_ft = {
         go = { "goimports", "gofmt" },
         -- lua = { "stylua" },
-        helm = { "yamlfix" },
-        yaml = { "yamlfix" },
+        helm = { "yamlfmt" },
+        yaml = { "yamlfmt" },
       },
       formatters = {
-        yamlfix = {
-          command = require "mason-registry".get_package "yamlfix":get_install_path() .. "/venv/bin/yamlfix",
-          env = {
-            YAMLFIX_EXPLICIT_START = "false",
-            YAMLFIX_SEQUENCE_STYLE = "block_style",
-            YAMLFIX_QUOTE_BASIC_VALUES = "true",
-          },
+        yamlfmt = {
+          command = require "mason-registry".get_package "yamlfmt":get_install_path() .. "/yamlfmt",
         },
       },
     })

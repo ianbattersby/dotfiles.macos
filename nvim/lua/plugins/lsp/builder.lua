@@ -46,7 +46,7 @@ function M.supports_diagnostics(lang_options, filetypes)
 end
 
 function M.supports_format(client, bufnr, lang_options, filetypes)
-  if not vim.tbl_isempty(require "comform".list_formatters(bufnr)) then
+  if not vim.tbl_isempty(require "conform".list_formatters(bufnr)) then
     return true
   end
 
