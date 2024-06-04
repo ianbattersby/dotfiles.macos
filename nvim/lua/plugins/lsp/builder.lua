@@ -300,7 +300,7 @@ function M:on_attach()
     local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint.enable
 
     if inlay_hint and client.supports_method "textDocument/inlayHint" then
-      inlay_hint(bufnr, true)
+      inlay_hint(true, { bufnr = bufnr })
     end
 
     -- Merge language-specific mappings with defaults
