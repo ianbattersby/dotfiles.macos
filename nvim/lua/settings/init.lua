@@ -66,8 +66,8 @@ opt.undofile = true
 vim.g.markdown_fenced_languages = { "html", "javascript", "typescript", "css", "scss", "lua", "vim" }
 opt.grepprg = "rg --vimgrep --no-heading"
 opt.grepformat = "%f:%l:%c:%m"
-vim.g.python_host_prog = "/usr/local/bin/python"
-vim.g.python3_host_prog = "/usr/local/bin/python3"
+vim.g.python_host_prog = "/opt/homebrew/bin/python3"
+vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 vim.g.ruby_host_prog = "/usr/local/bin/ruby"
 -- Formatting (inspiration from teej)
 opt.formatoptions = opt.formatoptions
