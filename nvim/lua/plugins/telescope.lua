@@ -6,6 +6,10 @@ local M = {
     { "natecraddock/telescope-zf-native.nvim" },
     { "nvim-telescope/telescope-file-browser.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    {
+      "isak102/telescope-git-file-history.nvim",
+      dependencies = { "tpope/vim-fugitive" }
+    },
   },
   keys = {
     -- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
@@ -44,6 +48,7 @@ local M = {
     -- git
     { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
+    { "<leader>gH", "<cmd>Telescope git_file_history<CR>", desc = "history" },
     -- search
     { '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Registers" },
     { "<leader>sa", "<cmd>Telescope autocommands<CR>", desc = "Auto Commands" },
@@ -253,6 +258,9 @@ local M = {
           ["<C-b>"] = function(...)
             return require "telescope.actions".results_scrolling_up(...)
           end,
+          ["<C-g>"] = function(...)
+            return require "telescope".extensions.git_file_history.actions.open_in_browser(...)
+          end,
         },
         n = {
           ["q"] = function(...)
@@ -272,6 +280,22 @@ local M = {
       ["ui-select"] = {
         require "telescope.themes".get_dropdown {},
       },
+      git_file_history = {
+        mappings = {
+          i = {
+            ["<C-g>"] = function(...)
+              return require "telescope".extensions.git_file_history.actions.open_in_browser(...)
+            end,
+          },
+          n = {
+            ["<C-g>"] = function(...)
+              return require "telescope".extensions.git_file_history.actions.open_in_browser(...)
+            end,
+          },
+        },
+
+        browser_command = nil,
+      }
     },
   },
 }
@@ -284,6 +308,7 @@ function M.config(_, opts)
   telescope.load_extension "file_browser"
   telescope.load_extension "notify"
   telescope.load_extension "ui-select"
+  telescope.load_extension "git_file_history"
 
   -- Initialise
   telescope.setup(opts)
