@@ -14,6 +14,7 @@ return {
   -- ["python-lint"] = require "languages.python-lint",
   ["rust"] = require "languages.rust",
   ["terraform"] = require "languages.terraform",
+  ["tflint"] = require "languages.tflint",
   ["typescript"] = require "languages.typescript",
   ["vim"] = require "languages.vim",
   ["yaml"] = require "languages.yaml",
