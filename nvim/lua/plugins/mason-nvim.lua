@@ -12,6 +12,7 @@ local M = {
       "dockerfile-language-server",
       "eslint-lsp eslint",
       "gopls",
+      "hclfmt",
       "json-lsp",
       "lua-language-server",
       "marksman",

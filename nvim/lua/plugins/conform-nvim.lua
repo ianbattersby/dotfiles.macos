@@ -19,11 +19,15 @@ return {
         -- lua = { "stylua" },
         helm = { "yamlfmt" },
         yaml = { "yamlfmt" },
+        hcl = { "hclfmt" },
       },
       formatters = {
         yamlfmt = {
           command = require "mason-registry".get_package "yamlfmt":get_install_path() .. "/yamlfmt",
         },
+        hclfmt = {
+          command = require "mason-registry".get_package "hclfmt":get_install_path() .. "/hclfmt",
+        }
       },
     })
   end,
