@@ -29,6 +29,7 @@ local M = {
   dependencies = {
     {
       "rcarriga/nvim-dap-ui",
+      dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
       ---@format disable
       keys = {
         { "<leader>du", function() require "dapui".toggle({}) end, desc = "Dap UI" },
