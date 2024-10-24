@@ -80,7 +80,7 @@ M.init = function()
   vim.keymap.set("i", ";", ";<c-g>u")
 
   -- save file
-  vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+  -- vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
   --keywordprg
   vim.keymap.set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
@@ -176,7 +176,7 @@ M.init = function()
   vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
   -- save in insert mode
-  vim.keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+  -- vim.keymap.set({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
   -- new file
   vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
