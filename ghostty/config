@@ -1,0 +1,8 @@
+font-family = MonoLisa Nerd Font
+font-size = 16.5
+theme = catppuccin-frappe
+background-opacity = 0.95
+window-width = 100
+window-height = 28
+background-blur-radius = 20
+# macos-titlebar-style = hidden
